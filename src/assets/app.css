@@ -1,0 +1,260 @@
+#app {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1000;
+  
+   
+  } 
+
+  .navbar{
+position: absolute;
+width: 100vw;
+height: 103px;
+z-index: 1000;
+background: linear-gradient(180deg, rgba(12, 13, 13, 0.75) 0%, rgba(255, 255, 255, 0.48) 100%);
+  }
+
+  .dash_logo{
+    position: absolute;
+    top:3vh;
+  }
+
+  .tagline{
+    position: absolute;
+    top: 8vh;
+font-family: Arimo;
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 19px;
+
+color: #3C3E3F;
+  }
+
+  .links{
+    position: absolute;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+left: 69vw;
+top: 4.8vh;
+font-family: Arimo;
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 19px;
+cursor: pointer;
+color: #FEFEFE;
+  }
+
+
+.home{
+justify-content: space-around;
+left: 71.5vw;
+top: 4.8vh;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 19px;
+
+color: #FEFEFE;
+    text-decoration: none;
+  }
+  .logo2{
+    position: absolute;
+    left: 90.5vw;
+    top: 3.8vh;
+
+  }
+
+  .analysis{
+    position: absolute;
+    z-index: 1000;
+    top: 11vh;
+   
+width: 356px;
+height: 815px;
+
+background: linear-gradient(180deg, rgba(0, 0, 0, 0.886377) 0%, rgba(212, 213, 215, 0.666) 100%);
+  }
+
+  .close_analysis{
+    position: absolute;
+    top:1vh;
+    left: 17vw;
+  }
+
+  .region{
+    position: absolute;
+    top: 5vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 19px;
+
+color: #FFFFFF;
+  }
+
+ 
+
+
+  /* test for custom select */
+
+  .select {
+    position: absolute;
+    top: 8vh;
+    display:flex;
+    flex-direction: column;
+    position:relative;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    /* background: rgba(194, 60, 60, 0.41); */
+
+    width:90%;
+    height:40px;
+  }
+  
+  .option {
+    padding:0 30px 0 10px;
+    min-height:40px;
+    display:flex;
+    align-items:center;
+    background:rgb(31, 31, 31);
+    border-top:#fff solid 1px;
+    position:absolute;
+    top:0;
+    width: 100%;
+    pointer-events:none;
+    order:2;
+    z-index:1;
+    transition:background .4s ease-in-out;
+    box-sizing:border-box;
+    overflow:hidden;
+    white-space:nowrap;
+    color: #fff;
+    /* border-radius: 15px; */
+  }
+  
+  .option:hover {
+    background:#666;
+  }
+  
+  .select:focus .option {
+    position:relative;
+    pointer-events:all;
+  }
+  
+  input {
+    opacity:0;
+    position:absolute;
+    left:-99999px;
+    
+  }
+  
+  input:checked + label {
+    order: 1;
+    z-index:2;
+    background:#666;
+    border-top:none;
+    position:relative;
+   
+  }
+  
+  input:checked + label:after {
+    content:'';
+    width: 0; 
+      height: 0; 
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid white;
+    position:absolute;
+    right:10px;
+    top:calc(50% - 2.5px);
+    pointer-events:none;
+    z-index:3;
+   
+  }
+  
+  input:checked + label:before {
+    position:absolute;
+    right:0;
+    height: 40px;
+    width: 40px;
+    content: '';
+    background:#666;
+    
+  }
+
+ 
+  
+  /* .region_data{
+    position: absolute;
+    top: 8vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    width: 90%;
+    height: 33px;
+    background: rgba(255, 255, 255, 0.41);
+    border-radius: 15px;
+  } */
+  .map_controls{
+    /* position: absolute; */
+      top: 50vh;
+      margin: 95%;
+      z-index: 800; 
+      /* background-color: aqua;   */
+    }
+    .zoomin_tool{
+      z-index: 800;
+      position: absolute;
+      top: 17%;
+      left:97%;
+      cursor: pointer;
+      border-radius: 55px;
+    }
+    .zoomout_tool{
+      z-index: 800;
+      position: absolute;
+      top: 22%;
+      left:97%;
+      cursor: pointer;
+    }
+    .basemaps{
+      z-index: 800;
+      position: absolute;
+      top: 27%;
+      left:97%;
+      cursor: pointer;
+    }
+    .base_map_ctrl_selections {
+      position: absolute;
+      z-index: 401;
+      /* margin-top: 5%; */
+      top: 28vh;
+      left:90%;
+      background-color: #FFFFFF;
+      border-radius: 10px;
+      padding: 5px;
+    }
+    .base_map_name {
+      font-size: 15px;
+      cursor: pointer;
+      border-bottom: #0C92DD solid 3px;
+    }
+    .base_map_name:hover {
+      background-color: #0C92DD;
+    }
+    .download{
+      z-index: 800;
+      position: absolute;
+      top: 32%;
+      left:97%;
+      cursor: pointer;
+    
+    }
