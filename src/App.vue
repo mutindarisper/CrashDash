@@ -39,7 +39,7 @@
 
   <!-- test for custom select -->
    <CustomSelect
-      :options="['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri']"
+      :options="this.counties"
       :default="'Select a region'"
       class="select_region"
       @input="alert(displayToKey($event))"
@@ -47,14 +47,14 @@
 
      <span class="routes">Route</span>
    <CustomSelect
-      :options="['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri']"
+      :options="this.routes"
       :default="'Select a route'"
       class="select_route"
       @input="alert(displayToKey($event))"
     />
      <span class="causes">Cause</span>
    <CustomSelect
-      :options="['Speeding', 'Sharp Bend', 'Overtaking', 'No Road Sign', 'Pedestrian Recklessness']"
+      :options="this.causes "
       :default="'Select a cause'"
       class="select_cause"
       @input="alert(displayToKey($event))"
@@ -165,7 +165,10 @@ export default {
       base_map_ctrl_cliked: false,
       baseMaps: {},
       chart_container: false,
-      analysis: true
+      analysis: true,
+      counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
+      routes: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
+      causes:['Speeding', 'Sharp Bend', 'Overtaking', 'No Road Sign', 'Pedestrian Recklessness']
 
     }
 
