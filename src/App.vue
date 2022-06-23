@@ -24,43 +24,60 @@
 
     </div>
 
-    <div class="analysis">
-      <img class="close_analysis" src="./assets/images/close.svg" alt="">
 
-      <span class="region">Region</span>
-<div class="select" id="region_data" tabindex="1">
-  <input class="selectopt" name="test" type="radio" id="opt1" checked>
-  <label for="opt1" class="option">Kiambu</label>
-  <input class="selectopt" name="test" type="radio" id="opt2">
-  <label for="opt2" class="option">Laikipia</label>
-  <input class="selectopt" name="test" type="radio" id="opt3">
-  <label for="opt3" class="option">Meru</label>
-  <input class="selectopt" name="test" type="radio" id="opt4">
-  <label for="opt4" class="option">Embu</label>
-  <input class="selectopt" name="test" type="radio" id="opt5">
-  <label for="opt5" class="option">Nyeri</label>
+<!-- display analysis panel -->
+<div class="start" @click="handle_selected_component('analysis')">
+  <span class="begin">Start Analysis</span>
+   <img class="menu" src="./assets/images/menu.svg"  alt="">
 </div>
+   
 
+    <div class="analysis" v-if="analysis">
+      <img class="close_analysis"  @click="close_container('analysis')" src="./assets/images/close.svg" alt="">
 
-     <span class="routes">Routes</span>
-<div class="select2" id="region_data" tabindex="1">
-  <input class="selectopt2" name="test" type="radio" id="opt1" checked>
-  <label for="opt1" class="option">Kiambu</label>
-  <input class="selectopt" name="test" type="radio" id="opt2">
-  <label for="opt2" class="option">Laikipia</label>
-  <input class="selectopt" name="test" type="radio" id="opt3">
-  <label for="opt3" class="option">Meru</label>
-  <input class="selectopt" name="test" type="radio" id="opt4">
-  <label for="opt4" class="option">Embu</label>
-  <input class="selectopt" name="test" type="radio" id="opt5">
-  <label for="opt5" class="option">Nyeri</label>
-</div>
+  <span class="region">Region</span>
+
+  <!-- test for custom select -->
+   <CustomSelect
+      :options="['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri']"
+      :default="'Select a region'"
+      class="select_region"
+      @input="alert(displayToKey($event))"
+    />
+
+     <span class="routes">Route</span>
+   <CustomSelect
+      :options="['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri']"
+      :default="'Select a route'"
+      class="select_route"
+      @input="alert(displayToKey($event))"
+    />
+     <span class="causes">Cause</span>
+   <CustomSelect
+      :options="['Speeding', 'Sharp Bend', 'Overtaking', 'No Road Sign', 'Pedestrian Recklessness']"
+      :default="'Select a cause'"
+      class="select_cause"
+      @input="alert(displayToKey($event))"
+    />
+   
+
+  <button class="stats" @click="handle_selected_component('chart_container')" type="button">Load Statistics</button>
+
 
 
 
     
     </div>
-    <div class="map" id="map" style="height: 98vh; width: 100%">
+
+    <div class="chart_container" v-if="chart_container">
+        <img class="close_chart_container"
+        src="./assets/images/close.svg"
+        @click="close_container('chart_container')"
+         alt="" >
+
+    </div>
+
+    <div class="map" id="map" style=" height: 98vh; width: 100%">
 
       <div class="map_controls">
         <div class="zoomin_tool">
@@ -128,6 +145,7 @@ import "leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import baseLayers from "./Helpers/baseLayers";
+import CustomSelect from "./components/CustomSelect.vue"
 
 
 
@@ -135,6 +153,7 @@ import baseLayers from "./Helpers/baseLayers";
 export default {
    name: "App",
    components:{
+    CustomSelect
 
    },
    data() {
@@ -145,6 +164,8 @@ export default {
       base_map_ctrl_selections: false, //show or hide base layers
       base_map_ctrl_cliked: false,
       baseMaps: {},
+      chart_container: false,
+      analysis: true
 
     }
 
@@ -162,6 +183,13 @@ export default {
     zoom_out() {
       this.map.setZoom(this.map.getZoom() - 1);
     },
+    handle_selected_component(selection) {
+      this[selection] = true;
+    
+    }, 
+     close_container(container) {
+    this[container] = false;
+  },
     setupLeafletMap() {
       const { osm, mapbox, mapboxSatellite } = baseLayers;
 
