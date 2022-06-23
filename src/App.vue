@@ -42,7 +42,7 @@
       :options="this.counties"
       :default="'Select a region'"
       class="select_region"
-      @input="alert(displayToKey($event))"
+      @input="displayToKey($event)"
     />
 
      <span class="routes">Route</span>
@@ -50,14 +50,22 @@
       :options="this.routes"
       :default="'Select a route'"
       class="select_route"
-      @input="alert(displayToKey($event))"
+      @input="displayToKey($event)"
     />
      <span class="causes">Cause</span>
    <CustomSelect
       :options="this.causes "
       :default="'Select a cause'"
       class="select_cause"
-      @input="alert(displayToKey($event))"
+      @input="displayToKey($event)"
+    />
+
+      <span class="facilities">Health Facilities</span>
+   <CustomSelect
+      :options="this.causes "
+      :default="'Select a facility'"
+      class="select_facility"
+      @input="displayToKey($event)"
     />
    
 
@@ -77,7 +85,7 @@
 
     </div>
 
-    <div class="map" id="map" style=" height: 98vh; width: 100%">
+    <div class="map" id="map" style="position:relative; top:11vh; height: 87vh; width: 100%;">
 
       <div class="map_controls">
         <div class="zoomin_tool">
@@ -144,6 +152,7 @@
 import "leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import axios from "axios"
 import baseLayers from "./Helpers/baseLayers";
 import CustomSelect from "./components/CustomSelect.vue"
 
@@ -164,20 +173,63 @@ export default {
       base_map_ctrl_selections: false, //show or hide base layers
       base_map_ctrl_cliked: false,
       baseMaps: {},
+       current_geojson: null,
       chart_container: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
       routes: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
-      causes:['Speeding', 'Sharp Bend', 'Overtaking', 'No Road Sign', 'Pedestrian Recklessness']
+      causes:['Speeding', 'Sharp Bend', 'Overtaking', 'No Road Sign', 'Pedestrian Recklessness'],
+      radius: ['1km', '2km', '5km', '', 'Nyeri'],
 
     }
 
    },
    mounted() {
     this.setupLeafletMap();
+    // this.displayToKey();
    },
 
    methods: {
+      displayToKey($event) {
+   var data = $event
+  console.log( data, "event")
+  
+  if (data === 'Kiambu') {
+    console.log('Kiambu selected')
+  } else{
+    console.log('other counties selected')
+  }
+
+ 
+
+    if(data){ 
+                    axios.get('http://192.168.1.29:8100/AdminData/get_adm1_shapefile?Get_county='+data 
+                    )
+           .then((response) => {
+                         console.log( response.data,'blackspot data' );
+
+                         const county_data = response.data 
+
+                          if (county_data ) this.map.removeLayer(county_data );
+                        
+                                   L.geoJSON(county_data, {
+                                      style: {
+                                        color: "black",
+                                        opacity: 0.5,
+                                      },
+                                    }).addTo(this.map);
+                                                      
+                        return response.data
+                        //this.$emit("school_data", response.data)
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+              }
+},
 
       zoom_in() {
       this.map.setZoom(this.map.getZoom() + 1);
@@ -188,6 +240,7 @@ export default {
     },
     handle_selected_component(selection) {
       this[selection] = true;
+      // console.log(  "button clicked!")
     
     }, 
      close_container(container) {
@@ -248,6 +301,8 @@ export default {
       )[0];
       layerControlElement.getElementsByTagName("input")[index].click();
     },
+
+  
 
    }
 

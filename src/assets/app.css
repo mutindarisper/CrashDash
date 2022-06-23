@@ -12,17 +12,19 @@ position: absolute;
 width: 100vw;
 height: 103px;
 z-index: 1000;
-background: linear-gradient(180deg, rgba(12, 13, 13, 0.75) 0%, rgba(255, 255, 255, 0.48) 100%);
+background: linear-gradient(180deg, rgba(12, 13, 13, 0.984863) 0%, rgba(151, 151, 152, 0.908383) 57.29%, rgba(255, 255, 255, 0.50228) 100%);
   }
 
   .dash_logo{
     position: absolute;
     top:3vh;
+    left: 1vw;
   }
 
   .tagline{
     position: absolute;
     top: 8vh;
+    left: 1vw;
 font-family: Arimo;
 font-style: normal;
 font-weight: 600;
@@ -182,9 +184,28 @@ color: #FFFFFF;
     left: 0.5vw;
   }
 
+  .facilities{
+    position: absolute;
+    top: 45vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: Roboto sans-serif;
+
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+  .select_facility{
+    position: absolute;
+    top: 48vh;
+    left: 0.5vw;
+  }
+
   .stats{
     position: absolute;
-    top: 50vh;
+    top: 35vh;
     left: 3.3vw;
     width: 117px;
 height: 19.03px;
@@ -220,7 +241,7 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(93, 98, 
   
   .map_controls{
     /* position: absolute; */
-      top: 50vh;
+      top: 25vh;
       margin: 95%;
       z-index: 800; 
       /* background-color: aqua;   */
@@ -228,7 +249,7 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(93, 98, 
     .zoomin_tool{
       z-index: 800;
       position: absolute;
-      top: 17%;
+      top: 5%;
       left:97%;
       cursor: pointer;
       border-radius: 55px;
@@ -236,14 +257,14 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(93, 98, 
     .zoomout_tool{
       z-index: 800;
       position: absolute;
-      top: 22%;
+      top: 10%;
       left:97%;
       cursor: pointer;
     }
     .basemaps{
       z-index: 800;
       position: absolute;
-      top: 27%;
+      top: 15%;
       left:97%;
       cursor: pointer;
     }
@@ -268,7 +289,7 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(93, 98, 
     .download{
       z-index: 800;
       position: absolute;
-      top: 32%;
+      top: 20%;
       left:97%;
       cursor: pointer;
     
