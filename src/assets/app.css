@@ -50,6 +50,9 @@ line-height: 19px;
 cursor: pointer;
 color: #FEFEFE;
   }
+  /* .links:hover{
+    color: #099f46;
+  } */
 
   .start{
     position: absolute;
@@ -92,6 +95,18 @@ line-height: 19px;
 
 color: #FEFEFE;
     text-decoration: none;
+  }
+
+  .home:hover{
+    color: #099f46;
+  }
+
+  .dashboard:hover{
+    color: #099f46;
+  }
+
+   .mapographics:hover{
+    color: #099f46;
   }
   .logo2{
     position: absolute;
