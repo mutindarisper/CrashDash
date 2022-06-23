@@ -209,16 +209,20 @@ export default {
                          console.log( response.data,'blackspot data' );
 
                          const county_data = response.data 
-
-                          if (county_data ) this.map.removeLayer(county_data );
+                          if (this.current_geojson) this.map.removeLayer(this.current_geojson);
+                         
                         
-                                   L.geoJSON(county_data, {
+                               this.current_geojson=    L.geoJSON(county_data, {
                                       style: {
                                         color: "black",
                                         opacity: 0.5,
                                       },
                                     }).addTo(this.map);
-                                                      
+
+                                    this.map.fitBounds(this.current_geojson.getBounds(), {
+                                      padding: [50, 50],
+                                    });
+                                                                                    
                         return response.data
                         //this.$emit("school_data", response.data)
                       
