@@ -173,7 +173,8 @@ export default {
       base_map_ctrl_selections: false, //show or hide base layers
       base_map_ctrl_cliked: false,
       baseMaps: {},
-       current_geojson: null,
+      current_geojson: null,
+      current_road: null,
       chart_container: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
@@ -212,7 +213,7 @@ export default {
                           if (this.current_geojson) this.map.removeLayer(this.current_geojson);
                          
                         
-                               this.current_geojson=    L.geoJSON(county_data, {
+                               this.current_geojson = L.geoJSON(county_data, {
                                       style: {
                                         color: "black",
                                         opacity: 0.5,
@@ -222,6 +223,39 @@ export default {
                                     this.map.fitBounds(this.current_geojson.getBounds(), {
                                       padding: [50, 50],
                                     });
+
+                        //roads data
+
+                         axios.get('http://192.168.1.29:8100/Roads/?county='+data 
+                    )
+           .then((response) => {
+                         console.log( response.data,'roads data' );
+
+                         const road_data = response.data 
+                          if (this.current_road) this.map.removeLayer(this.current_road);
+                         
+                        
+                               this.current_geojson = L.geoJSON(road_data, {
+                                      style: {
+                                        color: "red",
+                                        weight: 0.5,
+                                      },
+                                    }).addTo(this.map);
+
+                                   
+
+                                    
+                                                                                    
+                        return response.data
+                        //this.$emit("school_data", response.data)
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+
                                                                                     
                         return response.data
                         //this.$emit("school_data", response.data)
