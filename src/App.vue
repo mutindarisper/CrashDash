@@ -152,12 +152,24 @@
 import "leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { Icon } from "leaflet";
 import axios from "axios"
 import baseLayers from "./Helpers/baseLayers";
 import CustomSelect from "./components/CustomSelect.vue"
 
 
+delete Icon.Default.prototype._getIconUrl;
+// Icon.options.shadowSize = [0,0];
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require("../src/assets/images/marker.svg"),
+  iconUrl: require("../src/assets/images/marker.svg"),
+  // shadowUrl: require('leaflet/dist/images/marker-shadow.png'  D:\SNAKE_BITES\Kenya_Snakebites_Information_Platform\src\assets\images\hosp.svg),
+  shadowSize: [0, 0],
+});
 
+
+
+var baseurl = 'http://192.168.1.29:8100'
 
 export default {
    name: "App",
@@ -175,6 +187,8 @@ export default {
       baseMaps: {},
       current_geojson: null,
       current_road: null,
+      current_hotspots: null,
+      points_layerGroup:null,
       chart_container: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
@@ -187,10 +201,107 @@ export default {
    },
    mounted() {
     this.setupLeafletMap();
-    // this.displayToKey();
+    
+    this.load_all_hotspots();
+    
    },
 
    methods: {
+
+    //  handle_point_data(val) {
+    //   if (this.current_hotspots !== null) {
+    //     window.markers.clearLayers();
+    //   }
+
+    //   window.markers = new L.featureGroup();
+    //   this.points_layerGroup = window.markers;
+    //   // var radius = this.pointStyle;
+
+    //  axios.get('http://192.168.1.29:8100/HotSpots/'
+    //                 )
+    //        .then((response) => {
+    //                      console.log( response.data,'hotspot data' );
+
+    //                      window.hotspot_data = response.data 
+    //                       // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
+                         
+                        
+    //                            this.current_hotspots = response.data
+    //                             console.log(window.hotspot_data , 'hotspots inside fn')
+                                               
+                        
+
+    //                      var points = val; //.features[0]['geometry'] dewewewe
+
+    //   this.map.createPane("rasters");
+    //   this.map.getPane("rasters").style.zIndex = 500;
+
+    //   Object.entries(points.features).forEach(([key, value]) => {
+    //     if (key) {
+    //       this.current_hotspots = L.circleMarker(
+    //         [value.geometry.coordinates[1], value.geometry.coordinates[0]] );
+    //       // var size = value.properties.registered_voters2013/100; //divided by 100 to resize the markers
+
+        
+
+    //       //  this.current_point.setRadius(this.pointStyle);
+    //       this.current_hotspots.addTo(this.points_layerGroup)
+    //       this.map.fitBounds(window.markers.getBounds(), {
+    //         padding: [50, 50],
+    //       });
+
+    //       // this.map.addLayer(markers);
+
+    //       return `${key}`;
+    //     }
+    //   });
+
+    //   window.markers.addTo(this.map);
+
+      
+                        
+                      
+
+    //                 })
+    //                .catch( (error) => {
+    //             console.log('an error occured ' + error);
+    //         })
+
+
+            
+
+
+
+
+
+
+     
+    // },
+
+
+    load_all_hotspots() {
+
+        axios.get('http://192.168.1.29:8100/HotSpots/'
+                    )
+           .then((response) => {
+                         console.log( response.data,'hotspot data' );
+
+                         const hotspot_data = response.data 
+                          // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
+                         console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
+                        
+                               this.current_hotspots = L.geoJSON(hotspot_data, { }).addTo(this.map);
+                                               
+                        return response.data
+                        
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            }) 
+
+    },
       displayToKey($event) {
    var data = $event
   console.log( data, "event")
@@ -201,16 +312,19 @@ export default {
     console.log('other counties selected')
   }
 
+  
+
  
 
     if(data){ 
+       if (this.current_geojson) this.map.removeLayer(this.current_geojson);
                     axios.get('http://192.168.1.29:8100/AdminData/get_adm1_shapefile?Get_county='+data 
                     )
            .then((response) => {
-                         console.log( response.data,'blackspot data' );
+                        //  console.log( response.data,'blackspot data' );
 
                          const county_data = response.data 
-                          if (this.current_geojson) this.map.removeLayer(this.current_geojson);
+                         
                          
                         
                                this.current_geojson = L.geoJSON(county_data, {
@@ -229,42 +343,36 @@ export default {
                          axios.get('http://192.168.1.29:8100/Roads/?county='+data 
                     )
            .then((response) => {
-                         console.log( response.data,'roads data' );
+                        //  console.log( response.data,'roads data' );
 
                          const road_data = response.data 
                           if (this.current_road) this.map.removeLayer(this.current_road);
                          
                         
-                               this.current_geojson = L.geoJSON(road_data, {
+                               this.current_road = L.geoJSON(road_data, {
                                       style: {
                                         color: "red",
                                         weight: 0.5,
                                       },
                                     }).addTo(this.map);
-
-                                   
-
-                                    
-                                                                                    
+                                               
                         return response.data
-                        //this.$emit("school_data", response.data)
+                        
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })                                                             
+                        return response.data
+                       //end of road data 
                       
 
                     })
                    .catch( (error) => {
                 console.log('an error occured ' + error);
             })
-
-
-                                                                                    
-                        return response.data
-                        //this.$emit("school_data", response.data)
-                      
-
-                    })
-                   .catch( (error) => {
-                console.log('an error occured ' + error);
-            })
+            //end of county data
 
               }
 },
@@ -287,6 +395,37 @@ export default {
     setupLeafletMap() {
       const { osm, mapbox, mapboxSatellite } = baseLayers;
 
+          // const blackspots =  axios.get('http://192.168.1.29:8100/HotSpots/'
+          //           )
+          //  .then((response) => {
+          //                console.log( response.data,'hotspot data' );
+
+          //                const hotspot_data = response.data 
+          //                 // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
+                         
+          //                window.layerGroup = new L.LayerGroup()
+                        
+          //                      this.current_hotspots = L.Marker(hotspot_data, {
+          //                             style: {
+          //                               color: "red",
+          //                               weight: 0.5,
+          //                             },
+          //                           }).addTo(this.map);
+                                    
+                                               
+          //               return response.data
+                        
+                      
+
+          //           })
+          //          .catch( (error) => {
+          //       console.log('an error occured ' + error);
+          //   }) 
+            // var overlayMaps = 
+
+
+            // console.log('overlay map', overlayMaps)
+
       this.baseMaps = {
         DarkMap: osm,
         MapBox: mapbox,
@@ -303,7 +442,7 @@ export default {
         zoom: 6.5,
         // measureControl: true,
         // defaultExtentControl: true,
-        layers: [mapbox],
+        layers: [mapbox]
       }); // add the basemaps to the controls
 
       L.control.layers(this.baseMaps).addTo(this.map);
