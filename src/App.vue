@@ -67,6 +67,8 @@
       class="select_facility"
       @input="displayToKey($event)"
     />
+
+
    
 
   <button class="stats" @click="handle_selected_component('chart_container')" type="button">Load Statistics</button>
@@ -84,6 +86,11 @@
          alt="" >
 
     </div>
+
+
+    <Hotspots
+     @school_data="handle_point_data" 
+     />
 
     <div class="map" id="map" style="position:relative; top:11vh; height: 87vh; width: 100%;">
 
@@ -156,14 +163,16 @@ import { Icon } from "leaflet";
 import axios from "axios"
 import baseLayers from "./Helpers/baseLayers";
 import CustomSelect from "./components/CustomSelect.vue"
+import Hotspots from './components/Hotspots.vue'
 
 
 delete Icon.Default.prototype._getIconUrl;
 // Icon.options.shadowSize = [0,0];
 Icon.Default.mergeOptions({
-  iconRetinaUrl: require("../src/assets/images/marker.svg"),
-  iconUrl: require("../src/assets/images/marker.svg"),
-  // shadowUrl: require('leaflet/dist/images/marker-shadow.png'  D:\SNAKE_BITES\Kenya_Snakebites_Information_Platform\src\assets\images\hosp.svg),
+  iconRetinaUrl: require("../src/assets/images/marker.svg"), //../src/assets/images/red-pin.svg
+   iconUrl: require("../src/assets/images/marker.svg"),
+  // iconUrl: require("../src/assets/images/red-pin.svg"),
+  // shadowUrl: require('leaflet/dist/images/marker-shadow.png' marker  D:\SNAKE_BITES\Kenya_Snakebites_Information_Platform\src\assets\images\hosp.svg),
   shadowSize: [0, 0],
 });
 
@@ -174,7 +183,8 @@ var baseurl = 'http://192.168.1.29:8100'
 export default {
    name: "App",
    components:{
-    CustomSelect
+    CustomSelect,
+    Hotspots
 
    },
    data() {
@@ -189,12 +199,15 @@ export default {
       current_road: null,
       current_hotspots: null,
       points_layerGroup:null,
+      markers: null,
+      current_point:[],
       chart_container: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
       routes: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
       causes:['Speeding', 'Sharp Bend', 'Overtaking', 'No Road Sign', 'Pedestrian Recklessness'],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
+      url_icon : '../src/assets/images/red-pin.svg'
 
     }
 
@@ -202,81 +215,116 @@ export default {
    mounted() {
     this.setupLeafletMap();
     
-    this.load_all_hotspots();
+    // this.load_all_hotspots();
+
+    this.handle_point_data();
     
    },
 
    methods: {
 
-    //  handle_point_data(val) {
-    //   if (this.current_hotspots !== null) {
-    //     window.markers.clearLayers();
-    //   }
+    handle_point_data(val) {
+      // console.log("I HAVE ARRIVED")
+      // if (this.points_layerGroup !== null) {
+      //   window.markers.clearLayers();
+      // }
 
-    //   window.markers = new L.featureGroup();
-    //   this.points_layerGroup = window.markers;
-    //   // var radius = this.pointStyle;
+      window.markers = new L.featureGroup();
+      this.points_layerGroup = window.markers;
+      // var radius = this.pointStyle;
 
-    //  axios.get('http://192.168.1.29:8100/HotSpots/'
-    //                 )
-    //        .then((response) => {
-    //                      console.log( response.data,'hotspot data' );
+      var points = val; //.features[0]['geometry'] dewewewe
+      console.log(points, 'POINTS' ) //WORKING
 
-    //                      window.hotspot_data = response.data 
-    //                       // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
-                         
-                        
-    //                            this.current_hotspots = response.data
-    //                             console.log(window.hotspot_data , 'hotspots inside fn')
-                                               
-                        
+      this.map.createPane("rasters");
+      this.map.getPane("rasters").style.zIndex = 500;
 
-    //                      var points = val; //.features[0]['geometry'] dewewewe
+      Object.entries(points.features).forEach(([key, value]) => {
 
-    //   this.map.createPane("rasters");
-    //   this.map.getPane("rasters").style.zIndex = 500;
+        // console.log(points.features, 'POINTS FEATURES' ) //WORKING
 
-    //   Object.entries(points.features).forEach(([key, value]) => {
-    //     if (key) {
-    //       this.current_hotspots = L.circleMarker(
-    //         [value.geometry.coordinates[1], value.geometry.coordinates[0]] );
-    //       // var size = value.properties.registered_voters2013/100; //divided by 100 to resize the markers
+        var cordi = value.geometry.coordinates[0] 
+
+        var cordinates = [cordi[1],cordi[0]]
+        // console.log( key , 'KEYS', cordinates )
+        // thisiconUrl
+        // console.log(value.properties.Reasons, 'REASONS') Overspeeding
+        var point_color = '#099f46'
+        if (value.properties.Reasons === 'Curve preceeding a hill, blindspot, lack of signage'){
+         
+          point_color = "#fcba03"
+          
+         
+                }
+
+          if (value.properties.Reasons === 'Lack of signage'){
+         
+          point_color = "#03fc52"
+          
+         
+                }
+          if (value.properties.Reasons === 'Overspeeding'){
+         
+          point_color = "#3003fc"
+          
+         
+                }
+
+        if (key) {
+          this.current_point = L.circleMarker(cordinates, {
+            fillColor: "#fcba03",
+            color: point_color,
+            radius: 3,
+
+            // style:{
+            //    iconSize:     [25, 30],
+            // // iconUrl: this.url_icon
+
+            // }
+           
+
+            // pointToLayer:function (){
+            //     var myIcon = new L.icon({
+            //         iconUrl: '../src/assets/images/red-pin.svg', 
+            //         iconSize:     [25, 30], // width and height of the image in pixels
+            //         shadowSize:   [35, 20], // width, height of optional shadow image
+            //         iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+            //         shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+            //         popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+            //       });
+            //     if (value.properties.Reasons === 'Curve preceeding a hill, blindspot, lack of signage'){
+            //       console.log(value.properties.Reasons, 'REASONS')
+            //       return L.marker( { icon: myIcon });
+            //     }
+            // }
+          
+         
+
+          });
+          //  console.log( value , 'VALUES' )
+          var size = 3; //divided by 100 to resize the markers
 
         
 
-    //       //  this.current_point.setRadius(this.pointStyle);
-    //       this.current_hotspots.addTo(this.points_layerGroup)
-    //       this.map.fitBounds(window.markers.getBounds(), {
-    //         padding: [50, 50],
-    //       });
+        
+          //  this.current_point.setRadius(this.pointStyle);
+          this.current_point.addTo(this.points_layerGroup);
+         
+          this.map.fitBounds(window.markers.getBounds(), {
+            padding: [50, 50],
+          });
 
-    //       // this.map.addLayer(markers);
+          // this.map.addLayer(markers);
 
-    //       return `${key}`;
-    //     }
-    //   });
+          return `${key}`;
+        }
+      });
 
-    //   window.markers.addTo(this.map);
-
-      
-                        
-                      
-
-    //                 })
-    //                .catch( (error) => {
-    //             console.log('an error occured ' + error);
-    //         })
+      window.markers.addTo(this.map);
+    },
 
 
-            
-
-
-
-
-
-
-     
-    // },
+   
 
 
     load_all_hotspots() {
@@ -395,36 +443,6 @@ export default {
     setupLeafletMap() {
       const { osm, mapbox, mapboxSatellite } = baseLayers;
 
-          // const blackspots =  axios.get('http://192.168.1.29:8100/HotSpots/'
-          //           )
-          //  .then((response) => {
-          //                console.log( response.data,'hotspot data' );
-
-          //                const hotspot_data = response.data 
-          //                 // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
-                         
-          //                window.layerGroup = new L.LayerGroup()
-                        
-          //                      this.current_hotspots = L.Marker(hotspot_data, {
-          //                             style: {
-          //                               color: "red",
-          //                               weight: 0.5,
-          //                             },
-          //                           }).addTo(this.map);
-                                    
-                                               
-          //               return response.data
-                        
-                      
-
-          //           })
-          //          .catch( (error) => {
-          //       console.log('an error occured ' + error);
-          //   }) 
-            // var overlayMaps = 
-
-
-            // console.log('overlay map', overlayMaps)
 
       this.baseMaps = {
         DarkMap: osm,
