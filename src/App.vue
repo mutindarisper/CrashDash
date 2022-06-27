@@ -90,6 +90,26 @@
      @school_data="handle_point_data" 
      />
 
+
+     <!-- display popup info panel -->
+
+     <div class="info">
+
+      -- Click the point on the map to fill the data --
+       <br>
+       <br>
+      <b>Blackspot:</b><div class="nome"></div>
+      <br>
+      <b>County:</b><div class="imagem"></div>
+      <br>
+      <b>Route:</b><div class="descricao"></div>
+      <br>
+      <b>Cause:</b><div class="descricao"></div>
+      <br>
+      <b>Mitigation:</b><div class="mitigation"></div>
+
+  </div>
+
     <div class="map" id="map" style="position:relative; top:11vh; height: 87vh; width: 100%;">
 
       <div class="map_controls">
@@ -159,6 +179,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import axios from "axios"
+import $ from "jquery";
 import baseLayers from "./Helpers/baseLayers";
 import CustomSelect from "./components/CustomSelect.vue"
 import Hotspots from './components/Hotspots.vue'
@@ -383,31 +404,31 @@ export default {
 
                         //roads data
 
-                         axios.get('http://192.168.1.29:8100/Roads/?county='+data 
-                    )
-           .then((response) => {
-                        //  console.log( response.data,'roads data' );
+          //                axios.get('http://192.168.1.29:8100/Roads/?county='+data 
+          //           )
+          //  .then((response) => {
+          //               //  console.log( response.data,'roads data' );
 
-                         const road_data = response.data 
-                          if (this.current_road) this.map.removeLayer(this.current_road);
+          //                const road_data = response.data 
+          //                 if (this.current_road) this.map.removeLayer(this.current_road);
                          
                         
-                               this.current_road = L.geoJSON(road_data, {
-                                      style: {
-                                        color: "red",
-                                        weight: 0.5,
-                                      },
-                                    }).addTo(this.map);
+          //                      this.current_road = L.geoJSON(road_data, {
+          //                             style: {
+          //                               color: "red",
+          //                               weight: 0.5,
+          //                             },
+          //                           }).addTo(this.map);
                                                
-                        return response.data
+          //               return response.data
                         
                       
 
-                    })
-                   .catch( (error) => {
-                console.log('an error occured ' + error);
-            })                                                             
-                        return response.data
+          //           })
+          //          .catch( (error) => {
+          //       console.log('an error occured ' + error);
+          //   })                                                             
+                        // return response.data
                        //end of road data 
                       
 
@@ -540,8 +561,13 @@ export default {
                          var region_hotspots = response.data
                           //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
 
-                         this.point_hotspot = L.geoJSON(region_hotspots, { }).addTo(this.map);
-                                         
+                         this.point_hotspot = L.geoJSON(region_hotspots, {
+                          onEachFeature: this.onEachPoint
+                          }).addTo(this.map);
+                          this.map.fitBounds( this.point_hotspot.getBounds(), {
+                            padding: [50, 50],
+                          });
+                                                        
                         return response.data
                         
                       
@@ -553,6 +579,17 @@ export default {
 
 
     },
+
+    onEachPoint( feature, layer) {
+
+    
+       layer.on('click', function(e) {
+    $(".nome").html(feature.properties.BlackspotName);
+    $(".imagem").html(feature.properties.County);
+    $(".descricao").html(feature.properties.RoadName);
+  });
+
+      },
 
     getCausesList() {
       var county =  window.county_data
@@ -586,6 +623,9 @@ export default {
                           //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
 
                          this.point_hotspot = L.geoJSON(cause_hotspots , { }).addTo(this.map);
+                         this.map.fitBounds( this.point_hotspot.getBounds(), {
+                            padding: [50, 50],
+                          });
                                          
                         return response.data
                         
