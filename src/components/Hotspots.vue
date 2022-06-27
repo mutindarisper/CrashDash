@@ -34,6 +34,8 @@ this.load_hotspots();
             })
         }
 
+       
+
     }
 
 }

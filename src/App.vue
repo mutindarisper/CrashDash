@@ -45,7 +45,7 @@
       @input="displayToKey($event);getRoutesList()"
     />
 
-     <span class="routes">Route</span>
+     <span class="routes">Road</span>
    <CustomSelect
       :options="this.routes"
       :default="'Select a route'"
@@ -199,6 +199,7 @@ export default {
       points_layerGroup:null,
       markers: null,
       current_point:[],
+      point_hotspot: null,
       chart_container: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
@@ -494,19 +495,17 @@ export default {
       var county =  window.county_data
       console.log(county, 'selected county for routes')
 
+
+      //http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?routes_points=Route1 (Kiambu and Embu)
+
+      
       
         axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?hotspot_routes='+county
                     )
            .then((response) => {
-                         console.log( response.data,'routes data' );
-                          this.routes = response.data.Routes
-                        //  const routes_data = response.data
-                          // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
-                        //  console.log(routes_data, 'Routes')
-                         
-                        
-                              //  this.current_hotspots = L.geoJSON(hotspot_data, { }).addTo(this.map);
-                                               
+                        //  console.log( response.data,'routes data' );
+                          this.routes = response.data.Routes 
+                          window.routes =   response.data.Routes               
                         return response.data
                         
                       
@@ -515,6 +514,31 @@ export default {
                    .catch( (error) => {
                 console.log('an error occured ' + error);
             })
+
+            //load points in routes
+
+            var route = window.routes
+            console.log(route, 'routes in routes')
+
+
+             axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?routes_points='+route
+                    )
+           .then((response) => {
+                         console.log( response.data,'points in routes');
+                         var region_hotspots = response.data
+                           if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
+
+                         this.point_hotspot = L.geoJSON(region_hotspots, { }).addTo(this.map);
+                                         
+                        return response.data
+                        
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
 
     }
 
