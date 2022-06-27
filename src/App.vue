@@ -42,7 +42,7 @@
       :options="this.counties"
       :default="'Select a region'"
       class="select_region"
-      @input="displayToKey($event)"
+      @input="displayToKey($event);getRoutesList()"
     />
 
      <span class="routes">Route</span>
@@ -50,7 +50,7 @@
       :options="this.routes"
       :default="'Select a route'"
       class="select_route"
-      @input="displayToKey($event)"
+      @input="getRoutesList()"
     />
      <span class="causes">Cause</span>
    <CustomSelect
@@ -72,8 +72,6 @@
    
 
   <button class="stats" @click="handle_selected_component('chart_container')" type="button">Load Statistics</button>
-
-
 
 
     
@@ -204,7 +202,8 @@ export default {
       chart_container: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
-      routes: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
+      selected_county: '',
+      routes: [],
       causes:['Speeding', 'Sharp Bend', 'Overtaking', 'No Road Sign', 'Pedestrian Recklessness'],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
       url_icon : '../src/assets/images/red-pin.svg'
@@ -216,6 +215,8 @@ export default {
     this.setupLeafletMap();
     
     // this.load_all_hotspots();
+      this.getRoutesList();
+  
 
     this.handle_point_data();
     
@@ -323,10 +324,6 @@ export default {
       window.markers.addTo(this.map);
     },
 
-
-   
-
-
     load_all_hotspots() {
 
         axios.get('http://192.168.1.29:8100/HotSpots/'
@@ -352,17 +349,14 @@ export default {
     },
       displayToKey($event) {
    var data = $event
-  console.log( data, "event")
+   window.county_data = $event
+  // console.log( data, "event")
   
-  if (data === 'Kiambu') {
-    console.log('Kiambu selected')
-  } else{
-    console.log('other counties selected')
-  }
-
-  
-
- 
+  // if (data === 'Kiambu') {
+  //   console.log('Kiambu selected')
+  // } else{
+  //   console.log('other counties selected')
+  // }
 
     if(data){ 
        if (this.current_geojson) this.map.removeLayer(this.current_geojson);
@@ -422,6 +416,7 @@ export default {
             })
             //end of county data
 
+
               }
 },
 
@@ -480,8 +475,6 @@ export default {
 
     },
 
-
-
        handle_baseLayers() {
       setTimeout(() => {
         if (this.base_map_ctrl_cliked === false)
@@ -496,6 +489,34 @@ export default {
       )[0];
       layerControlElement.getElementsByTagName("input")[index].click();
     },
+
+    getRoutesList() {
+      var county =  window.county_data
+      console.log(county, 'selected county for routes')
+
+      
+        axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?hotspot_routes='+county
+                    )
+           .then((response) => {
+                         console.log( response.data,'routes data' );
+                          this.routes = response.data.Routes
+                        //  const routes_data = response.data
+                          // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
+                        //  console.log(routes_data, 'Routes')
+                         
+                        
+                              //  this.current_hotspots = L.geoJSON(hotspot_data, { }).addTo(this.map);
+                                               
+                        return response.data
+                        
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+    }
 
   
 
