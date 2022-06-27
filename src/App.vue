@@ -104,7 +104,7 @@
       <br>
       <b>Route:</b><div class="descricao"></div>
       <br>
-      <b>Cause:</b><div class="descricao"></div>
+      <b>Cause:</b><div class="cause"></div>
       <br>
       <b>Mitigation:</b><div class="mitigation"></div>
 
@@ -587,6 +587,8 @@ export default {
     $(".nome").html(feature.properties.BlackspotName);
     $(".imagem").html(feature.properties.County);
     $(".descricao").html(feature.properties.RoadName);
+    $(".cause").html(feature.properties.Reasons);
+    $(".mitigation").html(feature.properties.Mitigation);
   });
 
       },
