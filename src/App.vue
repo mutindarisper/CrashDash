@@ -42,7 +42,7 @@
       :options="this.counties"
       :default="'Select a region'"
       class="select_region"
-      @input="displayToKey($event);getRoutesList()"
+      @input="displayToKey($event);getRoutesList();getCausesList()"
     />
 
      <span class="routes">Road</span>
@@ -50,14 +50,14 @@
       :options="this.routes"
       :default="'Select a route'"
       class="select_route"
-      @input="getRoutesList()"
+      @input="display_route_name($event);getRoutesList()"
     />
      <span class="causes">Cause</span>
    <CustomSelect
       :options="this.causes "
       :default="'Select a cause'"
       class="select_cause"
-      @input="displayToKey($event)"
+      @input="display_cause_name($event);getCausesList()"
     />
 
       <span class="facilities">Health Facilities</span>
@@ -205,7 +205,7 @@ export default {
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
       selected_county: '',
       routes: [],
-      causes:['Speeding', 'Sharp Bend', 'Overtaking', 'No Road Sign', 'Pedestrian Recklessness'],
+      causes:[],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
       url_icon : '../src/assets/images/red-pin.svg'
 
@@ -361,7 +361,7 @@ export default {
 
     if(data){ 
        if (this.current_geojson) this.map.removeLayer(this.current_geojson);
-                    axios.get('http://192.168.1.29:8100/AdminData/get_adm1_shapefile?Get_county='+data 
+                    axios.get(baseurl+'/AdminData/get_adm1_shapefile?Get_county='+data 
                     )
            .then((response) => {
                         //  console.log( response.data,'blackspot data' );
@@ -491,6 +491,17 @@ export default {
       layerControlElement.getElementsByTagName("input")[index].click();
     },
 
+    display_route_name($event){
+      window.route_name = $event
+      console.log( window.route_name, 'route name')
+
+    },
+    display_cause_name($event){
+      window.cause_name = $event
+      console.log( window.cause_name, 'cause name')
+
+    },
+
     getRoutesList() {
       var county =  window.county_data
       console.log(county, 'selected county for routes')
@@ -500,12 +511,13 @@ export default {
 
       
       
-        axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?hotspot_routes='+county
+        axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?road_names='+county
                     )
            .then((response) => {
                         //  console.log( response.data,'routes data' );
                           this.routes = response.data.Routes 
-                          window.routes =   response.data.Routes               
+                          window.routes =   response.data.Routes  
+                                  
                         return response.data
                         
                       
@@ -517,16 +529,16 @@ export default {
 
             //load points in routes
 
-            var route = window.routes
-            console.log(route, 'routes in routes')
+            var route = window.route_name
+            console.log(route, 'selected route')
 
 
-             axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?routes_points='+route
+             axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?road_points='+route
                     )
            .then((response) => {
                          console.log( response.data,'points in routes');
                          var region_hotspots = response.data
-                           if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
+                          //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
 
                          this.point_hotspot = L.geoJSON(region_hotspots, { }).addTo(this.map);
                                          
@@ -539,6 +551,50 @@ export default {
                 console.log('an error occured ' + error);
             })
 
+
+    },
+
+    getCausesList() {
+      var county =  window.county_data
+      axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?list_causes_per_county='+county
+                    )
+           .then((response) => {
+                        //  console.log( response.data,'routes data' );
+                          this.causes = response.data.Causes
+                          // window.routes =   response.data.Routes  http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?hotspot_per_cause=Cc
+                                  
+                        return response.data
+                        
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+
+
+             var cause = window.cause_name
+            console.log(cause, 'selected cause')
+
+
+             axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?hotspot_per_cause='+cause
+                    )
+           .then((response) => {
+                         console.log( response.data,'points in causes');
+                         var cause_hotspots = response.data
+                          //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
+
+                         this.point_hotspot = L.geoJSON(cause_hotspots , { }).addTo(this.map);
+                                         
+                        return response.data
+                        
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
 
     }
 
