@@ -11,7 +11,7 @@
       </div>
 
       <div class="links">
-        <a class="home"  href="https://www.stjohnkenya.org/">Home</a>
+        <a class="home"  href="https://www.stjohnkenya.org/" target="_blank" >Home</a>
         <div class="dashboard">Dashboard</div>
         <div class="mapographics">Mapographics</div>
 
@@ -117,12 +117,23 @@
       <b>Blackspot:</b><div class="name"></div>
       <br>
       <b>County:</b><div class="county"></div>
-      <br>
-      <b>Route:</b><div class="route"></div>
-      <br>
+      <!-- <br> -->
+      <!-- <b>Route:</b><div class="route"></div>
+      <br> -->
       <b>Cause:</b><div class="cause"></div>
       <br>
       <b>Mitigation:</b><div class="mitigation"></div>
+      <br>
+      <!-- <div class="separator"></div> -->
+      <!-- <br> -->
+      <b>Additional Information</b>
+       <br>
+       <!-- <img src={{img_url}} alt=""  class="media">  -->
+        <img class="media"
+        src=""
+        
+      />  
+      <!-- <div class="media"> <p/></div> -->
 
   </div>
 
@@ -220,6 +231,8 @@ Icon.Default.mergeOptions({
 
 var baseurl = 'http://192.168.1.29:8100'
 
+// console.log(this.img_url, 'url outside')
+
 export default {
    name: "App",
    components:{
@@ -250,20 +263,38 @@ export default {
       routes: [],
       causes:[],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
-      charts: false
+      charts: false,
+      img_url: ''
 
     }
 
    },
    mounted() {
+   
     this.setupLeafletMap();
     
     // this.load_all_hotspots();
       this.getRoutesList();
-  
+  this.onEachPoint();
 
     this.handle_point_data();
     
+   },
+   computed: {
+    check_data() {
+      return {
+        url: this.img_url
+      }
+      
+    }
+    
+
+   },
+   watch: {
+    check_data (){
+      this.onEachPoint();
+    }
+
    },
 
    methods: {
@@ -608,14 +639,35 @@ export default {
 
     
        layer.on('click', function(e) {
+
+        // this.img_url = <img src={feature.properties.AdditionalInfo.image}  />
     $(".name").html(feature.properties.BlackspotName);
     $(".county").html(feature.properties.County);
     $(".route").html(feature.properties.RoadName);
     $(".cause").html(feature.properties.Reasons);
     $(".mitigation").html(feature.properties.Mitigation);
+    $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image']
+    $(".media").find('img')['prevObject'][0].src;
+
+    //  console.log(this.img_url, 'url')
+    // return src
+ 
+   
   });
 
       },
+
+  getImgUrl() {
+    var images = this.img_url
+    return images
+  },
+  imageGen(url){
+
+    return (<img src={url} alt=""  class="media"/>)
+
+     
+
+  },
 
     getCausesList() {
       var county =  window.county_data
