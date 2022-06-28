@@ -250,7 +250,7 @@ color: #FFFFFF;
 width: 740px;
 height: 280px;
 z-index: 1000;
-background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(93, 98, 99, 0.9) 52.9%, rgba(144, 148, 150, 0.800763) 99.97%, rgba(30, 77, 92, 0.765) 99.98%, rgba(255, 255, 255, 0.9) 99.98%);
+background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 61, 0.9) 52.9%, rgba(94, 95, 95, 0.801) 99.97%, 99.98%, rgba(97, 97, 97, 0.9) 99.98%);
  }
   
   
@@ -322,5 +322,28 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(93, 98, 
       background: linear-gradient(180deg, #F8F8F8 0%, #EDF4F8 41.67%, rgba(180, 184, 186, 0.584565) 79.69%, rgba(55, 57, 57, 0.51) 100%);
       border-radius: 20px;
       padding: 10px;
+      }
+      .title{
+        position: absolute;
+        top: 2vh;
+        left: 15vw;
+        font-family: "Arial", Arial, serif;
+        color: #FFFFFF;
+        text-decoration: underline;
+      }
+      .county_chart{
+        position: absolute;
+        top: 5vh;
+        /* left: 0.5vw; */
+      }
+      .chart_text{
+        position: absolute;
+        top: 8vh;
+        left: 15vw;
+        font-family: "Arial", Arial, serif;
+        color: #FFFFFF;
+        font-size: 14px;
+        line-height: 40px;
+
       }
       

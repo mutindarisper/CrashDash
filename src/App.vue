@@ -82,6 +82,22 @@
         src="./assets/images/close.svg"
         @click="close_container('chart_container')"
          alt="" >
+         <div class="title">
+          Summary Statistics
+         </div>
+
+         <div class="county_chart">
+          <HotspotsDoughnut :height="230" :width="300" />
+         </div>
+         <div class="chart_text">
+          Statistics showing number of blackspots per county. 
+          
+          <b>Meru</b> county leads, with <b>96</b> blackspots, followed by <b>Nyeri</b>
+           county with <b>69</b> blackspots, <b>Laikipia</b>, with <b>65</b>, <b>Kiambu</b> having <b>40</b> 
+           and <b>Embu</b> county having <b>31</b>.
+        
+
+         </div>
 
     </div>
 
@@ -98,11 +114,11 @@
       -- Click the point on the map to fill the data --
        <br>
        <br>
-      <b>Blackspot:</b><div class="nome"></div>
+      <b>Blackspot:</b><div class="name"></div>
       <br>
-      <b>County:</b><div class="imagem"></div>
+      <b>County:</b><div class="county"></div>
       <br>
-      <b>Route:</b><div class="descricao"></div>
+      <b>Route:</b><div class="route"></div>
       <br>
       <b>Cause:</b><div class="cause"></div>
       <br>
@@ -170,6 +186,10 @@
       </div>
 
     </div>
+
+    <!-- chart loader -->
+
+   
    
   </div>
 </template>
@@ -183,6 +203,7 @@ import $ from "jquery";
 import baseLayers from "./Helpers/baseLayers";
 import CustomSelect from "./components/CustomSelect.vue"
 import Hotspots from './components/Hotspots.vue'
+import HotspotsDoughnut from './components/charts/HotspotsDoughnut.vue'
 
 
 delete Icon.Default.prototype._getIconUrl;
@@ -203,7 +224,8 @@ export default {
    name: "App",
    components:{
     CustomSelect,
-    Hotspots
+    Hotspots,
+    HotspotsDoughnut
 
    },
    data() {
@@ -228,7 +250,7 @@ export default {
       routes: [],
       causes:[],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
-      url_icon : '../src/assets/images/red-pin.svg'
+      charts: false
 
     }
 
@@ -372,6 +394,8 @@ export default {
       displayToKey($event) {
    var data = $event
    window.county_data = $event
+   this.$emit('selected county',  window.county_data)
+
   // console.log( data, "event")
   
   // if (data === 'Kiambu') {
@@ -584,9 +608,9 @@ export default {
 
     
        layer.on('click', function(e) {
-    $(".nome").html(feature.properties.BlackspotName);
-    $(".imagem").html(feature.properties.County);
-    $(".descricao").html(feature.properties.RoadName);
+    $(".name").html(feature.properties.BlackspotName);
+    $(".county").html(feature.properties.County);
+    $(".route").html(feature.properties.RoadName);
     $(".cause").html(feature.properties.Reasons);
     $(".mitigation").html(feature.properties.Mitigation);
   });
