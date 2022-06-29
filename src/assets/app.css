@@ -313,11 +313,11 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
 
     .info{
       position: absolute;
-      top: 50vh;
+      top: 40vh;
       left: 84vw;
       z-index: 1000;
       width: 271px;
-      height: 412px;
+      height: 512px;
       font-family: "Arial", Arial, serif;
       background: linear-gradient(180deg, #F8F8F8 0%, #EDF4F8 41.67%, rgba(180, 184, 186, 0.584565) 79.69%, rgba(55, 57, 57, 0.51) 100%);
       border-radius: 20px;

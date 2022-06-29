@@ -128,12 +128,12 @@
       <!-- <br> -->
       <b>Additional Information</b>
        <br>
-       <!-- <img src={{img_url}} alt=""  class="media">  -->
-        <img class="media"
-        src=""
-        
-      />  
-      <!-- <div class="media"> <p/></div> -->
+       <img src="" class="media"> 
+       <video src="" class="video_" autoplay=false style="display: none" controls>
+      
+       </video>
+       
+
 
   </div>
 
@@ -640,34 +640,23 @@ export default {
     
        layer.on('click', function(e) {
 
-        // this.img_url = <img src={feature.properties.AdditionalInfo.image}  />
+        // this.img_url = <img src={feature.properties.AdditionalInfo.image} type="video/mp4" />
     $(".name").html(feature.properties.BlackspotName);
     $(".county").html(feature.properties.County);
     $(".route").html(feature.properties.RoadName);
     $(".cause").html(feature.properties.Reasons);
     $(".mitigation").html(feature.properties.Mitigation);
-    $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image']
-    $(".media").find('img')['prevObject'][0].src;
-
-    //  console.log(this.img_url, 'url')
-    // return src
- 
-   
+    $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image'];
+    $(".media").find('img')['prevObject'][0].style="height: 100px; width: 150px; position: relative; top: 0.5vh; outline:none; border: none;"
+    $(".video_").find('video')['prevObject'][0].src = feature.properties.AdditionalInfo['video'];
+    $(".video_").find('video')['prevObject'][0].style="height: 100px; width: 150px; position: absolute; top: 45vh; left:1vw; controls"
+    $(".video_").find('video')['prevObject'][0].type="video/mp4";
+    
   });
 
       },
 
-  getImgUrl() {
-    var images = this.img_url
-    return images
-  },
-  imageGen(url){
 
-    return (<img src={url} alt=""  class="media"/>)
-
-     
-
-  },
 
     getCausesList() {
       var county =  window.county_data
