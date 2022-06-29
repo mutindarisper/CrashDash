@@ -318,6 +318,15 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
     
     }
 
+    .dimension{
+      z-index: 800;
+      position: absolute;
+      top: 30%;
+      left:97%;
+      cursor: pointer;
+    
+    }
+
 
     .info{
       position: absolute;
@@ -360,6 +369,21 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
         color: #FFFFFF;
         font-size: 14px;
         line-height: 40px;
+
+      }
+
+      #pano {
+        float: left;
+        height: 40%;
+        width: 50%;
+      }
+      #map2{
+        position: absolute;
+        top: 40vh;
+        left: 70vw;
+        height: 500px;
+        width: 500px;
+        z-index: 1000;
 
       }
       

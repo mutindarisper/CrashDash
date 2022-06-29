@@ -186,6 +186,16 @@
             
           />
         </div>
+
+        <div class="dimension">
+          <img
+            src="./assets/images/3d.svg"
+            alt=""
+            title="View 3D"
+            @click="setupGoogleMap"
+            
+          />
+        </div>
       </div>
 
 
@@ -206,7 +216,15 @@
         </div>
       </div>
 
+
+      
+
     </div>
+
+
+    <!-- 3d view -->
+       <div id="map2"></div>
+       <div id="pano"></div>
 
     <!-- chart loader -->
 
@@ -225,7 +243,7 @@ import baseLayers from "./Helpers/baseLayers";
 import CustomSelect from "./components/CustomSelect.vue"
 import Hotspots from './components/Hotspots.vue'
 import HotspotsDoughnut from './components/charts/HotspotsDoughnut.vue'
-
+import { Loader } from '@googlemaps/js-api-loader';
 
 delete Icon.Default.prototype._getIconUrl;
 // Icon.options.shadowSize = [0,0];
@@ -281,6 +299,8 @@ export default {
 
    },
    mounted() {
+
+    
    
     this.setupLeafletMap();
     
@@ -294,6 +314,7 @@ export default {
   
 
    methods: {
+
 
     handle_point_data(val) {
       // console.log("I HAVE ARRIVED")
@@ -548,6 +569,60 @@ export default {
 
     },
 
+    setupGoogleMap() {
+       var center = window.point_latlon
+       const fenway = { 
+        lat: 0.02, 
+        lng:  37.8582273 };
+       console.log(center, 'google maps center')
+
+  const loader = new Loader({
+  apiKey: "AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg",
+  version: "weekly",
+  libraries: ["places"]
+});
+
+const mapOptions = {
+  center: center,
+  zoom: 14
+};
+
+loader
+  .load()
+  .then((google) => {
+    new google.maps.Map(document.getElementById("map2"), mapOptions);
+  })
+  .catch(e => {
+    console.log(e, 'error')
+  });
+
+
+
+function initialize() {
+  // const fenway = { lat: 0.02, lng:  37.8582273 };
+
+   var center = window.point_latlon
+  const map = new google.maps.Map(document.getElementById("map2"), {
+    center: center,
+    zoom: 14,
+  });
+  const panorama = new google.maps.StreetViewPanorama(
+    document.getElementById("pano"),
+    {
+      position: center,
+      pov: {
+        heading: 34,
+        pitch: 10,
+      },
+    }
+  );
+
+  map.setStreetView(panorama);
+}
+
+window.initialize = initialize;
+    },
+
        handle_baseLayers() {
       setTimeout(() => {
         if (this.base_map_ctrl_cliked === false)
@@ -615,6 +690,11 @@ export default {
                          this.point_hotspot = L.geoJSON(region_hotspots, {
                           onEachFeature: this.onEachPoint
                           }).addTo(this.map);
+
+                          
+
+                          window.point_latlon = this.point_hotspot.getBounds().getCenter();
+                          console.log( window.point_latlon, 'point latlon')
                           this.map.fitBounds( this.point_hotspot.getBounds(), {
                             padding: [50, 50],
                           });
