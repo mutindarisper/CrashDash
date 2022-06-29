@@ -109,7 +109,7 @@
 
      <!-- display popup info panel -->
 
-     <div class="info">
+     <div class="info" v-if="info">
 
       -- Click the point on the map to fill the data --
        <br>
@@ -176,6 +176,16 @@
           />
         </div>
        
+
+       <div class="info_icon">
+          <img
+            src="./assets/images/info.svg"
+            alt=""
+            title="More info"
+            @click=" handle_selected_component('info')"
+            
+          />
+        </div>
       </div>
 
 
@@ -257,6 +267,7 @@ export default {
       current_point:[],
       point_hotspot: null,
       chart_container: false,
+      info: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
       selected_county: '',
@@ -280,22 +291,7 @@ export default {
     this.handle_point_data();
     
    },
-   computed: {
-    check_data() {
-      return {
-        url: this.img_url
-      }
-      
-    }
-    
-
-   },
-   watch: {
-    check_data (){
-      this.onEachPoint();
-    }
-
-   },
+  
 
    methods: {
 
@@ -649,7 +645,7 @@ export default {
     $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image'];
     $(".media").find('img')['prevObject'][0].style="height: 100px; width: 150px; position: relative; top: 0.5vh; outline:none; border: none;"
     $(".video_").find('video')['prevObject'][0].src = feature.properties.AdditionalInfo['video'];
-    $(".video_").find('video')['prevObject'][0].style="height: 100px; width: 150px; position: absolute; top: 45vh; left:1vw; controls"
+    $(".video_").find('video')['prevObject'][0].style="height: 100px; width: 150px; margin_top: 5px; position: absolute; top: 45vh; left:0.7vw; controls"
     $(".video_").find('video')['prevObject'][0].type="video/mp4";
     
   });
