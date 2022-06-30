@@ -115,21 +115,28 @@
       -- Click the point on the map to fill the data --
        <br>
        <br>
-      <b>Blackspot:</b><div class="name"></div>
+      <b>Blackspot:</b><div class="name"  style="display: inline-block; font-size: 14px; position: relative; left: 0.5vw"></div>
       <br>
-      <b>County:</b><div class="county"></div>
-      <!-- <br> -->
-      <!-- <b>Route:</b><div class="route"></div>
-      <br> -->
-      <b>Cause:</b><div class="cause"></div>
       <br>
-      <b>Mitigation:</b><div class="mitigation"></div>
+      <b>County:</b><div class="county" style="display: inline-block; font-size: 14px;  position: relative; left: 0.5vw"></div>
+      <br>
+      <br>
+      <b>Cause:</b><div class="cause" style="display: inline-block; font-size: 14px;  position: relative; left: 0.5vw"></div>
+      <br>
+      <br>
+      <b>Mitigation:</b><div class="mitigation" style="display: inline-block; font-size: 14px;  position: relative; left: 0.5vw" ></div>
+      <br>
       <br>
       <!-- <div class="separator"></div> -->
       <!-- <br> -->
-      <b>Additional Information</b>
+      <b>Media</b>
        <br>
+       <p class="picture_title">Picture</p>
+      
        <img src="" class="media" controls> 
+       
+       <p class="video_title">Video</p>
+      &nbsp;
        <video src="" class="video_" autoplay=false style="display: none" controls>
       
        </video>
@@ -232,7 +239,7 @@
           <div id="map2"  >
                       
                 </div>
-                <button class="map_button" type="button" style="" @click="close_map_container('googlemap_container')">Close Map</button>
+                <button class="map_button" type="button" style="" @click="close_map_container('googlemap_container')"><b>Close Map</b> </button>
                   
                 <div id="pano"></div>
     </div>
@@ -765,9 +772,9 @@ window.initialize = initialize;
     $(".cause").html(feature.properties.Reasons);
     $(".mitigation").html(feature.properties.Mitigation);
     $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image'];
-    $(".media").find('img')['prevObject'][0].style="height: 100px; width: 150px; position: relative; top: 0.5vh; outline:none; border: none;"
+    $(".media").find('img')['prevObject'][0].style="height: 100px; width: 200px; position: relative; top: 0.5vh; outline:none; border: none;"
     $(".video_").find('video')['prevObject'][0].src = feature.properties.AdditionalInfo['video'];
-    $(".video_").find('video')['prevObject'][0].style="height: 150px; width: 200px; position: absolute; top: 45vh; left:0.7vw; controls"
+    $(".video_").find('video')['prevObject'][0].style="height: 150px; width: 200px; position: fixed;  controls"
     $(".video_").find('video')['prevObject'][0].type="video/mp4";
     
   });

@@ -346,6 +346,16 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
       padding: 10px;
       }
 
+      .picture_title{
+        font-family: "Arial", Arial, serif;
+        font-size: 12px;
+      }
+
+      .video_title{
+        font-family: "Arial", Arial, serif;
+        font-size: 12px;
+      }
+
       .separator{
         position: absolute;
         top: 27vh;
