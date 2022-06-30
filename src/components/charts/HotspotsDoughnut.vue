@@ -112,6 +112,7 @@ this.getCountyStats();
    methods: {
 
         getCountyStats() {
+         var baseurl = 'http://192.168.1.22:8100'
      
             // var county_data = this.county_data
             //  console.log(county_data, 'county name')
@@ -121,7 +122,7 @@ this.getCountyStats();
 
             //   window.year = 2020;
 
-                const outPut = axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?statistics=all')
+                const outPut = axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?statistics=all')
             
                     .then((response) => {
                          const responseData = response.data.statistics

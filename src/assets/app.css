@@ -3,6 +3,7 @@
     height: 100vh;
     position: fixed;
     z-index: 1000;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   
    
   } 
@@ -12,6 +13,7 @@ position: absolute;
 width: 100vw;
 height: 103px;
 z-index: 1000;
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 background: linear-gradient(180deg, rgba(12, 13, 13, 0.984863) 0%, rgba(151, 151, 152, 0.908383) 57.29%, rgba(255, 255, 255, 0.50228) 100%);
   }
 
@@ -25,7 +27,7 @@ background: linear-gradient(180deg, rgba(12, 13, 13, 0.984863) 0%, rgba(151, 151
     position: absolute;
     top: 8vh;
     left: 1vw;
-font-family: Arimo;
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 600;
 font-size: 18px;
@@ -42,7 +44,7 @@ color: #3C3E3F;
     gap: 3rem;
 left: 69vw;
 top: 4.8vh;
-font-family: Arimo;
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 600;
 font-size: 18px;
@@ -87,7 +89,7 @@ line-height: 19px;
 justify-content: space-around;
 left: 71.5vw;
 top: 4.8vh;
-font-family: 'Inter';
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 600;
 font-size: 18px;
@@ -150,7 +152,7 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(212, 213, 2
     top: 5vh;
     margin-left: 1vw;
     margin-right: 1vw;
-font-family: 'Inter';
+font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 500;
 font-size: 20px;
@@ -172,7 +174,7 @@ color: #FFFFFF;
     top: 15vh;
     margin-left: 1vw;
     margin-right: 1vw;
-font-family: 'Inter';
+font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 500;
 font-size: 20px;
@@ -340,19 +342,19 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
       z-index: 1000;
       width: 371px;
       height: 512px;
-      font-family: "Arial", Arial, serif;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
       background: linear-gradient(180deg, #F8F8F8 0%, #EDF4F8 41.67%, rgba(180, 184, 186, 0.584565) 79.69%, rgba(55, 57, 57, 0.51) 100%);
       border-radius: 20px;
       padding: 10px;
       }
 
       .picture_title{
-        font-family: "Arial", Arial, serif;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         font-size: 12px;
       }
 
       .video_title{
-        font-family: "Arial", Arial, serif;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         font-size: 12px;
       }
 
@@ -367,7 +369,7 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
         position: absolute;
         top: 2vh;
         left: 15vw;
-        font-family: "Arial", Arial, serif;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         color: #FFFFFF;
         text-decoration: underline;
       }
@@ -380,7 +382,7 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
         position: absolute;
         top: 8vh;
         left: 15vw;
-        font-family: "Arial", Arial, serif;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         color: #FFFFFF;
         font-size: 14px;
         line-height: 40px;

@@ -63,7 +63,7 @@
       <span class="facilities">Health Facilities</span>
    <CustomSelect
       :options="this.causes "
-      :default="'Select a facility'"
+      :default="'Select a category'"
       class="select_facility"
       @input="displayToKey($event)"
     />
@@ -121,10 +121,10 @@
       <b>County:</b><div class="county" style="display: inline-block; font-size: 14px;  position: relative; left: 0.5vw"></div>
       <br>
       <br>
-      <b>Cause:</b><div class="cause" style="display: inline-block; font-size: 14px;  position: relative; left: 0.5vw"></div>
+      <b>Cause:</b><div class="cause" style="display: inline-block; font-size: 14px; height: 5px; position: relative; left: 0.5vw"></div>
       <br>
       <br>
-      <b>Mitigation:</b><div class="mitigation" style="display: inline-block; font-size: 14px;  position: relative; left: 0.5vw" ></div>
+      <b>Mitigation:</b><div class="mitigation" style="display: inline-block; font-size: 14px;  height: 5px;  position: relative; left: 0.5vw" ></div>
       <br>
       <br>
       <!-- <div class="separator"></div> -->
@@ -136,7 +136,6 @@
        <img src="" class="media" controls> 
        
        <p class="video_title">Video</p>
-      &nbsp;
        <video src="" class="video_" autoplay=false style="display: none" controls>
       
        </video>
