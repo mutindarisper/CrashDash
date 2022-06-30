@@ -80,7 +80,7 @@
     <div class="chart_container" v-if="chart_container">
         <img class="close_chart_container"
         src="./assets/images/close.svg"
-        @click="close_container('chart_container')"
+       -
          alt="" >
          <div class="title">
           Summary Statistics
@@ -128,7 +128,7 @@
       <!-- <br> -->
       <b>Additional Information</b>
        <br>
-       <img src="" class="media"> 
+       <img src="" class="media" controls> 
        <video src="" class="video_" autoplay=false style="display: none" controls>
       
        </video>
@@ -192,7 +192,7 @@
             src="./assets/images/3d.svg"
             alt=""
             title="View 3D"
-            @click="setupGoogleMap"
+           @click="handle_selected_component('googlemap_container') ;setupGoogleMap()"
             
           />
         </div>
@@ -220,11 +220,22 @@
       
 
     </div>
+    <!-- map container close -->
+
+   
 
 
     <!-- 3d view -->
-       <div id="map2"></div>
-       <div id="pano"></div>
+    <div class="googlemap_container" v-if="googlemap_container">
+ 
+          <div id="map2"  >
+                      
+                </div>
+                <button class="map_button" type="button" style="" @click="close_map_container('googlemap_container')">Close Map</button>
+                  
+                <div id="pano"></div>
+    </div>
+      
 
     <!-- chart loader -->
 
@@ -245,6 +256,7 @@ import Hotspots from './components/Hotspots.vue'
 import HotspotsDoughnut from './components/charts/HotspotsDoughnut.vue'
 import { Loader } from '@googlemaps/js-api-loader';
 
+
 delete Icon.Default.prototype._getIconUrl;
 // Icon.options.shadowSize = [0,0];
 Icon.Default.mergeOptions({
@@ -257,7 +269,7 @@ Icon.Default.mergeOptions({
 
 
 
-var baseurl = 'http://192.168.1.29:8100'
+var baseurl = 'http://192.168.1.22:8100'
 
 // console.log(this.img_url, 'url outside')
 
@@ -274,6 +286,8 @@ export default {
     return{
        center: [0.02, 37.8582273], // set initial map center
       map: null, //instance of map object,
+      // map2: false,
+      googlemap_container: false,
       base_map_ctrl_selections: false, //show or hide base layers
       base_map_ctrl_cliked: false,
       baseMaps: {},
@@ -529,6 +543,10 @@ export default {
      close_container(container) {
     this[container] = false;
   },
+
+  close_map_container(container){
+     this[container] = false;
+  },
     setupLeafletMap() {
       const { osm, mapbox, mapboxSatellite } = baseLayers;
 
@@ -574,7 +592,7 @@ export default {
        const fenway = { 
         lat: 0.02, 
         lng:  37.8582273 };
-       console.log(center, 'google maps center')
+      //  console.log(center, 'google maps center')
 
   const loader = new Loader({
   apiKey: "AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg",
@@ -618,6 +636,21 @@ function initialize() {
   );
 
   map.setStreetView(panorama);
+ 
+console.log(center, 'center as points')
+
+ //test to add points to goggle maps
+
+var marker = new google.maps.Marker( {
+  position: {
+    lat:  36.62815050024545,
+    lng: -0.967566999617304, 
+   },
+   map: map,
+   icon: '../src/assets/images/marker.svg'
+
+
+});
 }
 
 window.initialize = initialize;
@@ -658,7 +691,7 @@ window.initialize = initialize;
 
       
       
-        axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?road_names='+county
+        axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?road_names='+county
                     )
            .then((response) => {
                         //  console.log( response.data,'routes data' );
@@ -680,18 +713,26 @@ window.initialize = initialize;
             console.log(route, 'selected route')
 
 
-             axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?road_points='+route
+             axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?road_points='+route
                     )
            .then((response) => {
                          console.log( response.data,'points in routes');
                          var region_hotspots = response.data
                           //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
 
+
+
+
+
+
+
+
                          this.point_hotspot = L.geoJSON(region_hotspots, {
                           onEachFeature: this.onEachPoint
                           }).addTo(this.map);
 
-                          
+                          // window.googlemap_points = this.point_hotspot.getBounds();
+                          // console.log(window.googlemap_points, 'global google map points')
 
                           window.point_latlon = this.point_hotspot.getBounds().getCenter();
                           console.log( window.point_latlon, 'point latlon')
@@ -725,7 +766,7 @@ window.initialize = initialize;
     $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image'];
     $(".media").find('img')['prevObject'][0].style="height: 100px; width: 150px; position: relative; top: 0.5vh; outline:none; border: none;"
     $(".video_").find('video')['prevObject'][0].src = feature.properties.AdditionalInfo['video'];
-    $(".video_").find('video')['prevObject'][0].style="height: 100px; width: 150px; margin_top: 5px; position: absolute; top: 45vh; left:0.7vw; controls"
+    $(".video_").find('video')['prevObject'][0].style="height: 150px; width: 200px; position: absolute; top: 45vh; left:0.7vw; controls"
     $(".video_").find('video')['prevObject'][0].type="video/mp4";
     
   });
@@ -736,7 +777,7 @@ window.initialize = initialize;
 
     getCausesList() {
       var county =  window.county_data
-      axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?list_causes_per_county='+county
+      axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?list_causes_per_county='+county
                     )
            .then((response) => {
                         //  console.log( response.data,'routes data' );
@@ -758,7 +799,7 @@ window.initialize = initialize;
             console.log(cause, 'selected cause')
 
 
-             axios.get('http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?hotspot_per_cause='+cause
+             axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?hotspot_per_cause='+cause
                     )
            .then((response) => {
                          console.log( response.data,'points in causes');

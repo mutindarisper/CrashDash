@@ -20,6 +20,4 @@ background: linear-gradient(180deg, #F8F8F8 0%, #EDF4F8 41.67%, rgba(180, 184, 1
 border-radius: 20px;
 }
 
-
-
 </style>

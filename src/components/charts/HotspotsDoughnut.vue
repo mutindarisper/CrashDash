@@ -13,7 +13,7 @@ export default {
              labels: [],
              datasets:[{
                  label:'',
-                 backgroundColor:  ['#2E7D32', '#E9F7EF', '#82E0AA', '#ABEBC6', '#58D68D', '#2ECC71',  '#27AE60',  '#27AE60', '#003300',  '#145A32', '#00897B', '#ABEBC6'],
+                 backgroundColor:  ['#ffbb33', '#99cc00', '#9a5fb8', '#33b5e5',  '#ABEBC6'],
                 
                pointBackgroundColor: 'white',
                borderWidth: 1,
