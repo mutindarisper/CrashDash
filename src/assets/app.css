@@ -138,6 +138,11 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(212, 213, 2
     left: 37vw;
     
   }
+  .close_info{
+    position: absolute;
+    top:1vh;
+    left: 19vw;
+  }
 
 
   .region{

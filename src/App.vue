@@ -80,7 +80,7 @@
     <div class="chart_container" v-if="chart_container">
         <img class="close_chart_container"
         src="./assets/images/close.svg"
-       -
+        @click="close_container('chart_container')"
          alt="" >
          <div class="title">
           Summary Statistics
@@ -110,6 +110,7 @@
      <!-- display popup info panel -->
 
      <div class="info" v-if="info">
+       <img class="close_info"  @click="close_container('info')" src="./assets/images/close_black.svg" alt="">
 
       -- Click the point on the map to fill the data --
        <br>
