@@ -4,7 +4,7 @@
     position: fixed;
     z-index: 1000;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  
+    
    
   } 
 
@@ -69,10 +69,10 @@ color: #FEFEFE;
     position: absolute;
     left: 0.5vw;
     top: 1.5vh;
-    font: Roboto sans-serif;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background: #feffff;
 border-radius: 30px;
-font: Roboto sans-serif;
+font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 500;
 font-size: 16px;
@@ -125,7 +125,7 @@ color: #FEFEFE;
 width: 356px;
 height: 815px;
 
-background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(212, 213, 215, 0.666) 100%);
+background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(52, 53, 53, 0.666) 100%);
   }
  
 
@@ -155,7 +155,7 @@ background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(212, 213, 2
 font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 500;
-font-size: 20px;
+font-size: 18px;
 line-height: 19px;
 
 color: #FFFFFF;
@@ -177,7 +177,7 @@ color: #FFFFFF;
 font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 500;
-font-size: 20px;
+font-size: 18px;
 line-height: 19px;
 color: #FFFFFF;
   }
@@ -192,11 +192,11 @@ color: #FFFFFF;
     top: 25vh;
     margin-left: 1vw;
     margin-right: 1vw;
-    font: Roboto sans-serif;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
 font-style: normal;
 font-weight: 500;
-font-size: 20px;
+font-size: 18px;
 line-height: 19px;
 color: #FFFFFF;
   }
@@ -211,14 +211,16 @@ color: #FFFFFF;
     top: 45vh;
     margin-left: 1vw;
     margin-right: 1vw;
-    font: Roboto sans-serif;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
 font-style: normal;
 font-weight: 500;
-font-size: 20px;
+font-size: 18px;
 line-height: 19px;
 color: #FFFFFF;
   }
+
+  
   .select_facility{
     position: absolute;
     top: 48vh;
@@ -236,7 +238,7 @@ height: 46.08px;
 
 background: #0C0D0D;
 border-radius: 30px;
-font: Roboto sans-serif;
+font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 500;
 font-size: 18px;
@@ -245,6 +247,93 @@ line-height: 19px;
 
 
 color: #FFFFFF;
+  }
+
+  .proximity{
+    position: absolute;
+    top: 55vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+
+  .distance{
+    position: absolute;
+    top: 59vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: light;
+font-size: 14px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+
+  #points{
+    position: relative;
+    top: 57vh;
+    left: 5vw;
+    height: 20px;
+    width: 100px;
+    border-radius: 15px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    border: none;
+  }
+  input:focus{
+    outline: none;
+  }
+  .query{
+    position: relative;
+    top: 57vh;
+    left: 5vw;
+    height: 21px;
+    width: 100px;
+    border-radius: 15px;
+    border: none;
+    background-color: #FFFFFF;
+
+  }
+
+  .roads{
+    position: absolute;
+    top: 65vh;
+    left: -0.1vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: light;
+font-size: 18px;
+line-height: 12px;
+color: #FFFFFF;
+    
+    
+
+  }
+  .inputs{
+    position: absolute;
+    top: 67vh;
+    left: -0.1vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: light;
+font-size: 14px;
+line-height: 12px;
+color: #FFFFFF;
+
   }
 
 

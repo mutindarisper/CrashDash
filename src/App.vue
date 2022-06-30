@@ -62,14 +62,36 @@
 
       <span class="facilities">Health Facilities</span>
    <CustomSelect
-      :options="this.causes "
+      :options="'' "
       :default="'Select a category'"
       class="select_facility"
       @input="displayToKey($event)"
     />
 
 
+<span class="proximity">Proximity</span>
+<br>
+<span class="distance">Distance (km)</span>
+<input type="number" id="points" name="points" step="1"> 
+<button class="query" type="button">Query</button>
+
+
+<span class="roads">Road Network</span>
+<div class="inputs">
+ <input type="checkbox" name="" id="camps">
+       <label for="">Class A</label><br>
+
+      <input type="checkbox" name="" id="party_offices">
+       <label for="">Class B</label><br>
+
+      <input type="checkbox" name="" id="churches">
+       <label for="">Class C</label><br>
+
+      <input type="checkbox" name="" id="markets">
+       <label for="">Class D</label><br>
    
+</div>
+
 
   <button class="stats" @click="handle_selected_component('chart_container')" type="button">Load Statistics</button>
 
