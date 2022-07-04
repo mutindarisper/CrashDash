@@ -214,6 +214,46 @@ color: #FFFFFF;
     left: 0.5vw;
   }
 
+  .hazard{
+    position: absolute;
+    top: 35vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+  .select_hazard{
+    position: absolute;
+    top: 38vh;
+    left: 0.5vw;
+  }
+
+
+
+  .mitigation{
+    position: absolute;
+    top: 44vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+  .select_mitigation{
+    position: absolute;
+    top: 47vh;
+    left: 0.5vw;
+  }
+
   .facilities{
     position: absolute;
     top: 45vh;
@@ -237,7 +277,7 @@ color: #FFFFFF;
 
   .stats{
     position: absolute;
-    top: 35vh;
+    top: 55vh;
     left: 3.3vw;
     width: 117px;
 height: 19.03px;

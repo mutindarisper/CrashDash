@@ -60,13 +60,31 @@
       @input="display_cause_name($event);getCausesList()"
     />
 
-      <span class="facilities">Health Facilities</span>
+      <span class="hazard">Hazard</span>
+   <CustomSelect
+      :options="this.causes "
+      :default="'Select hazard'"
+      class="select_hazard"
+      @input="display_cause_name($event);getCausesList()"
+    />
+
+    <span class="mitigation">Mitigation</span>
+     <CustomSelect
+      :options="this.causes "
+      :default="'Select mitigation'"
+      class="select_mitigation"
+      @input="display_cause_name($event);getCausesList()"
+    />
+
+      <!-- <span class="facilities">Health Facilities</span>
    <CustomSelect
       :options="'' "
       :default="'Select a category'"
       class="select_facility"
       @input="displayToKey($event)"
-    />
+    /> -->
+
+    <button class="stats" @click="handle_selected_component('chart_container')" type="button">Load Statistics</button>
 
     <!-- alert panel -->
 
@@ -77,7 +95,7 @@
     </div>
 
 
-<span class="proximity">Proximity</span>
+<!-- <span class="proximity">Proximity</span>
 <br>
 <span class="distance">Distance (km)</span>
 <input type="number" id="points" name="points" step="1"> 
@@ -98,10 +116,10 @@
       <input type="checkbox" name="" id="markets">
        <label for="">Class D</label><br>
    
-</div>
+</div> -->
 
 
-  <button class="stats" @click="handle_selected_component('chart_container')" type="button">Load Statistics</button>
+  
 
 
     
@@ -303,6 +321,7 @@ Icon.Default.mergeOptions({
    iconUrl: require("../src/assets/images/marker.svg"),
   // iconUrl: require("../src/assets/images/red-pin.svg"),
   // shadowUrl: require('leaflet/dist/images/marker-shadow.png' marker  D:\SNAKE_BITES\Kenya_Snakebites_Information_Platform\src\assets\images\hosp.svg),
+  iconSize:[18, 18],
   shadowSize: [0, 0],
 });
 
@@ -479,33 +498,34 @@ function setLoadEvent(layer) {
 
         
     
-          this.current_point.addTo(this.points_layerGroup).
+          this.current_point.addTo(this.points_layerGroup)
+    //       .
           
           
-          setBouncingOptions({
-        bounceHeight : 10,    // height of the bouncing
-        bounceSpeed  : 54,    // bouncing speed coefficient
-        exclusive    : true,  // if this marker is bouncing all others must stop
+    //       setBouncingOptions({
+    //     bounceHeight : 10,    // height of the bouncing
+    //     bounceSpeed  : 54,    // bouncing speed coefficient
+    //     exclusive    : true,  // if this marker is bouncing all others must stop
 
-        // duration: 500,
-        //  height: 100, 
-        //  loop: 2
-    }).on('mouseover', function() {
-       this.bounce(2)
-        // this.toggleBouncing();
-        this.setIcon(biggerIcon);
-    })
-    .on('mouseout', function() {
+    //     // duration: 500,
+    //     //  height: 100, 
+    //     //  loop: 2
+    // }).on('mouseover', function() {
+    //    this.bounce(2)
+    //     // this.toggleBouncing();
+    //     this.setIcon(biggerIcon);
+    // })
+    // .on('mouseout', function() {
        
-        this.setIcon(normal_icon);
-    });
+    //     this.setIcon(normal_icon);
+    // });
 
 
     
          
-          this.map.fitBounds(window.markers.getBounds(), {
-            // padding: [50, 50],
-          });
+          // this.map.fitBounds(window.markers.getBounds(), {
+          //   // padding: [50, 50],
+          // });
           
 
           // this.map.addLayer(markers);
