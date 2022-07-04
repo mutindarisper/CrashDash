@@ -133,8 +133,9 @@
 
      <div class="info" v-if="info">
        <img class="close_info"  @click="close_container('info')" src="./assets/images/close_black.svg" alt="">
+       <span class="info_title">Click the point on the map to fill the data </span>
 
-      -- Click the point on the map to fill the data --
+    
        <br>
        <br>
       <b>Blackspot:</b><div class="name"  style="display: inline-block; font-size: 14px; position: relative; left: 0.5vw"></div>
@@ -298,7 +299,7 @@ Icon.Default.mergeOptions({
 
 
 
-var baseurl = 'http://192.168.1.22:8100'
+var baseurl = 'http://192.168.1.41:8100'
 
 // console.log(this.img_url, 'url outside')
 
@@ -516,6 +517,29 @@ export default {
                                     this.map.fitBounds(this.current_geojson.getBounds(), {
                                       padding: [50, 50],
                                     });
+
+
+                                    //all points per county
+
+                               axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?hotspot_per_county='+data
+                    )
+           .then((response) => {
+                         console.log( response.data,'hotspot data per county' );
+
+                         const all_hotspot_data = response.data 
+                          if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
+                        //  console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
+                        
+                               this.current_hotspots = L.geoJSON(all_hotspot_data, { }).addTo(this.map);
+                                               
+                        return response.data
+                        
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            }) 
 
                         //roads data
 
@@ -747,12 +771,9 @@ window.initialize = initialize;
            .then((response) => {
                          console.log( response.data,'points in routes');
                          var region_hotspots = response.data
+
+                           
                           //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
-
-
-
-
-
 
 
 

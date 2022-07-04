@@ -112,7 +112,7 @@ this.getCountyStats();
    methods: {
 
         getCountyStats() {
-         var baseurl = 'http://192.168.1.22:8100'
+         var baseurl = 'http://192.168.1.41:8100'
      
             // var county_data = this.county_data
             //  console.log(county_data, 'county name')
