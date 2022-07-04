@@ -68,7 +68,7 @@
       @input="display_cause_name($event);getCausesList()"
     />
 
-    <span class="mitigation">Mitigation</span>
+    <span class="mitigations">Mitigation</span>
      <CustomSelect
       :options="this.causes "
       :default="'Select mitigation'"
@@ -160,31 +160,32 @@
      <div class="info" v-if="info">
        <img class="close_info"  @click="close_container('info')" src="./assets/images/close_black.svg" alt="">
        
-
+ <span class="info_title">Click a point <br> on the map <br> to display  data </span>
     
        <br>
        <br>
-      <b>Blackspot:</b><div class="name"  style="display: inline-block; font-size: 14px; position: relative; left: 0.5vw"></div>
+      <div class="name"  style="display: inline-block; font-size: 14px; position: relative; left: 0.5vw"></div>
       <br>
       <br>
-      <b>County:</b><div class="county" style="display: inline-block; font-size: 14px;  position: relative; left: 0.5vw"></div>
+      <div class="county" style="display: inline-block; font-size: 14px;  position: relative; left: 0.5vw"></div>
       <br>
       <br>
-      <b>Cause:</b><div class="cause" style="display: inline-block; font-size: 14px; height: 5px; position: relative; left: 0.5vw"></div>
+      <div class="cause" style="display: inline-block; font-size: 14px; height: 5px; position: relative; left: 0.5vw"></div>
       <br>
       <br>
-      <b>Mitigation:</b><div class="mitigation" style="display: inline-block; font-size: 14px;  height: 5px;  position: relative; left: 0.5vw" ></div>
+      <div class="mitigation" style="display: inline-block; font-size: 14px;  height: 5px;  position: relative; left: 0.5vw" ></div>
       <br>
       <br>
       <!-- <div class="separator"></div> -->
       <!-- <br> -->
-      <b>Media</b>
+      
        <br>
-       <p class="picture_title">Picture</p>
+       <div class="media1"></div>
+       <p class="picture_title"></p>
       
        <img src="" class="media" controls> 
        
-       <p class="video_title">Video</p>
+       <p class="video_title"></p>
        <video src="" class="video_" autoplay=false style="display: none" controls>
       
        </video>
@@ -1047,17 +1048,23 @@ window.initialize = initialize;
        layer.on('click', function(e) {
         $(".info")
 
-        // this.img_url = <img src={feature.properties.AdditionalInfo.image} type="video/mp4" /
-    $(".name").html(feature.properties.BlackspotName);
-    $(".county").html(feature.properties.County);
-    $(".route").html(feature.properties.RoadName);
-    $(".cause").html(feature.properties.Reasons);
-    $(".mitigation").html(feature.properties.Mitigation);
+        // this.img_url = <img src={feature.properties.AdditionalInfo.image} type="video/mp4" / 
+    $(".name").html('<b> Blackspot:</b>'+ ' '+feature.properties.BlackspotName);
+    $(".county").html('<b> County:</b>'+ ' '+feature.properties.County);
+    $(".route").html('<b> Road Name:</b>'+ ' '+feature.properties.RoadName);
+    $(".cause").html('<b> Cause:</b>'+ ' '+feature.properties.Reasons);
+    $(".mitigation").html('<b> Mitigation:</b>'+ ' '+feature.properties.Mitigation);
+    $(".media1").html('<b> Media:</b>')
+    $(".picture_title").html('<b> Picture:</b>');
     $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image'];
-    $(".media").find('img')['prevObject'][0].style="height: 100px; width: 200px; position: relative; top: 0.5vh; outline:none; border: none;"
+    $(".media").find('img')['prevObject'][0].style="height: 100px; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
+
+    $(".video_title").html('<b> Video:</b>');
     $(".video_").find('video')['prevObject'][0].src = feature.properties.AdditionalInfo['video'];
-    $(".video_").find('video')['prevObject'][0].style="height: 150px; width: 200px; position: fixed;  controls"
+    $(".video_").find('video')['prevObject'][0].style="height: 150px; width: 200px; position: relative; top: -7vh; left: 5vw;  controls"
     $(".video_").find('video')['prevObject'][0].type="video/mp4";
+  $(".info_title").find('span')['prevObject'][0].style="display: none;"
+    
     
   });
 
