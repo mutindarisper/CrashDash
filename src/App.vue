@@ -285,6 +285,7 @@ import CustomSelect from "./components/CustomSelect.vue"
 import Hotspots from './components/Hotspots.vue'
 import HotspotsDoughnut from './components/charts/HotspotsDoughnut.vue'
 import { Loader } from '@googlemaps/js-api-loader';
+import "leaflet.smooth_marker_bouncing"
 
 
 delete Icon.Default.prototype._getIconUrl;
@@ -408,10 +409,12 @@ export default {
                 }
 
         if (key) {
-          this.current_point = L.circleMarker(cordinates, {
-            fillColor: "#fcba03",
-            color: point_color,
-            radius: 3,
+          this.current_point = L.marker(cordinates, {
+         
+           
+            // fillColor: "#fcba03",
+            // color: point_color,
+            // radius: 3,
 
             // style:{
             //    iconSize:     [25, 30],
@@ -441,11 +444,38 @@ export default {
           //  console.log( value , 'VALUES' )
           var size = 3; //divided by 100 to resize the markers
 
-        
+        L.Icon.Big = L.Icon.Default.extend({
+    options: {
+      
+    iconSize: [40, 40],
+}});
+
+ var normal_icon = L.icon({
+   
+      iconUrl: require("../src/assets/images/marker.svg"),
+    iconSize: [25, 31],
+    iconAnchor: [12.5 ,15]
+});
+var biggerIcon = new L.Icon.Big();
 
         
           //  this.current_point.setRadius(this.pointStyle);
-          this.current_point.addTo(this.points_layerGroup);
+          this.current_point.addTo(this.points_layerGroup).setBouncingOptions({
+        bounceHeight : 10,    // height of the bouncing
+        bounceSpeed  : 54,    // bouncing speed coefficient
+        exclusive    : true,  // if this marker is bouncing all others must stop
+        // duration: 500,
+        //  height: 100, 
+        //  loop: 2
+    }).on('mouseover', function() {
+       this.bounce(2)
+        // this.toggleBouncing();
+        this.setIcon(biggerIcon);
+    })
+    .on('mouseout', function() {
+       
+        this.setIcon(normal_icon);
+    });
          
           this.map.fitBounds(window.markers.getBounds(), {
             padding: [50, 50],
@@ -457,7 +487,10 @@ export default {
         }
       });
 
-      window.markers.addTo(this.map);
+      window.markers.addTo(this.map) ;
+       
+
+     
     },
 
     load_all_hotspots() {
@@ -530,7 +563,11 @@ export default {
                           if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
                         //  console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
                         
-                               this.current_hotspots = L.geoJSON(all_hotspot_data, { }).addTo(this.map);
+                               this.current_hotspots = L.geoJSON(all_hotspot_data, {
+                                 
+                                }).addTo(this.map);
+
+                                
                                                
                         return response.data
                         
@@ -775,18 +812,22 @@ window.initialize = initialize;
                            
                           //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
 
+                              if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
+// this.current_hotspots = L.geoJSON(all_hotspot_data, { }).addTo(this.map);
 
+                               window.point_latlon = this.current_hotspots.getBounds();
 
-                         this.point_hotspot = L.geoJSON(region_hotspots, {
-                          onEachFeature: this.onEachPoint
+                         this.current_hotspots = L.geoJSON(region_hotspots, {
+                          onEachFeature: this.onEachPoint,
+                          bounceOnAdd: true
                           }).addTo(this.map);
 
                           // window.googlemap_points = this.point_hotspot.getBounds();
                           // console.log(window.googlemap_points, 'global google map points')
 
-                          window.point_latlon = this.point_hotspot.getBounds().getCenter();
+                          window.point_latlon = this.current_hotspots.getBounds().getCenter();
                           console.log( window.point_latlon, 'point latlon')
-                          this.map.fitBounds( this.point_hotspot.getBounds(), {
+                          this.map.fitBounds( this.current_hotspots.getBounds(), {
                             padding: [50, 50],
                           });
                                                         
