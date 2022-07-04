@@ -353,7 +353,7 @@ export default {
       this.getRoutesList();
   this.onEachPoint();
 
-    this.handle_point_data();
+    // this.handle_point_data();
     
    },
   
@@ -495,7 +495,7 @@ var biggerIcon = new L.Icon.Big();
 
     load_all_hotspots() {
 
-        axios.get('http://192.168.1.29:8100/HotSpots/'
+        axios.get('http://192.168.1.41:8100/HotSpots/'
                     )
            .then((response) => {
                          console.log( response.data,'hotspot data' );
@@ -504,7 +504,32 @@ var biggerIcon = new L.Icon.Big();
                           // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
                          console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
                         
-                               this.current_hotspots = L.geoJSON(hotspot_data, { }).addTo(this.map);
+                               this.current_hotspots = L.geoJSON(hotspot_data, { 
+
+                                 pointToLayer: function (feature, latlng){
+
+
+                                  var studioicon = L.icon({
+                                    iconUrl: require("../src/assets/images/red-pin.svg"),
+                                    iconSize: [30, 30],
+                                    iconAnchor: [15,15]
+                                  });
+                                      var smallIcon = L.icon({
+                                        iconUrl: require("../src/assets/images/green-pin.svg"),
+                                        iconSize: [50, 40],
+                                        iconAnchor: [15,15]
+                                      });
+                                      var marker = L.marker(latlng, {icon: studioicon});
+                                      // marker.smallIcon = smallIcon;
+                                      return marker;
+                                  }
+
+
+
+
+
+
+                               }).addTo(this.map);
                                                
                         return response.data
                         
@@ -530,6 +555,10 @@ var biggerIcon = new L.Icon.Big();
   // }
 
     if(data){ 
+
+      if (this.points_layerGroup !== null) {
+        window.markers.clearLayers();
+      }
        if (this.current_geojson) this.map.removeLayer(this.current_geojson);
                     axios.get(baseurl+'/AdminData/get_adm1_shapefile?Get_county='+data 
                     )
@@ -541,6 +570,7 @@ var biggerIcon = new L.Icon.Big();
                          
                         
                                this.current_geojson = L.geoJSON(county_data, {
+
                                       style: {
                                         color: "black",
                                         opacity: 0.5,
@@ -564,8 +594,67 @@ var biggerIcon = new L.Icon.Big();
                         //  console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
                         
                                this.current_hotspots = L.geoJSON(all_hotspot_data, {
+
+
+
+
+                                 pointToLayer: function (feature, latlng){
+
+
+                                  var studioicon = L.icon({
+                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                    iconSize: [30, 30],
+                                    iconAnchor: [15,15]
+                                  });
+                                      var smallIcon = L.icon({
+                                        iconUrl: require("../src/assets/images/green-pin.svg"),
+                                        iconSize: [50, 40],
+                                        iconAnchor: [15,15]
+                                      });
+                                      var marker = L.marker(latlng, {icon: studioicon});
+                                      // marker.smallIcon = smallIcon;
+
+
+
+                                            L.Icon.Big = L.Icon.Default.extend({
+                                                  options: {
+                                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                                  iconSize: [40, 40],
+                                              }});
+
+                                              var normal_icon = L.icon({
+                                                
+                                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                                  iconSize: [25, 31],
+                                                  iconAnchor: [12.5 ,15]
+                                              });
+                                              var biggerIcon = new L.Icon.Big();
+
+                                              marker.setBouncingOptions({
+                                                      bounceHeight : 10,    // height of the bouncing
+                                                      bounceSpeed  : 54,    // bouncing speed coefficient
+                                                      exclusive    : true,  // if this marker is bouncing all others must stop
+                                                      // duration: 500,
+                                                      //  height: 100, 
+                                                      //  loop: 2
+                                                  }).on('mouseover', function() {
+                                                    marker.bounce(2)
+                                                      // this.toggleBouncing();
+                                                      marker.setIcon(biggerIcon);
+                                                  })
+                                                  .on('mouseout', function() {
+                                                    
+                                                      marker.setIcon(normal_icon);
+                                                  })
+
+
+
+                                      return marker;
+                                  }
+
                                  
-                                }).addTo(this.map);
+                                })
+                             .addTo(this.map);
 
                                 
                                                
@@ -812,14 +901,69 @@ window.initialize = initialize;
                            
                           //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
 
-                              if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
+                              if (this.current_hotspots)this.map.removeLayer(this.current_hotspots);
 // this.current_hotspots = L.geoJSON(all_hotspot_data, { }).addTo(this.map);
 
                                window.point_latlon = this.current_hotspots.getBounds();
 
                          this.current_hotspots = L.geoJSON(region_hotspots, {
+
+
+                                             pointToLayer: function (feature, latlng){
+
+
+                                  var studioicon = L.icon({
+                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                    iconSize: [30, 30],
+                                    iconAnchor: [15,15]
+                                  });
+                                      var smallIcon = L.icon({
+                                        iconUrl: require("../src/assets/images/green-pin.svg"),
+                                        iconSize: [50, 40],
+                                        iconAnchor: [15,15]
+                                      });
+                                      var marker = L.marker(latlng, {icon: studioicon});
+                                      // marker.smallIcon = smallIcon;
+
+
+
+                                            L.Icon.Big = L.Icon.Default.extend({
+                                                  options: {
+                                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                                  iconSize: [40, 40],
+                                              }});
+
+                                              var normal_icon = L.icon({
+                                                
+                                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                                  iconSize: [25, 31],
+                                                  iconAnchor: [12.5 ,15]
+                                              });
+                                              var biggerIcon = new L.Icon.Big();
+
+                                              marker.setBouncingOptions({
+                                                      bounceHeight : 10,    // height of the bouncing
+                                                      bounceSpeed  : 54,    // bouncing speed coefficient
+                                                      exclusive    : true,  // if this marker is bouncing all others must stop
+                                                      
+                                                  }).on('mouseover', function() {
+                                                    marker.bounce(2)
+                                                      // this.toggleBouncing();
+                                                      marker.setIcon(biggerIcon);
+                                                  })
+                                                  .on('mouseout', function() {
+                                                    
+                                                      marker.setIcon(normal_icon);
+                                                  })
+
+
+
+                                      return marker;
+                                  },
+
+
                           onEachFeature: this.onEachPoint,
-                          bounceOnAdd: true
+                         
                           }).addTo(this.map);
 
                           // window.googlemap_points = this.point_hotspot.getBounds();
@@ -895,9 +1039,70 @@ window.initialize = initialize;
            .then((response) => {
                          console.log( response.data,'points in causes');
                          var cause_hotspots = response.data
-                          //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
+                           if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
+                           if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
 
-                         this.point_hotspot = L.geoJSON(cause_hotspots , { }).addTo(this.map);
+                         this.point_hotspot = L.geoJSON(cause_hotspots , { 
+
+                                                  pointToLayer: function (feature, latlng){
+
+
+                                  var studioicon = L.icon({
+                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                    iconSize: [30, 30],
+                                    iconAnchor: [15,15]
+                                  });
+                                      var smallIcon = L.icon({
+                                        iconUrl: require("../src/assets/images/green-pin.svg"),
+                                        iconSize: [50, 40],
+                                        iconAnchor: [15,15]
+                                      });
+                                      var marker = L.marker(latlng, {icon: studioicon});
+                                      // marker.smallIcon = smallIcon;
+
+
+
+                                            L.Icon.Big = L.Icon.Default.extend({
+                                                  options: {
+                                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                                  iconSize: [40, 40],
+                                              }});
+
+                                              var normal_icon = L.icon({
+                                                
+                                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                                  iconSize: [25, 31],
+                                                  iconAnchor: [12.5 ,15]
+                                              });
+                                              var biggerIcon = new L.Icon.Big();
+
+                                              marker.setBouncingOptions({
+                                                      bounceHeight : 10,    // height of the bouncing
+                                                      bounceSpeed  : 54,    // bouncing speed coefficient
+                                                      exclusive    : true,  // if this marker is bouncing all others must stop
+                                                      
+                                                  }).on('mouseover', function() {
+                                                    marker.bounce(2)
+                                                      // this.toggleBouncing();
+                                                      marker.setIcon(biggerIcon);
+                                                  })
+                                                  .on('mouseout', function() {
+                                                    
+                                                      marker.setIcon(normal_icon);
+                                                  })
+
+
+
+                                      return marker;
+                                  },
+
+
+
+
+
+
+
+                         }).addTo(this.map);
                          this.map.fitBounds( this.point_hotspot.getBounds(), {
                             padding: [50, 50],
                           });
