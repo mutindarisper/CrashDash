@@ -3,7 +3,7 @@
 
     <div class="navbar">
       <div class="dash_logo">
-        <img src="./assets/images/logo.png" alt="">
+        <img src="./assets/images/white_crash.svg" alt="">
       </div>
 
       <div class="tagline">
@@ -19,7 +19,7 @@
       </div>
 
       <div class="logo2">
-        <img src="./assets/images/logo2.png" alt="">
+        <img src="./assets/images/white-logo.png" alt="">
       </div>
 
     </div>
@@ -67,6 +67,14 @@
       class="select_facility"
       @input="displayToKey($event)"
     />
+
+    <!-- alert panel -->
+
+    <div class="alert_panel" v-if="alert_panel">
+      <span class="info_title">Click the point on the map to display the data </span>
+      <button class="alert_button" type="button"  @click="close_container('alert_panel')">OK</button>
+
+    </div>
 
 
 <span class="proximity">Proximity</span>
@@ -133,7 +141,7 @@
 
      <div class="info" v-if="info">
        <img class="close_info"  @click="close_container('info')" src="./assets/images/close_black.svg" alt="">
-       <span class="info_title">Click the point on the map to fill the data </span>
+       
 
     
        <br>
@@ -338,7 +346,8 @@ export default {
       causes:[],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
       charts: false,
-      img_url: ''
+      img_url: '',
+      alert_panel: false
 
     }
 
@@ -409,7 +418,9 @@ export default {
                 }
 
         if (key) {
+          
           this.current_point = L.marker(cordinates, {
+            
          
            
             // fillColor: "#fcba03",
@@ -458,12 +469,24 @@ export default {
 });
 var biggerIcon = new L.Icon.Big();
 
+
+function setLoadEvent(layer) {
+  
+  layer.on("load", function() {
+    this.current_point.bounce(20)
+  });
+}
+
         
-          //  this.current_point.setRadius(this.pointStyle);
-          this.current_point.addTo(this.points_layerGroup).setBouncingOptions({
+    
+          this.current_point.addTo(this.points_layerGroup).
+          
+          
+          setBouncingOptions({
         bounceHeight : 10,    // height of the bouncing
         bounceSpeed  : 54,    // bouncing speed coefficient
         exclusive    : true,  // if this marker is bouncing all others must stop
+
         // duration: 500,
         //  height: 100, 
         //  loop: 2
@@ -476,10 +499,14 @@ var biggerIcon = new L.Icon.Big();
        
         this.setIcon(normal_icon);
     });
+
+
+    
          
           this.map.fitBounds(window.markers.getBounds(), {
-            padding: [50, 50],
+            // padding: [50, 50],
           });
+          
 
           // this.map.addLayer(markers);
 
@@ -487,7 +514,7 @@ var biggerIcon = new L.Icon.Big();
         }
       });
 
-      window.markers.addTo(this.map) ;
+      window.markers.addTo(this.map);
        
 
      
@@ -988,11 +1015,19 @@ window.initialize = initialize;
     },
 
     onEachPoint( feature, layer) {
+      layer.on('click', function (selection) {
+        this['info'] = selection;
+        selection = true;
+          // $(".info") = true;
+
+      })
+      
 
     
        layer.on('click', function(e) {
+        $(".info")
 
-        // this.img_url = <img src={feature.properties.AdditionalInfo.image} type="video/mp4" />
+        // this.img_url = <img src={feature.properties.AdditionalInfo.image} type="video/mp4" /
     $(".name").html(feature.properties.BlackspotName);
     $(".county").html(feature.properties.County);
     $(".route").html(feature.properties.RoadName);
@@ -1034,7 +1069,7 @@ window.initialize = initialize;
             console.log(cause, 'selected cause')
 
 
-             axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?hotspot_per_cause='+cause
+             axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?hotspot_per_cause='+cause+'&county='+county//http://192.168.1.41:8100/HotSpots/get_hotspot_per_county/?hotspot_per_cause=Driver related&county=Embu
                     )
            .then((response) => {
                          console.log( response.data,'points in causes');
@@ -1097,7 +1132,7 @@ window.initialize = initialize;
                                   },
 
 
-
+                               onEachFeature: this.onEachPoint,
 
 
 

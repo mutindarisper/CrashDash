@@ -14,7 +14,8 @@ width: 100vw;
 height: 103px;
 z-index: 1000;
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-background: linear-gradient(180deg, rgba(12, 13, 13, 0.984863) 0%, rgba(151, 151, 152, 0.908383) 57.29%, rgba(255, 255, 255, 0.50228) 100%);
+background-color: #000;
+/* background: linear-gradient(180deg, rgba(12, 13, 13, 0.984863) 0%, rgba(151, 151, 152, 0.908383) 57.29%, rgba(255, 255, 255, 0.50228) 100%); */
   }
 
   .dash_logo{
@@ -31,9 +32,9 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 font-style: normal;
 font-weight: 600;
 font-size: 18px;
-line-height: 19px;
+/* line-height: 19px; */
 
-color: #3C3E3F;
+color: #fff;
   }
 
   .links{
@@ -95,9 +96,16 @@ font-weight: 600;
 font-size: 18px;
 line-height: 19px;
 
-color: #FEFEFE;
+color: #fff;
     text-decoration: none;
   }
+  .dashboard{
+    color:#fff;
+  }
+  .mapographics{
+    color:#fff;
+  }
+
 
   .home:hover{
     color: #099f46;
@@ -514,6 +522,33 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
       }
 
       .info_title{
-        color: #099f46;
+        color: #000;
         font-weight: bold;
+        font-size: 28px;
+        position: relative;
+        top: 2vh;
+      }
+      .alert_button{
+        position: relative;
+        top: 8vh;
+        left: -1.5vw;
+        width: 80px;
+        height: 30px;
+        color: #fff;
+        background-color: #000;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 5px;
+      
+      }
+
+      .alert_panel{
+        position: absolute;
+        width: 250px;
+        height: 200px;
+        padding: 50px;
+         top: 31vh;
+          left: 43.42vw;
+         z-index: 2500;
+         background-color: #FFFFFF;
       }
