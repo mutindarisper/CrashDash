@@ -29,14 +29,14 @@
 
 
 <!-- display analysis panel -->
-<div class="start" @click="handle_selected_component('analysis')">
+<div v-if="start" class="start" @click="handle_selected_component('analysis');close_container('start') ">
   <span class="begin">Start Analysis</span>
    <img class="menu" src="./assets/images/menu.svg"  alt="">
 </div>
    
 
     <div class="analysis" v-if="analysis">
-      <img class="close_analysis"  @click="close_container('analysis')" src="./assets/images/close.svg" alt="">
+      <img class="close_analysis"  @click="close_container('analysis');handle_selected_component('start') " src="./assets/images/close.svg" alt="">
       <img src="./assets/images/tab2.png" alt="" style="width: 442px;
 height: 750px; position: absolute; top: 6.3vh">
       <div class="selections">
@@ -385,7 +385,8 @@ export default {
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
       charts: false,
       img_url: '',
-      alert_panel: false
+      alert_panel: false,
+      start: false
 
     }
 
