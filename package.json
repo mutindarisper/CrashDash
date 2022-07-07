@@ -12,6 +12,7 @@
     "chart.js": "^2.9.4",
     "core-js": "^3.8.3",
     "dom-to-image": "^2.6.0",
+    "dom-to-pdf": "^0.3.0",
     "file-saver": "^2.0.5",
     "jquery": "^3.6.0",
     "jspdf": "^2.5.1",

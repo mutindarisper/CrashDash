@@ -53,6 +53,7 @@ export default {
             // },
             legend: {
                display: false,
+               // position: 'right',
                labels:{
                   fontColor: '#2FA036',
                   fontWeight: 'bold'

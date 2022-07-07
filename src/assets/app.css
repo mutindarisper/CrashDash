@@ -127,20 +127,30 @@ color: #fff;
 
   .analysis{
     position: absolute;
-    z-index: 1000;
-    top: 11vh;
+    z-index: 2000;
+    top: 5vh;
+    left: -0.3vw;
    
-width: 356px;
-height: 815px;
 
-background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(73, 73, 73, 0.666) 100%);
+/* background: url('./images/tab1.png');
+background-repeat: no-repeat;
+background-size: auto; */
+
+/* background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(73, 73, 73, 0.666) 100%); */
   }
- 
+ .selections{
+  position:absolute;
+  top: 11vh;
+  left: 4vh;
+  width: 342px;
+  height: 420px;
+ }
 
   .close_analysis{
     position: absolute;
-    top:1vh;
-    left: 17vw;
+    top:10.3vh;
+    left: 19.5vw;
+    z-index: 1500;
   }
   .close_chart_container{
     position: absolute;
@@ -284,7 +294,7 @@ height: 19.03px;
 width: 207px;
 height: 46.08px;
 
-background: #0C0D0D;
+background: #6d6e6e;
 border-radius: 30px;
 font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
@@ -390,7 +400,7 @@ color: #FFFFFF;
  .chart_container{
   position: absolute;
   top: 67.95vh;
-  left: 18.5vw;
+  left: 22.6vw;
 width: 740px;
 height: 280px;
 z-index: 1000;
