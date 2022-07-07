@@ -52,11 +52,15 @@ export default {
             //    }]
             // },
             legend: {
-               display: false,
-               // position: 'right',
+               display: true,
+               position: 'right',
+               margin: 20,
                labels:{
-                  fontColor: '#2FA036',
-                  fontWeight: 'bold'
+                  fontColor: '#fff',
+                  fontWeight: 'bold',
+                  padding: 15,
+                  usePointStyle: true,
+                  pointStyle: 'circle'
                }
             },
             

@@ -144,7 +144,7 @@ height: 750px; position: absolute; top: 6.3vh">
          </div>
 
          <div class="county_chart" id="county_chart">
-          <HotspotsDoughnut :height="230" :width="300" id="county_chart1"/>
+          <HotspotsDoughnut :height="230" :width="300"  id="county_chart1"/>
          </div>
          <!-- <div class="chart_text">
           Statistics showing number of blackspots per county. 
