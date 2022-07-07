@@ -13,7 +13,9 @@
       <div class="links">
         <a class="home"  href="https://www.stjohnkenya.org/" target="_blank" >Home</a>
         <div class="dashboard">Dashboard</div>
-        <div class="mapographics">Mapographics</div>
+        <div class="mapographics"
+        @click="download_mapographics"
+        >Mapographics</div>
 
 
       </div>
@@ -313,6 +315,7 @@ import Hotspots from './components/Hotspots.vue'
 import HotspotsDoughnut from './components/charts/HotspotsDoughnut.vue'
 import { Loader } from '@googlemaps/js-api-loader';
 import "leaflet.smooth_marker_bouncing"
+import { jsPDF } from "jspdf";
 
 
 delete Icon.Default.prototype._getIconUrl;
@@ -388,6 +391,16 @@ export default {
   
 
    methods: {
+
+    download_mapographics() {
+      const doc = new jsPDF();
+       $('.mapographics').click(function () {
+        
+        doc.save('sample-file.pdf');
+    });
+
+
+    },
 
 
     handle_point_data(val) {
