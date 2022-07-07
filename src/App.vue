@@ -231,6 +231,7 @@
             src="./assets/images/download.svg"
             alt=""
             title="Download map"
+            @click="screenshot"
             
           />
         </div>
@@ -316,7 +317,8 @@ import HotspotsDoughnut from './components/charts/HotspotsDoughnut.vue'
 import { Loader } from '@googlemaps/js-api-loader';
 import "leaflet.smooth_marker_bouncing"
 import { jsPDF } from "jspdf";
-
+import domtoimage from "dom-to-image";
+import { saveAs } from "file-saver";
 
 delete Icon.Default.prototype._getIconUrl;
 // Icon.options.shadowSize = [0,0];
@@ -395,11 +397,16 @@ export default {
     download_mapographics() {
       const doc = new jsPDF();
        $('.mapographics').click(function () {
-        
         doc.save('sample-file.pdf');
     });
 
 
+    },
+
+      screenshot() {
+      domtoimage.toBlob(document.getElementById("map")).then(function (blob) {
+        saveAs(blob, "map.png");
+      });
     },
 
 
