@@ -420,6 +420,18 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
       left:97%;
       cursor: pointer;
     }
+
+    .leaflet-browser-print{
+      position: relative;
+      right: 1vw;
+      margin-left: 18px;
+     
+    }
+
+    .leaflet-control-browser-print.leaflet-bar.leaflet-control{
+   
+     border: none;
+    }
     .basemaps{
       z-index: 800;
       position: absolute;
@@ -474,7 +486,7 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
 
     .info{
       position: absolute;
-      top: 40vh;
+      top: 38vh;
       left: 75vw;
       z-index: 1000;
       width: 371px;

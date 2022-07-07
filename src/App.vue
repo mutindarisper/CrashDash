@@ -319,6 +319,7 @@ import "leaflet.smooth_marker_bouncing"
 import { jsPDF } from "jspdf";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
+import "leaflet.browser.print/dist/leaflet.browser.print.min.js"
 
 delete Icon.Default.prototype._getIconUrl;
 // Icon.options.shadowSize = [0,0];
@@ -402,6 +403,8 @@ export default {
 
 
     },
+
+
 
       screenshot() {
       domtoimage.toBlob(document.getElementById("map")).then(function (blob) {
@@ -829,6 +832,12 @@ function setLoadEvent(layer) {
       //  L.control.sideBySide(this.baseMaps.OpenStreetMap, this.baseMaps.MapBox).addTo(this.map);
       this.map.createPane("rasters");
       this.map.getPane("rasters").style.zIndex = 300;
+
+
+
+      //print control
+      L.control.browserPrint({position: 'bottomright', className: 'leaflet-browser-print', title: 'Print ...'}).addTo(this.map);
+      $(".leaflet-browser-print").html(this.chart).addTo(this.map)
 
 
 
