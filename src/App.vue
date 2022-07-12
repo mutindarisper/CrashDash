@@ -38,7 +38,7 @@
     <div class="analysis" v-if="analysis">
       <img class="close_analysis"  @click="close_container('analysis');handle_selected_component('start') " src="./assets/images/close.svg" alt="">
       <img src="./assets/images/tab2.png" alt="" style="width: 442px;
-height: 750px; position: absolute; top: 6.3vh">
+height: 750px; position: absolute; top: 8.3vh">
       <div class="selections">
         <span class="region">Region</span>
 
@@ -62,6 +62,7 @@ height: 750px; position: absolute; top: 6.3vh">
       :options="this.causes "
       :default="'Select a cause'"
       class="select_cause"
+      @click="handle_selected_component('cause_stats')"
       @input="display_cause_name($event);getCausesList()"
     />
 
@@ -70,7 +71,7 @@ height: 750px; position: absolute; top: 6.3vh">
       :options="this.causes "
       :default="'Select hazard'"
       class="select_hazard"
-      @input="display_cause_name($event);getCausesList()"
+     
     />
 
     <span class="mitigations">Mitigation</span>
@@ -78,7 +79,7 @@ height: 750px; position: absolute; top: 6.3vh">
       :options="this.causes "
       :default="'Select mitigation'"
       class="select_mitigation"
-      @input="display_cause_name($event);getCausesList()"
+    
     />
 
       <!-- <span class="facilities">Health Facilities</span>
@@ -156,6 +157,10 @@ height: 750px; position: absolute; top: 6.3vh">
 
          </div> -->
 
+    </div>
+
+    <div class="cause_stats" style="position:absolute; top: 60vh; left: 40vw; height:250px; width:400px; background-color:#fff; z-index: 2000">
+      <CauseStats :height="230" :width="300" />
     </div>
 
 
@@ -332,6 +337,7 @@ import domtoimage from "dom-to-image";
 import domToPdf from "dom-to-pdf"
 import { saveAs } from "file-saver";
 import "leaflet.browser.print/dist/leaflet.browser.print.min.js"
+import CauseStats from './components/charts/CauseStats.vue'
 
 delete Icon.Default.prototype._getIconUrl;
 // Icon.options.shadowSize = [0,0];
@@ -355,7 +361,8 @@ export default {
    components:{
     CustomSelect,
     Hotspots,
-    HotspotsDoughnut
+    HotspotsDoughnut,
+    CauseStats
 
    },
    data() {
@@ -386,15 +393,14 @@ export default {
       charts: false,
       img_url: '',
       alert_panel: false,
-      start: false
+      start: false, 
+      cause_stats: false
 
     }
 
    },
    mounted() {
 
-    
-   
     this.setupLeafletMap();
     
     // this.load_all_hotspots();
@@ -430,7 +436,7 @@ export default {
 
      chart_to_png(){
       window.image = domtoimage.toBlob(document.getElementById("county_chart1" ))
-      console.log(window.image, 'chart inside')
+      // console.log(window.image, 'chart inside')
         domtoimage.toBlob(document.getElementById("county_chart1" )).then(function (blob) {
         
         saveAs(blob, "chart.png");
@@ -441,10 +447,10 @@ export default {
       });
 
       var image_URI =document.getElementById("county_chart1" )
-      console.log(image_URI.$route, 'route')
+      // console.log(image_URI.$route, 'route')
        
       window.url = document.getElementById("doughnut-chart").toDataURL()
-      console.log(window.url, 'image uri')
+      // console.log(window.url, 'image uri')
         
 
       },
@@ -461,7 +467,7 @@ export default {
       // var radius = this.pointStyle;
 
       var points = val; //.features[0]['geometry'] dewewewe
-      console.log(points, 'POINTS' ) //WORKING
+      // console.log(points, 'POINTS' ) //WORKING
 
       this.map.createPane("rasters");
       this.map.getPane("rasters").style.zIndex = 500;
@@ -606,11 +612,11 @@ function setLoadEvent(layer) {
         axios.get('http://192.168.1.41:8100/HotSpots/'
                     )
            .then((response) => {
-                         console.log( response.data,'hotspot data' );
+                        //  console.log( response.data,'hotspot data' );
 
                          const hotspot_data = response.data 
                           // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
-                         console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
+                        //  console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
                         
                                this.current_hotspots = L.geoJSON(hotspot_data, { 
 
@@ -645,15 +651,17 @@ function setLoadEvent(layer) {
 
                     })
                    .catch( (error) => {
-                console.log('an error occured ' + error);
+                // console.log('an error occured ' + error);
             }) 
 
     },
       displayToKey($event) {
    var data = $event
    window.county_data = $event
-   this.$emit('selected county',  window.county_data)
-
+   console.log(window.county_data, 'selected  county data')
+  //  this.$emit('selected county',  window.county_data)
+  // window.county_data= val;
+  // console.log(val, 'county value')
   // console.log( data, "event")
   
   // if (data === 'Kiambu') {
@@ -695,7 +703,7 @@ function setLoadEvent(layer) {
                                axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?hotspot_per_county='+data
                     )
            .then((response) => {
-                         console.log( response.data,'hotspot data per county' );
+                        //  console.log( response.data,'hotspot data per county' );
 
                          const all_hotspot_data = response.data 
                           if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
@@ -843,7 +851,7 @@ function setLoadEvent(layer) {
         MapBox: mapbox,
         MapBoxSatellite: mapboxSatellite,
       };
-      console.log(this.baseMaps, "basemaps list");
+      // console.log(this.baseMaps, "basemaps list");
 
       this.map = L.map("map", {
         zoomControl: false,
@@ -951,7 +959,7 @@ function initialize() {
 
   map.setStreetView(panorama);
  
-console.log(center, 'center as points')
+// console.log(center, 'center as points')
 
  //test to add points to goggle maps
 
@@ -985,14 +993,18 @@ window.initialize = initialize;
       layerControlElement.getElementsByTagName("input")[index].click();
     },
 
+   
+
+
     display_route_name($event){
       window.route_name = $event
-      console.log( window.route_name, 'route name')
+      // console.log( window.route_name, 'route name')
 
     },
     display_cause_name($event){
       window.cause_name = $event
-      console.log( window.cause_name, 'cause name')
+      // console.log( window.cause_name, 'cause name')
+      this.$emit('selected cause',  window.cause_name )
 
     },
 
@@ -1024,13 +1036,13 @@ window.initialize = initialize;
             //load points in routes
 
             var route = window.route_name
-            console.log(route, 'selected route')
+            // console.log(route, 'selected route')
 
 
              axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?road_points='+route
                     )
            .then((response) => {
-                         console.log( response.data,'points in routes');
+                        //  console.log( response.data,'points in routes');
                          var region_hotspots = response.data
 
                            

@@ -140,7 +140,7 @@ background-size: auto; */
   }
  .selections{
   position:absolute;
-  top: 11vh;
+  top: 12vh;
   left: 5vh;
   width: 342px;
   height: 420px;
@@ -148,7 +148,7 @@ background-size: auto; */
 
   .close_analysis{
     position: absolute;
-    top:10.3vh;
+    top:11.8vh;
     left: 19.5vw;
     z-index: 1500;
   }
