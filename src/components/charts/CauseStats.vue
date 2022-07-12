@@ -106,8 +106,8 @@ export default {
     check_data (){
        return{
         //   year: this.year,
-          county_data: window.county_data,
-          cause_name: window.cause_name
+          county_data: window.county_data, 
+        //   cause_name: window.cause_name
             
        }
     }
@@ -115,7 +115,8 @@ export default {
   watch:{
    check_data(){
 this.getCountyStats();
-   }
+   },
+//    immediate: true,
   },
    mounted() {
     
@@ -133,8 +134,10 @@ this.getCountyStats();
             // var cause_data = this.cause_data
             //  console.log(this.cause_data, 'cause name')
 
-            // var county2 =  county_data 
-            //  console.log(county2, 'COUNTY 222222222222')
+            var county2 =  county_data 
+             console.log(county2, 'COUNTY 222222222222')
+            //  var county3 = this.$parent.displayToKey['TargetFunction']
+            //  console.log(county3, 'COUNTY 333')
 
 
             //  var cause2 = cause_name

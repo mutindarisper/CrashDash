@@ -112,7 +112,7 @@ export default {
 }
 
 .custom-select .items div:hover {
-  background-color: #706e6e;
+  background-color: #099f46;
 }
 
 .selectHide {

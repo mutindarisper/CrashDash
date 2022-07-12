@@ -159,7 +159,7 @@ height: 750px; position: absolute; top: 8.3vh">
 
     </div>
 
-    <div class="cause_stats" style="position:absolute; top: 60vh; left: 40vw; height:250px; width:400px; background-color:#fff; z-index: 2000">
+    <div class="cause_stats" v-if="cause_stats" style="position:absolute; top: 60vh; left: 40vw; height:250px; width:400px; background-color:#fff; z-index: 2000">
       <CauseStats :height="230" :width="300" />
     </div>
 
@@ -658,7 +658,7 @@ function setLoadEvent(layer) {
       displayToKey($event) {
    var data = $event
    window.county_data = $event
-   console.log(window.county_data, 'selected  county data')
+   console.log(data, 'selected  county data')
   //  this.$emit('selected county',  window.county_data)
   // window.county_data= val;
   // console.log(val, 'county value')
@@ -681,7 +681,7 @@ function setLoadEvent(layer) {
            .then((response) => {
                         //  console.log( response.data,'blackspot data' );
 
-                         const county_data = response.data 
+                         var county_data = response.data 
                          
                          
                         
