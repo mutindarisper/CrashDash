@@ -36,8 +36,8 @@
    
 
     <div class="analysis" v-if="analysis">
-      <img class="close_analysis"  @click="close_container('analysis');handle_selected_component('start') " src="./assets/images/close.svg" alt="">
-      <img src="./assets/images/tab2.png" alt="" style="width: 442px;
+      <img class="close_analysis"  @click="close_container('analysis');handle_selected_component('start') " src="./assets/images/close_small.svg" alt="">
+      <img src="./assets/images/tab_corrected.png" alt="" style="width: 442px;
 height: 750px; position: absolute; top: 8.3vh">
       <div class="selections">
         <span class="region">Region</span>
@@ -1169,6 +1169,7 @@ window.initialize = initialize;
     $(".pin").find('span')['prevObject'][0].style="display: none;"
     $(".tape_10").find('span')['prevObject'][0].style="display: none;"
     $(".tape_5").find('span')['prevObject'][0].style="display: none;"
+    // $(".name").find('span')['prevObject'][0].style="display: none;"
     
     
   });

@@ -128,7 +128,7 @@ color: #fff;
   .analysis{
     position: absolute;
     z-index: 2000;
-    top: 5vh;
+    top: 8vh;
     left: -0.3vw;
    
 
@@ -148,8 +148,8 @@ background-size: auto; */
 
   .close_analysis{
     position: absolute;
-    top:11.8vh;
-    left: 19.5vw;
+    top:12vh;
+    left: 19.9vw;
     z-index: 1500;
   }
   .close_chart_container{
