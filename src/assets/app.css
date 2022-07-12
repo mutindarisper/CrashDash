@@ -148,7 +148,7 @@ background-size: auto; */
 
   .close_analysis{
     position: absolute;
-    top:12vh;
+    top:12.8vh;
     left: 19.9vw;
     z-index: 1500;
   }
@@ -160,7 +160,7 @@ background-size: auto; */
   }
   .close_info{
     position: absolute;
-    top:1vh;
+    top:0.5vh;
     left: 19vw;
   }
 
@@ -405,7 +405,8 @@ width: 540px;
 height: 280px;
 z-index: 1000;
 border-radius: 15px;
-background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 61, 0.9) 52.9%, rgba(94, 95, 95, 0.801) 99.97%, 99.98%, rgba(97, 97, 97, 0.9) 99.98%);
+background-color: #000;
+/* background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 61, 0.9) 52.9%, rgba(94, 95, 95, 0.801) 99.97%, 99.98%, rgba(97, 97, 97, 0.9) 99.98%); */
  }
   
   
@@ -587,12 +588,21 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
 
       .info_title{
         color: #fff;
-        font-weight: 400;
+        font-weight: 600;
         font-size: 28px;
         position: relative;
         top: 25vh;
-        line-height: 44px;
+        line-height: 56px;
         text-align: center;
+
+        animation: blinker 1.2s linear infinite;
+      }
+      
+      @keyframes blinker {
+        50% {
+          opacity: 0.5;
+          /* color: #49f349; */
+        }
       }
       .pin{
         position: absolute;

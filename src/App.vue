@@ -37,7 +37,7 @@
 
     <div class="analysis" v-if="analysis">
       <img class="close_analysis"  @click="close_container('analysis');handle_selected_component('start') " src="./assets/images/close_small.svg" alt="">
-      <img src="./assets/images/tab_corrected.png" alt="" style="width: 442px;
+      <img src="./assets/images/tab_color.png" alt="" style="width: 442px;
 height: 750px; position: absolute; top: 8.3vh">
       <div class="selections">
         <span class="region">Region</span>
@@ -129,15 +129,12 @@ height: 750px; position: absolute; top: 8.3vh">
 </div> -->
 
 
-  
-
-
     
     </div>
 
     <div class="chart_container" id="chart_container" v-if="chart_container">
         <img class="close_chart_container"
-        src="./assets/images/close.svg"
+        src="./assets/images/close_small.svg"
         @click="close_container('chart_container')"
          alt="" >
          <div class="title">
@@ -177,20 +174,20 @@ height: 750px; position: absolute; top: 8.3vh">
        <img   class="tape_10" src="./assets/images/tape_5.png" alt="">
        <img class="pin" src="./assets/images/pin.svg" alt="">
        
- <span class="info_title">Click a point  on the map <br> to display  data </span>
+ <span class="info_title" style="position: absolute; left: 2vw;">Click a point  on the map <br> to display  data </span>
     
        <br>
        <br>
-      <div class="name"  style="display: inline-block; color:#fff; font-size: 14px; position: relative; left: 0.5vw"></div>
+      <div class="name"  style="display: inline-block; color:#fff; font-size: 14px; position: relative; "></div>
       <br>
       <br>
-      <div class="county" style="display: inline-block; color:#fff; font-size: 14px;  position: relative; left: 0.5vw"></div>
+      <div class="county" style="display: inline-block; color:#fff; font-size: 14px;  position: relative; "></div>
       <br>
       <br>
-      <div class="cause" style="display: inline-block;  color:#fff; font-size: 14px; height: 5px; position: relative; left: 0.5vw"></div>
+      <div class="cause" style="display: inline-block;  color:#fff; font-size: 14px; height: 5px; position: relative; "></div>
       <br>
       <br>
-      <div class="mitigation" style="display: inline-block; color:#fff; font-size: 14px;  height: 5px;  position: relative; left: 0.5vw" ></div>
+      <div class="mitigation" style="display: inline-block; color:#fff; font-size: 14px;  height: 5px;  position: relative; " ></div>
       <br>
       <br>
       <!-- <div class="separator"></div> -->
@@ -198,7 +195,7 @@ height: 750px; position: absolute; top: 8.3vh">
       
        <br>
        <div class="media1" style="color:#fff"></div>
-       <p class="picture_title"></p>
+       <p class="picture_title" style="color:#fff"></p>
       
        <img src="" class="media" controls> 
        
@@ -257,7 +254,7 @@ height: 750px; position: absolute; top: 8.3vh">
             src="./assets/images/info.svg"
             alt=""
             title="More info"
-            @click=" handle_selected_component('info')"
+            @click=" handle_selected_component('info'); speech_text()"
             
           />
         </div>
@@ -341,6 +338,8 @@ import domToPdf from "dom-to-pdf"
 import { saveAs } from "file-saver";
 import "leaflet.browser.print/dist/leaflet.browser.print.min.js"
 import CauseStats from './components/charts/CauseStats.vue'
+import speechSynthesis from 'speech-synthesis'
+
 
 delete Icon.Default.prototype._getIconUrl;
 // Icon.options.shadowSize = [0,0];
@@ -385,7 +384,7 @@ export default {
       markers: null,
       current_point:[],
       point_hotspot: null,
-      chart_container: false,
+      chart_container: true,
       info: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
@@ -416,6 +415,13 @@ export default {
   
 
    methods: {
+    speech_text() {
+
+      var Karen = speechSynthesis.names['Karen']
+      speechSynthesis('Click the point on the map to display the data ', 'Google UK English Female');
+      
+
+    },
 
     download_mapographics() {
       const doc = new jsPDF();
@@ -861,8 +867,8 @@ function setLoadEvent(layer) {
         layersControl: false,
         center: this.center,
         minZoom: 4.4,
-        maxZoom: 17,
-        zoom: 6.5,
+        maxZoom: 20,
+        zoom: 6,
         // measureControl: true,
         // defaultExtentControl: true,
         layers: [mapbox]
@@ -1148,6 +1154,7 @@ window.initialize = initialize;
 
     
        layer.on('click', function(e) {
+        
         $(".info")
 
         // this.img_url = <img src={feature.properties.AdditionalInfo.image} type="video/mp4" / 
@@ -1156,7 +1163,7 @@ window.initialize = initialize;
     $(".route").html('<b> Road Name:</b>'+ ' '+feature.properties.RoadName);
     $(".cause").html('<b> Cause:</b>'+ ' '+feature.properties.Reasons);
     $(".mitigation").html('<b> Mitigation:</b>'+ ' '+feature.properties.Mitigation);
-    $(".media1").html('<b> Media:</b>')
+    $(".media1").html('<b> Media:</b>');
     $(".picture_title").html('<b> Picture:</b>');
     $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image'];
     $(".media").find('img')['prevObject'][0].style="height: 100px; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
