@@ -172,34 +172,37 @@ height: 750px; position: absolute; top: 8.3vh">
      <!-- display popup info panel -->
 
      <div class="info" v-if="info">
-       <img class="close_info"  @click="close_container('info')" src="./assets/images/close_black.svg" alt="">
+       <img class="close_info"  @click="close_container('info')" src="./assets/images/close_small.svg" alt="">
+       <img   class="tape_5" src="./assets/images/tape_5.png" alt="">
+       <img   class="tape_10" src="./assets/images/tape_5.png" alt="">
+       <img class="pin" src="./assets/images/pin.svg" alt="">
        
- <span class="info_title">Click a point <br> on the map <br> to display  data </span>
+ <span class="info_title">Click a point  on the map <br> to display  data </span>
     
        <br>
        <br>
-      <div class="name"  style="display: inline-block; font-size: 14px; position: relative; left: 0.5vw"></div>
+      <div class="name"  style="display: inline-block; color:#fff; font-size: 14px; position: relative; left: 0.5vw"></div>
       <br>
       <br>
-      <div class="county" style="display: inline-block; font-size: 14px;  position: relative; left: 0.5vw"></div>
+      <div class="county" style="display: inline-block; color:#fff; font-size: 14px;  position: relative; left: 0.5vw"></div>
       <br>
       <br>
-      <div class="cause" style="display: inline-block; font-size: 14px; height: 5px; position: relative; left: 0.5vw"></div>
+      <div class="cause" style="display: inline-block;  color:#fff; font-size: 14px; height: 5px; position: relative; left: 0.5vw"></div>
       <br>
       <br>
-      <div class="mitigation" style="display: inline-block; font-size: 14px;  height: 5px;  position: relative; left: 0.5vw" ></div>
+      <div class="mitigation" style="display: inline-block; color:#fff; font-size: 14px;  height: 5px;  position: relative; left: 0.5vw" ></div>
       <br>
       <br>
       <!-- <div class="separator"></div> -->
       <!-- <br> -->
       
        <br>
-       <div class="media1"></div>
+       <div class="media1" style="color:#fff"></div>
        <p class="picture_title"></p>
       
        <img src="" class="media" controls> 
        
-       <p class="video_title"></p>
+       <p class="video_title" style="color:#fff"></p>
        <video src="" class="video_" autoplay=false style="display: none" controls>
       
        </video>
@@ -1163,6 +1166,9 @@ window.initialize = initialize;
     $(".video_").find('video')['prevObject'][0].style="height: 150px; width: 200px; position: relative; top: -7vh; left: 5vw;  controls"
     $(".video_").find('video')['prevObject'][0].type="video/mp4";
   $(".info_title").find('span')['prevObject'][0].style="display: none;"
+    $(".pin").find('span')['prevObject'][0].style="display: none;"
+    $(".tape_10").find('span')['prevObject'][0].style="display: none;"
+    $(".tape_5").find('span')['prevObject'][0].style="display: none;"
     
     
   });

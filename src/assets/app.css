@@ -503,7 +503,8 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
       width: 371px;
       height: 512px;
       font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      background: linear-gradient(180deg, #F8F8F8 0%, #EDF4F8 41.67%, rgba(180, 184, 186, 0.584565) 79.69%, rgba(55, 57, 57, 0.51) 100%);
+      background-color: #000;
+      /* background: linear-gradient(180deg, #F8F8F8 0%, #EDF4F8 41.67%, rgba(180, 184, 186, 0.584565) 79.69%, rgba(55, 57, 57, 0.51) 100%); */
       border-radius: 20px;
       padding: 10px;
       }
@@ -585,12 +586,41 @@ background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 
       }
 
       .info_title{
-        color: #000;
-        font-weight: bold;
+        color: #fff;
+        font-weight: 400;
         font-size: 28px;
         position: relative;
-        top: 15vh;
-        line-height: 56px;
+        top: 25vh;
+        line-height: 44px;
+        text-align: center;
+      }
+      .pin{
+        position: absolute;
+        top: 12vh;
+        left: 8vw;
+
+
+      }
+      .tape_5{
+        position: absolute;
+        top: 3vh;
+width: 382.94px;
+height: 39.88px;
+
+/* background: url('./images/tape_5.png'); */
+z-index: 2500;
+transform: rotate(-4deg);
+      }
+
+      .tape_10{
+        position: absolute;
+        top: 47vh;
+width: 382.94px;
+height: 39.88px;
+
+/* background: url('./images/tape_5.png'); */
+z-index: 2500;
+transform: rotate(-4deg);
       }
       .alert_button{
         position: relative;
