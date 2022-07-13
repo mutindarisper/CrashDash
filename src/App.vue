@@ -35,99 +35,15 @@
 </div>
    
 
-    <div class="analysis" v-if="analysis">
-      <img class="close_analysis"  @click="close_container('analysis');handle_selected_component('start') " src="./assets/images/close_small.svg" alt="">
-      <img src="./assets/images/tab_color.png" alt="" style="width: 442px;
-height: 750px; position: absolute; top: 8.3vh">
-      <div class="selections">
-        <span class="region">Region</span>
-
-  <!-- test for custom select -->
-   <CustomSelect
-      :options="this.counties"
-      :default="'Select a region'"
-      class="select_region"
-      @input="displayToKey($event);getRoutesList();getCausesList()"
-    />
-
-     <span class="routes">Road</span>
-   <CustomSelect
-      :options="this.routes"
-      :default="'Select a route'"
-      class="select_route"
-      @input="display_route_name($event);getRoutesList()"
-    />
-     <span class="causes">Cause</span>
-   <CustomSelect
-      :options="this.causes "
-      :default="'Select a cause'"
-      class="select_cause"
-      @click="handle_selected_component('cause_stats')"
-      @input="display_cause_name($event);getCausesList()"
-    />
-
-      <span class="hazard">Hazard</span>
-   <CustomSelect
-      :options="this.causes "
-      :default="'Select hazard'"
-      class="select_hazard"
-     
-    />
-
-    <span class="mitigations">Mitigation</span>
-     <CustomSelect
-      :options="this.causes "
-      :default="'Select mitigation'"
-      class="select_mitigation"
-    
-    />
-
-      <!-- <span class="facilities">Health Facilities</span>
-   <CustomSelect
-      :options="'' "
-      :default="'Select a category'"
-      class="select_facility"
-      @input="displayToKey($event)"
-    /> -->
-
-    <button class="stats" @click="handle_selected_component('chart_container')" type="button">Load Statistics</button>
-
-      </div>
-
-  
-
-    <!-- alert panel -->
-
-    <div class="alert_panel" v-if="alert_panel">
-      <span class="info_title">Click the point on the map to display the data </span>
-      <button class="alert_button" type="button"  @click="close_container('alert_panel')">OK</button>
-
-    </div>
-
-
-<!-- <span class="proximity">Proximity</span>
-<br>
-<span class="distance">Distance (km)</span>
-<input type="number" id="points" name="points" step="1"> 
-<button class="query" type="button">Query</button>
-
-
-<span class="roads">Road Network</span>
-<div class="inputs">
- <input type="checkbox" name="" id="camps">
-       <label for="">Class A</label><br>
-
-      <input type="checkbox" name="" id="party_offices">
-       <label for="">Class B</label><br>
-
-      <input type="checkbox" name="" id="churches">
-       <label for="">Class C</label><br>
-
-      <input type="checkbox" name="" id="markets">
-       <label for="">Class D</label><br>
-   
-</div> -->
-
+    <div class="analysis1" v-if="analysis">
+      <Analysis 
+      @county_data="displayToKey"
+      @points_per_county="points_per_county"
+      @points_per_route="points_per_route"
+      @points_per_cause="points_per_cause"
+      @selected_county="handle_selected_county"
+      @selected_cause="handle_selected_cause"/>
+      
 
     
     </div>
@@ -144,20 +60,12 @@ height: 750px; position: absolute; top: 8.3vh">
          <div class="county_chart" id="county_chart">
           <HotspotsDoughnut :height="230" :width="300"  id="county_chart1"/>
          </div>
-         <!-- <div class="chart_text">
-          Statistics showing number of blackspots per county. 
-          
-          <b>Meru</b> county leads, with <b>96</b> blackspots, followed by <b>Nyeri</b>
-           county with <b>69</b> blackspots, <b>Laikipia</b>, with <b>65</b>, <b>Kiambu</b> having <b>40</b> 
-           and <b>Embu</b> county having <b>31</b>.
         
-
-         </div> -->
 
     </div>
 
-    <div class="cause_stats" v-if="cause_stats" style="position:absolute; top: 60vh; left: 40vw; height:250px; width:400px; background-color:#fff; z-index: 2000">
-      <CauseStats :height="230" :width="300" />
+    <div class="cause_stats" v-if="cause_stats" style="position:absolute; top: 70vh; left: 25vw; height:250px; width:400px; background-color:#fff; z-index: 2000">
+      <CauseStats :height="230" :width="300" :county="this.county" :cause="this.cause"/>
     </div>
 
 
@@ -339,6 +247,7 @@ import { saveAs } from "file-saver";
 import "leaflet.browser.print/dist/leaflet.browser.print.min.js"
 import CauseStats from './components/charts/CauseStats.vue'
 import speechSynthesis from 'speech-synthesis'
+import Analysis from './components/Analysis.vue'
 
 
 delete Icon.Default.prototype._getIconUrl;
@@ -364,7 +273,8 @@ export default {
     CustomSelect,
     Hotspots,
     HotspotsDoughnut,
-    CauseStats
+    CauseStats,
+     Analysis
 
    },
    data() {
@@ -384,7 +294,7 @@ export default {
       markers: null,
       current_point:[],
       point_hotspot: null,
-      chart_container: true,
+      chart_container: false,
       info: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
@@ -396,7 +306,10 @@ export default {
       img_url: '',
       alert_panel: false,
       start: false, 
-      cause_stats: false
+      cause_stats: true,
+
+      county: '',
+      cause: ''
 
     }
 
@@ -406,8 +319,8 @@ export default {
     this.setupLeafletMap();
     
     // this.load_all_hotspots();
-      this.getRoutesList();
-  this.onEachPoint();
+      // this.getRoutesList();
+  // this.onEachPoint();
 
     // this.handle_point_data();
     
@@ -422,6 +335,21 @@ export default {
       
 
     },
+    //data for props
+    handle_selected_county(val) {
+        this.county = val
+        console.log(this.county, 'THIS . COUNTY') //WORKS, LOGS SELECTED COUNTY
+
+      },
+
+      handle_selected_cause(val) {
+        this.cause = val
+        console.log(this.cause, 'THIS . CAUSE') 
+
+      },
+
+
+
 
     download_mapographics() {
       const doc = new jsPDF();
@@ -668,33 +596,13 @@ function setLoadEvent(layer) {
    var data = $event
    window.county_data = $event
    console.log(data, 'selected  county data')
-  //  this.$emit('selected county',  window.county_data)
-  // window.county_data= val;
-  // console.log(val, 'county value')
-  // console.log( data, "event")
-  
-  // if (data === 'Kiambu') {
-  //   console.log('Kiambu selected')
-  // } else{
-  //   console.log('other counties selected')
-  // }
-
-    if(data){ 
-
       if (this.points_layerGroup !== null) {
         window.markers.clearLayers();
       }
        if (this.current_geojson) this.map.removeLayer(this.current_geojson);
-                    axios.get(baseurl+'/AdminData/get_adm1_shapefile?Get_county='+data 
-                    )
-           .then((response) => {
-                        //  console.log( response.data,'blackspot data' );
 
-                         var county_data = response.data 
-                         
-                         
-                        
-                               this.current_geojson = L.geoJSON(county_data, {
+
+         this.current_geojson = L.geoJSON(county_data, {
 
                                       style: {
                                         color: "black",
@@ -705,34 +613,26 @@ function setLoadEvent(layer) {
                                     this.map.fitBounds(this.current_geojson.getBounds(), {
                                       padding: [50, 50],
                                     });
+     
+            //end of county data            
+},
 
+points_per_county(val) {
 
-                                    //all points per county
+  if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
 
-                               axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?hotspot_per_county='+data
-                    )
-           .then((response) => {
-                        //  console.log( response.data,'hotspot data per county' );
-
-                         const all_hotspot_data = response.data 
-                          if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
-                        //  console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
-                        
-                               this.current_hotspots = L.geoJSON(all_hotspot_data, {
-
-
-
+  this.current_hotspots = L.geoJSON(val, {
 
                                  pointToLayer: function (feature, latlng){
 
 
                                   var studioicon = L.icon({
-                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                    iconUrl: require("/src/assets/images/marker.svg"),
                                     iconSize: [30, 30],
                                     iconAnchor: [15,15]
                                   });
                                       var smallIcon = L.icon({
-                                        iconUrl: require("../src/assets/images/green-pin.svg"),
+                                        iconUrl: require("/src/assets/images/green-pin.svg"),
                                         iconSize: [50, 40],
                                         iconAnchor: [15,15]
                                       });
@@ -743,13 +643,13 @@ function setLoadEvent(layer) {
 
                                             L.Icon.Big = L.Icon.Default.extend({
                                                   options: {
-                                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                                    iconUrl: require("/src/assets/images/marker.svg"),
                                                   iconSize: [40, 40],
                                               }});
 
                                               var normal_icon = L.icon({
                                                 
-                                                    iconUrl: require("../src/assets/images/marker.svg"),
+                                                    iconUrl: require("/src/assets/images/marker.svg"),
                                                   iconSize: [25, 31],
                                                   iconAnchor: [12.5 ,15]
                                               });
@@ -781,55 +681,6 @@ function setLoadEvent(layer) {
                                 })
                              .addTo(this.map);
 
-                                
-                                               
-                        return response.data
-                        
-                      
-
-                    })
-                   .catch( (error) => {
-                console.log('an error occured ' + error);
-            }) 
-
-                        //roads data
-
-          //                axios.get('http://192.168.1.29:8100/Roads/?county='+data 
-          //           )
-          //  .then((response) => {
-          //               //  console.log( response.data,'roads data' );
-
-          //                const road_data = response.data 
-          //                 if (this.current_road) this.map.removeLayer(this.current_road);
-                         
-                        
-          //                      this.current_road = L.geoJSON(road_data, {
-          //                             style: {
-          //                               color: "red",
-          //                               weight: 0.5,
-          //                             },
-          //                           }).addTo(this.map);
-                                               
-          //               return response.data
-                        
-                      
-
-          //           })
-          //          .catch( (error) => {
-          //       console.log('an error occured ' + error);
-          //   })                                                             
-                        // return response.data
-                       //end of road data 
-                      
-
-                    })
-                   .catch( (error) => {
-                console.log('an error occured ' + error);
-            })
-            //end of county data
-
-
-              }
 },
 
       zoom_in() {
@@ -1002,9 +853,6 @@ window.initialize = initialize;
       layerControlElement.getElementsByTagName("input")[index].click();
     },
 
-   
-
-
     display_route_name($event){
       window.route_name = $event
       // console.log( window.route_name, 'route name')
@@ -1017,52 +865,14 @@ window.initialize = initialize;
 
     },
 
-    getRoutesList() {
-      var county =  window.county_data
-      console.log(county, 'selected county for routes')
+    points_per_route(val) {
 
 
-      //http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?routes_points=Route1 (Kiambu and Embu)
-
-      
-      
-        axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?road_names='+county
-                    )
-           .then((response) => {
-                        //  console.log( response.data,'routes data' );
-                          this.routes = response.data.Routes 
-                          window.routes =   response.data.Routes  
-                                  
-                        return response.data
-                        
-                      
-
-                    })
-                   .catch( (error) => {
-                console.log('an error occured ' + error);
-            })
-
-            //load points in routes
-
-            var route = window.route_name
-            // console.log(route, 'selected route')
-
-
-             axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?road_points='+route
-                    )
-           .then((response) => {
-                        //  console.log( response.data,'points in routes');
-                         var region_hotspots = response.data
-
-                           
-                          //  if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
+       if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
 
                               if (this.current_hotspots)this.map.removeLayer(this.current_hotspots);
-// this.current_hotspots = L.geoJSON(all_hotspot_data, { }).addTo(this.map);
 
-                               window.point_latlon = this.current_hotspots.getBounds();
-
-                         this.current_hotspots = L.geoJSON(region_hotspots, {
+       this.current_hotspots = L.geoJSON(val, {
 
 
                                              pointToLayer: function (feature, latlng){
@@ -1122,102 +932,18 @@ window.initialize = initialize;
                          
                           }).addTo(this.map);
 
-                          // window.googlemap_points = this.point_hotspot.getBounds();
-                          // console.log(window.googlemap_points, 'global google map points')
-
-                          window.point_latlon = this.current_hotspots.getBounds().getCenter();
-                          console.log( window.point_latlon, 'point latlon')
-                          this.map.fitBounds( this.current_hotspots.getBounds(), {
+                            this.map.fitBounds( this.current_hotspots.getBounds(), {
                             padding: [50, 50],
                           });
-                                                        
-                        return response.data
-                        
-                      
-
-                    })
-                   .catch( (error) => {
-                console.log('an error occured ' + error);
-            })
-
 
     },
 
-    onEachPoint( feature, layer) {
-      layer.on('click', function (selection) {
-        this['info'] = selection;
-        selection = true;
-          // $(".info") = true;
+    points_per_cause(val) {
 
-      })
-      
-
-    
-       layer.on('click', function(e) {
-        
-        $(".info")
-
-        // this.img_url = <img src={feature.properties.AdditionalInfo.image} type="video/mp4" / 
-    $(".name").html('<b> Blackspot:</b>'+ ' '+feature.properties.BlackspotName);
-    $(".county").html('<b> County:</b>'+ ' '+feature.properties.County);
-    $(".route").html('<b> Road Name:</b>'+ ' '+feature.properties.RoadName);
-    $(".cause").html('<b> Cause:</b>'+ ' '+feature.properties.Reasons);
-    $(".mitigation").html('<b> Mitigation:</b>'+ ' '+feature.properties.Mitigation);
-    $(".media1").html('<b> Media:</b>');
-    $(".picture_title").html('<b> Picture:</b>');
-    $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image'];
-    $(".media").find('img')['prevObject'][0].style="height: 100px; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
-
-    $(".video_title").html('<b> Video:</b>');
-    $(".video_").find('video')['prevObject'][0].src = feature.properties.AdditionalInfo['video'];
-    $(".video_").find('video')['prevObject'][0].style="height: 150px; width: 200px; position: relative; top: -7vh; left: 5vw;  controls"
-    $(".video_").find('video')['prevObject'][0].type="video/mp4";
-  $(".info_title").find('span')['prevObject'][0].style="display: none;"
-    $(".pin").find('span')['prevObject'][0].style="display: none;"
-    $(".tape_10").find('span')['prevObject'][0].style="display: none;"
-    $(".tape_5").find('span')['prevObject'][0].style="display: none;"
-    // $(".name").find('span')['prevObject'][0].style="display: none;"
-    
-    
-  });
-
-      },
-
-
-
-    getCausesList() {
-      var county =  window.county_data
-      axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?list_causes_per_county='+county
-                    )
-           .then((response) => {
-                        //  console.log( response.data,'routes data' );
-                          this.causes = response.data.Causes
-                          // window.routes =   response.data.Routes  http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?hotspot_per_cause=Cc
-                                  
-                        return response.data
-                        
-                      
-
-                    })
-                   .catch( (error) => {
-                console.log('an error occured ' + error);
-            })
-
-
-
-             var cause = window.cause_name
-            console.log(cause, 'selected cause')
-
-
-             axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?hotspot_per_cause='+cause+'&county='+county//http://192.168.1.41:8100/HotSpots/get_hotspot_per_county/?hotspot_per_cause=Driver related&county=Embu
-                    )
-           .then((response) => {
-                         console.log( response.data,'points in causes');
-                         var cause_hotspots = response.data
-                           if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
+         if (this.point_hotspot !== null) this.map.removeLayer(this.point_hotspot);
                            if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
 
-                         this.point_hotspot = L.geoJSON(cause_hotspots , { 
+                         this.point_hotspot = L.geoJSON(val , { 
 
                                                   pointToLayer: function (feature, latlng){
 
@@ -1281,17 +1007,50 @@ window.initialize = initialize;
                          this.map.fitBounds( this.point_hotspot.getBounds(), {
                             padding: [50, 50],
                           });
-                                         
-                        return response.data
-                        
-                      
 
-                    })
-                   .catch( (error) => {
-                console.log('an error occured ' + error);
-            })
+    },
 
-    }
+
+
+    onEachPoint( feature, layer) {
+      layer.on('click', function (selection) {
+        this['info'] = selection;
+        selection = true;
+          // $(".info") = true;
+
+      })
+      
+
+    
+       layer.on('click', function(e) {
+        
+        $(".info")
+
+        // this.img_url = <img src={feature.properties.AdditionalInfo.image} type="video/mp4" / 
+    $(".name").html('<b> Blackspot:</b>'+ ' '+feature.properties.BlackspotName);
+    $(".county").html('<b> County:</b>'+ ' '+feature.properties.County);
+    $(".route").html('<b> Road Name:</b>'+ ' '+feature.properties.RoadName);
+    $(".cause").html('<b> Cause:</b>'+ ' '+feature.properties.Reasons);
+    $(".mitigation").html('<b> Mitigation:</b>'+ ' '+feature.properties.Mitigation);
+    $(".media1").html('<b> Media:</b>');
+    $(".picture_title").html('<b> Picture:</b>');
+    $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image'];
+    $(".media").find('img')['prevObject'][0].style="height: 100px; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
+
+    $(".video_title").html('<b> Video:</b>');
+    $(".video_").find('video')['prevObject'][0].src = feature.properties.AdditionalInfo['video'];
+    $(".video_").find('video')['prevObject'][0].style="height: 150px; width: 200px; position: relative; top: -7vh; left: 5vw;  controls"
+    $(".video_").find('video')['prevObject'][0].type="video/mp4";
+  $(".info_title").find('span')['prevObject'][0].style="display: none;"
+    $(".pin").find('span')['prevObject'][0].style="display: none;"
+    $(".tape_10").find('span')['prevObject'][0].style="display: none;"
+    $(".tape_5").find('span')['prevObject'][0].style="display: none;"
+    // $(".name").find('span')['prevObject'][0].style="display: none;"
+    
+    
+  });
+
+      },
 
   
 

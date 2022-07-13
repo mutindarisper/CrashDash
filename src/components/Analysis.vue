@@ -6,7 +6,7 @@ height: 750px; position: absolute; top: 8.3vh">
       <div class="selections">
         <span class="region">Region</span>
 
-  <!-- test for custom select  v-if="analysis" -->
+  <!-- test for custom select  v-if="analysis"   ;getCausesList() -->
    <CustomSelect
       :options="this.counties"
       :default="'Select a region'"
@@ -19,15 +19,17 @@ height: 750px; position: absolute; top: 8.3vh">
       :options="this.routes"
       :default="'Select a route'"
       class="select_route"
-      @input="display_route_name($event);getRoutesList()"
+      @input="display_route_name($event);getRoutePoints()"
+      @click="getRoutesList()"
     />
+
      <span class="causes">Cause</span>
    <CustomSelect
       :options="this.causes "
       :default="'Select a cause'"
       class="select_cause"
       @click="handle_selected_component('cause_stats')"
-      @input="display_cause_name($event);getCausesList()"
+      @input="display_cause_name($event); getPointsCause()"
     />
 
       <span class="hazard">Hazard</span>
@@ -99,9 +101,16 @@ height: 750px; position: absolute; top: 8.3vh">
 
 <script>
 import CustomSelect from './CustomSelect.vue'
+import axios from "axios"
+
+var baseurl = 'http://192.168.1.41:8100'
 export default {
     
     mounted() {
+      this.getRoutesList();
+      this.getRoutePoints();
+      this.getCausesList();
+      this.getPointsCause();
 
     },
     components:{
@@ -144,45 +153,19 @@ export default {
    window.county_data = $event
    console.log(data, 'selected  county data')
   //  this.$emit('selected county',  window.county_data)
-  // window.county_data= val;
-  // console.log(val, 'county value')
-  // console.log( data, "event")
-  
-  // if (data === 'Kiambu') {
-  //   console.log('Kiambu selected')
-  // } else{
-  //   console.log('other counties selected')
-  // }
+ 
 
     if(data){ 
 
-      if (this.points_layerGroup !== null) {
-        window.markers.clearLayers();
-      }
-       if (this.current_geojson) this.map.removeLayer(this.current_geojson);
+     
                     axios.get(baseurl+'/AdminData/get_adm1_shapefile?Get_county='+data 
                     )
            .then((response) => {
                         //  console.log( response.data,'blackspot data' );
 
                          var county_data = response.data 
+                         this.$emit('county_data', county_data)
                          
-                         
-                        
-                               this.current_geojson = L.geoJSON(county_data, {
-
-                                      style: {
-                                        color: "black",
-                                        opacity: 0.5,
-                                      },
-                                    }).addTo(this.map);
-
-                                    this.map.fitBounds(this.current_geojson.getBounds(), {
-                                      padding: [50, 50],
-                                    });
-
-
-                                    //all points per county
 
                                axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?hotspot_per_county='+data
                     )
@@ -190,74 +173,11 @@ export default {
                         //  console.log( response.data,'hotspot data per county' );
 
                          const all_hotspot_data = response.data 
-                          if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
+                          // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
                         //  console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
-                        
-                               this.current_hotspots = L.geoJSON(all_hotspot_data, {
 
-
-
-
-                                 pointToLayer: function (feature, latlng){
-
-
-                                  var studioicon = L.icon({
-                                    iconUrl: require("../src/assets/images/marker.svg"),
-                                    iconSize: [30, 30],
-                                    iconAnchor: [15,15]
-                                  });
-                                      var smallIcon = L.icon({
-                                        iconUrl: require("../src/assets/images/green-pin.svg"),
-                                        iconSize: [50, 40],
-                                        iconAnchor: [15,15]
-                                      });
-                                      var marker = L.marker(latlng, {icon: studioicon});
-                                      // marker.smallIcon = smallIcon;
-
-
-
-                                            L.Icon.Big = L.Icon.Default.extend({
-                                                  options: {
-                                                    iconUrl: require("../src/assets/images/marker.svg"),
-                                                  iconSize: [40, 40],
-                                              }});
-
-                                              var normal_icon = L.icon({
-                                                
-                                                    iconUrl: require("../src/assets/images/marker.svg"),
-                                                  iconSize: [25, 31],
-                                                  iconAnchor: [12.5 ,15]
-                                              });
-                                              var biggerIcon = new L.Icon.Big();
-
-                                              marker.setBouncingOptions({
-                                                      bounceHeight : 10,    // height of the bouncing
-                                                      bounceSpeed  : 54,    // bouncing speed coefficient
-                                                      exclusive    : true,  // if this marker is bouncing all others must stop
-                                                      // duration: 500,
-                                                      //  height: 100, 
-                                                      //  loop: 2
-                                                  }).on('mouseover', function() {
-                                                    marker.bounce(2)
-                                                      // this.toggleBouncing();
-                                                      marker.setIcon(biggerIcon);
-                                                  })
-                                                  .on('mouseout', function() {
-                                                    
-                                                      marker.setIcon(normal_icon);
-                                                  })
-
-
-
-                                      return marker;
-                                  }
-
-                                 
-                                })
-                             .addTo(this.map);
-
-                                
-                                               
+                         return this.$emit( 'points_per_county', response.data )
+                                          
                         return response.data
                         
                       
@@ -306,6 +226,131 @@ export default {
 
               }
 },
+
+
+//get names of selected routes
+
+  display_route_name($event){
+      window.route_name = $event
+      console.log( window.route_name, 'route name')
+
+    },
+
+     getRoutePoints() {
+    
+                      //load points in routes
+                         var route = window.route_name
+            // console.log(route, 'selected route')
+
+
+             axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?road_points='+route
+                    )
+           .then((response) => {
+                        //  console.log( response.data,'points in routes');
+                         var region_hotspots = response.data
+                        return   this.$emit('points_per_route', region_hotspots )
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+    },
+
+
+//load points in routes
+
+ getRoutesList() {
+      var county =  window.county_data
+      console.log(county, 'selected county for routes')
+
+        axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?road_names='+county
+                    )
+           .then((response) => {
+                        //  console.log( response.data,'routes data' );
+                          this.routes = response.data.Routes 
+                          window.routes =   response.data.Routes  
+                                  
+                     console.log(response.data.Routes, 'routes array')
+
+            return response.data.Routes
+            
+    
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+
+    },
+    display_cause_name($event){
+      window.cause_name = $event
+      // console.log( window.cause_name, 'cause name')
+      this.$emit('selected cause',  window.cause_name )
+
+    },
+
+
+     getCausesList() {
+      var county =  window.county_data
+      window.county = county
+console.log(county, 'cause county')
+
+
+
+      axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?list_causes_per_county='+county
+                    )
+           .then((response) => {
+                        //  console.log( response.data,'routes data' );
+                          this.causes = response.data.Causes
+                          // window.routes =   response.data.Routes  http://192.168.1.29:8100/HotSpots/get_hotspot_per_county/?hotspot_per_cause=Cc
+                                  
+                        return response.data.Causes
+                        
+                      
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+
+            // var county =  window.county_data
+      
+      
+           
+
+
+
+    },
+    getPointsCause() {
+      var county =  window.county
+      console.log(county, 'CAUSE COUNTY')
+      this.$emit('selected_county', county)
+
+
+        var cause = window.cause_name
+            console.log(cause, 'SELECTED CAUSE')
+            this.$emit('selected_cause', cause)
+
+
+             axios.get(baseurl+'/HotSpots/get_hotspot_per_county/?hotspot_per_cause='+cause+'&county='+county
+                    )
+           .then((response) => {
+                         console.log( response.data,'points in causes');
+                         var cause_hotspots = response.data
+                         return this.$emit('points_per_cause', cause_hotspots)
+                     
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+
+    }
+
+
+   
 
     }
 

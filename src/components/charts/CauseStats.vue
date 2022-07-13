@@ -92,31 +92,34 @@ export default {
       // options:{
       //    type: Object
       // },
-      year:{
+      cause:{
          type:String
       },
-      county_data:{
+      county:{
          type: String
-      },
-      cause_data:{
-          type: String
       }
+
   },
   computed: {
     check_data (){
+    
        return{
-        //   year: this.year,
-          county_data: window.county_data, 
-        //   cause_name: window.cause_name
+          cause: this.cause,
+          county: this.county,
+          
             
        }
+       
     }
+
   },
   watch:{
    check_data(){
 this.getCountyStats();
+
    },
-//    immediate: true,
+   deep: true
+
   },
    mounted() {
     
@@ -127,28 +130,15 @@ this.getCountyStats();
    methods: {
         getCountyStats() {
      
-            // var county_data = this.county_data
-            //  console.log(county_data, 'county name')
-            // //  var selected_position = this.position_data
+            var county= this.county
+             console.log(county, 'STATS COUNTY')
 
-            // var cause_data = this.cause_data
-            //  console.log(this.cause_data, 'cause name')
-
-            var county2 =  county_data 
-             console.log(county2, 'COUNTY 222222222222')
-            //  var county3 = this.$parent.displayToKey['TargetFunction']
-            //  console.log(county3, 'COUNTY 333')
-
-
-            //  var cause2 = cause_name
-            //  console.log(cause2, 'CAUSE 22222222222222')
-
+             var cause = this.cause
+                 console.log(cause, 'STATS CAUSE')
              
           
 
-
-
-                const outPut = axios.get('http://192.168.1.41:8100/HotSpots/get_statics/?county=Kiambu&cause=Infrastructural')
+                const outPut = axios.get('http://192.168.1.41:8100/HotSpots/get_statics/?county='+county+'&cause='+cause)
             
                     .then((response) => {
                          const responseData = response.data.statistics
