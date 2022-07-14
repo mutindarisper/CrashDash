@@ -60,20 +60,17 @@ export default {
       //       })
       //     }
       //   },
-            legend: {
-               display: false,
-            //    labels:{
-            //        generateLabels() {
-            //   return this.names_candidates.map((label2, index) => ({
-            //     text: label2,
-            //     // fillStyle: barBackgroundColors[index]
-            //   }))
-            // },
-
-                  
-            //       fontColor: 'gray',
-            //       fontWeight: 'bold'
-            //    }
+           legend: {
+               display: true,
+               position: 'right',
+               margin: 20,
+               labels:{
+                  fontColor: '#fff',
+                  fontWeight: 'bold',
+                  padding: 15,
+                  usePointStyle: true,
+                  pointStyle: 'circle'
+               }
             },
             
             responsive: true,

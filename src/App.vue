@@ -15,8 +15,9 @@
         <div class="dashboard">Dashboard</div>
         <div class="mapographics"
         title="Download Mapographics"
-        @click="download_mapographics"
-        >Mapographics</div>
+   
+        >
+        <a class="map_link" href="https://www.w3docs.com/uploads/media/default/0001/01/540cb75550adf33f281f29132dddd14fded85bfc.pdf" target="_blank">Mapographics</a></div>
 
 
       </div>
@@ -28,7 +29,7 @@
     </div>
 
 
-<!-- display analysis panel -->
+<!-- display analysis panel      @click="download_mapographics"-->
 <div v-if="start" class="start" @click="handle_selected_component('analysis');close_container('start') ">
   <span class="begin">Start Analysis</span>
    <img class="menu" src="./assets/images/menu.svg"  alt="">
@@ -57,16 +58,18 @@
           Summary Statistics
          </div>
 
-         <div class="county_chart" id="county_chart">
+         <div class="county_chart" id="county_chart" >
           <HotspotsDoughnut :height="230" :width="300"  id="county_chart1"/>
          </div>
+
+          <div class="cause_stats" id="cause_stats" >
+          <CauseStats :height="230" :width="300" :county="this.county" :cause="this.cause" id="cause_stats1"/>
+        </div>
         
 
     </div>
 
-    <div class="cause_stats" v-if="cause_stats" style="position:absolute; top: 70vh; left: 25vw; height:250px; width:400px; background-color:#fff; z-index: 2000">
-      <CauseStats :height="230" :width="300" :county="this.county" :cause="this.cause"/>
-    </div>
+   
 
 
     <Hotspots
@@ -202,7 +205,7 @@
     </div>
     <!-- map container close -->
 
-    <!-- <div class="mapographics_container" style="background_color: white, borde">
+    <!-- <div class="mapographics_container" style="background_color: white, borde"     v-if="county_chart"     v-if="cause_stats">
       Download Mapographics
     </div> -->
 
@@ -294,7 +297,7 @@ export default {
       markers: null,
       current_point:[],
       point_hotspot: null,
-      chart_container: false,
+      chart_container: true,
       info: false,
       analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
@@ -306,8 +309,8 @@ export default {
       img_url: '',
       alert_panel: false,
       start: false, 
-      cause_stats: true,
-
+      // cause_stats: true,
+      // county_chart: true,
       county: '',
       cause: ''
 
@@ -317,6 +320,9 @@ export default {
    mounted() {
 
     this.setupLeafletMap();
+    //  if (this.cause_stats = true) return 'rrr' // $(".county_chart").find('div')['prevObject'][0].style="display: none;"
+      // if ( this.cause_stats = true ) return this.county_chart = false
+    this.switch_charts();
     
     // this.load_all_hotspots();
       // this.getRoutesList();
@@ -328,6 +334,42 @@ export default {
   
 
    methods: {
+    switch_charts() {
+      
+
+  //     $(".chart_container")
+  //  $(".county_chart").find('div')['prevObject'][0].style="display: none;"
+        // document.getElementsByClassName('county_chart').find('div')['prevObject'][0].style="display: none;"
+//         $('.cause_stats').ready(function() {
+//     $('#county_chart').hide();
+// });
+
+
+// $(document).ready(checkContainer);
+
+// function checkContainer () {
+//   if($('#county_chart').is(':visible')){ //if the container is visible on the page
+//       $('.cause_stats').show();//createGrid();  //Adds a grid to the html
+//   } 
+//   // else {
+//   //   document.getElementsByClassName('cause_stats').css('display', 'true'); //setTimeout(checkContainer, 50); //wait 50 ms, then try again
+//   // }
+// }
+
+
+
+$("#cause_stats" ).on( 'load', function() {
+
+  // document.getElementById('cause_stats').classList.toggle("clicked");
+    document.getElementById('county_chart1').classList.toggle("clicked2");
+  //const result = $("#county_chart").css("display","none");
+  //.css.display = "none";//.find('div')['prevObject'][0].style.display='none'
+  //.hide();//.css("display","none");
+  //.css("display","none");
+  });
+     
+
+    },
     speech_text() {
 
       var Karen = speechSynthesis.names['Karen']
@@ -348,9 +390,6 @@ export default {
 
       },
 
-
-
-
     download_mapographics() {
       const doc = new jsPDF();
        $('.mapographics').click(function () {
@@ -359,8 +398,6 @@ export default {
 
 
     },
-
-
 
       screenshot() {
       domtoimage.toBlob(document.getElementById("map" )).then(function (blob) {
@@ -378,9 +415,6 @@ export default {
         
         saveAs(blob, "chart.png");
         
-       
-       
-
       });
 
       var image_URI =document.getElementById("county_chart1" )
@@ -445,34 +479,6 @@ export default {
           this.current_point = L.marker(cordinates, {
             
          
-           
-            // fillColor: "#fcba03",
-            // color: point_color,
-            // radius: 3,
-
-            // style:{
-            //    iconSize:     [25, 30],
-            // // iconUrl: this.url_icon
-
-            // }
-           
-
-            // pointToLayer:function (){
-            //     var myIcon = new L.icon({
-            //         iconUrl: '../src/assets/images/red-pin.svg', 
-            //         iconSize:     [25, 30], // width and height of the image in pixels
-            //         shadowSize:   [35, 20], // width, height of optional shadow image
-            //         iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
-            //         shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
-            //         popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
-            //       });
-            //     if (value.properties.Reasons === 'Curve preceeding a hill, blindspot, lack of signage'){
-            //       console.log(value.properties.Reasons, 'REASONS')
-            //       return L.marker( { icon: myIcon });
-            //     }
-            // }
-          
-         
 
           });
           //  console.log( value , 'VALUES' )
@@ -503,36 +509,7 @@ function setLoadEvent(layer) {
         
     
           this.current_point.addTo(this.points_layerGroup)
-    //       .
-          
-          
-    //       setBouncingOptions({
-    //     bounceHeight : 10,    // height of the bouncing
-    //     bounceSpeed  : 54,    // bouncing speed coefficient
-    //     exclusive    : true,  // if this marker is bouncing all others must stop
-
-    //     // duration: 500,
-    //     //  height: 100, 
-    //     //  loop: 2
-    // }).on('mouseover', function() {
-    //    this.bounce(2)
-    //     // this.toggleBouncing();
-    //     this.setIcon(biggerIcon);
-    // })
-    // .on('mouseout', function() {
-       
-    //     this.setIcon(normal_icon);
-    // });
-
-
     
-         
-          // this.map.fitBounds(window.markers.getBounds(), {
-          //   // padding: [50, 50],
-          // });
-          
-
-          // this.map.addLayer(markers);
 
           return `${key}`;
         }
@@ -1065,5 +1042,8 @@ window.initialize = initialize;
 
 <style scoped>
 @import "./assets/app.css";
+.mystyle {
+ display: none;
+}
 
 </style>

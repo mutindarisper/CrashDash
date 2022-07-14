@@ -1,14 +1,14 @@
 #app {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  z-index: 1000;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  
- 
-} 
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1000;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+   
+  } 
 
-.navbar{
+  .navbar{
 position: absolute;
 width: 100vw;
 height: 103px;
@@ -16,18 +16,18 @@ z-index: 1000;
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 background-color: #000;
 /* background: linear-gradient(180deg, rgba(12, 13, 13, 0.984863) 0%, rgba(151, 151, 152, 0.908383) 57.29%, rgba(255, 255, 255, 0.50228) 100%); */
-}
+  }
 
-.dash_logo{
-  position: absolute;
-  top:3vh;
-  left: 1vw;
-}
+  .dash_logo{
+    position: absolute;
+    top:3vh;
+    left: 1vw;
+  }
 
-.tagline{
-  position: absolute;
-  top: 8vh;
-  left: 1vw;
+  .tagline{
+    position: absolute;
+    top: 8vh;
+    left: 1vw;
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 600;
@@ -35,14 +35,14 @@ font-size: 18px;
 /* line-height: 19px; */
 
 color: #fff;
-}
+  }
 
-.links{
-  position: absolute;
-  justify-content: space-around;
-  display: flex;
-  flex-direction: row;
-  gap: 3rem;
+  .links{
+    position: absolute;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
 left: 69vw;
 top: 4.8vh;
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -52,38 +52,38 @@ font-size: 18px;
 line-height: 19px;
 cursor: pointer;
 color: #FEFEFE;
-}
-/* .links:hover{
-  color: #099f46;
-} */
+  }
+  /* .links:hover{
+    color: #099f46;
+  } */
 
-.start{
-  position: absolute;
-  top: 11vh;
-  z-index: 1000;
-  background-color: #FFFFFF;
-  width: 150px;
-  height: 50px;
+  .start{
+    position: absolute;
+    top: 11vh;
+    z-index: 1000;
+    background-color: #FFFFFF;
+    width: 150px;
+    height: 50px;
 
-}
-.begin{
-  position: absolute;
-  left: 0.5vw;
-  top: 1.5vh;
-  font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  background: #feffff;
+  }
+  .begin{
+    position: absolute;
+    left: 0.5vw;
+    top: 1.5vh;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: #feffff;
 border-radius: 30px;
 font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
 font-weight: 500;
 font-size: 16px;
 line-height: 19px;
-}
-.menu{
-  position: absolute;
-  left: 5.5vw;
-  top: 1.3vh;
-}
+  }
+  .menu{
+    position: absolute;
+    left: 5.5vw;
+    top: 1.3vh;
+  }
 
 
 .home{
@@ -97,212 +97,203 @@ font-size: 18px;
 line-height: 19px;
 
 color: #fff;
-  text-decoration: none;
-}
-.dashboard{
-  color:#fff;
-}
-.mapographics{
-  color:#fff;
-}
+    text-decoration: none;
+  }
+  .dashboard{
+    color:#fff;
+  }
+  .mapographics{
+    color:#fff;
+  }
+  .map_link{
+    text-decoration: none;
+    color: #fff;
+  }
 
 
-.home:hover{
-  color: #099f46;
-}
+  .home:hover{
+    color: #099f46;
+  }
 
-.dashboard:hover{
-  color: #099f46;
-}
+  .dashboard:hover{
+    color: #099f46;
+  }
 
- .mapographics:hover{
-  color: #099f46;
-}
-.logo2{
-  position: absolute;
-  left: 90.5vw;
-  top: 3.8vh;
+   .mapographics:hover{
+    color: #099f46;
+  }
+  .logo2{
+    position: absolute;
+    left: 90.5vw;
+    top: 3.8vh;
 
-}
-.analysis1{
-  position: absolute;
-  z-index: 2000;
-  top: 1vh;
-  left: -0.3vw;
- 
+  }
 
-/* background: url('./images/tab1.png');
-background-repeat: no-repeat;
-background-size: auto; */
-
-/* background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(73, 73, 73, 0.666) 100%); */
-}
-
-.analysis{
-  position: absolute;
-  z-index: 2000;
-  top: 8vh;
-  left: -0.3vw;
- 
+  .analysis{
+    position: absolute;
+    z-index: 2000;
+    top: 8vh;
+    left: -0.3vw;
+   
 
 /* background: url('./images/tab1.png');
 background-repeat: no-repeat;
 background-size: auto; */
 
 /* background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(73, 73, 73, 0.666) 100%); */
-}
-.selections{
-position:absolute;
-top: 12vh;
-left: 5vh;
-width: 342px;
-height: 420px;
-}
+  }
+ .selections{
+  position:absolute;
+  top: 12vh;
+  left: 5vh;
+  width: 342px;
+  height: 420px;
+ }
 
-.close_analysis{
-  position: absolute;
-  top:12.8vh;
-  left: 19.9vw;
-  z-index: 1500;
-}
-.close_chart_container{
-  position: absolute;
-  top:1vh;
-  left: 26.5vw;
+  .close_analysis{
+    position: absolute;
+    top:12.8vh;
+    left: 19.9vw;
+    z-index: 1500;
+  }
+  .close_chart_container{
+    position: absolute;
+    top:1vh;
+    left: 26.5vw;
+    
+  }
+  .close_info{
+    position: absolute;
+    top:0.5vh;
+    left: 19vw;
+  }
+
+
+  .region{
+    position: absolute;
+    top: 5vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 19px;
+
+color: #FFFFFF;
+  }
+
+
+  /* test for custom select */
+
+  .select_region{
+    position: absolute;
+    top: 8vh;
+    left: 0.5vw;
+  }
+  .routes{
+    position: absolute;
+    top: 15vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+  .select_route{
+    position: absolute;
+    top: 18vh;
+    left: 0.5vw;
+  }
+
+  .causes{
+    position: absolute;
+    top: 25vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+  .select_cause{
+    position: absolute;
+    top: 28vh;
+    left: 0.5vw;
+  }
+
+  .hazard{
+    position: absolute;
+    top: 35vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+  .select_hazard{
+    position: absolute;
+    top: 38vh;
+    left: 0.5vw;
+  }
+
+
+
+  .mitigations{
+    position: absolute;
+    top: 44vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+  .select_mitigation{
+    position: absolute;
+    top: 47vh;
+    left: 0.5vw;
+  }
+
+  .facilities{
+    position: absolute;
+    top: 45vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 19px;
+color: #FFFFFF;
+  }
+
   
-}
-.close_info{
-  position: absolute;
-  top:0.5vh;
-  left: 19vw;
-}
+  .select_facility{
+    position: absolute;
+    top: 48vh;
+    left: 0.5vw;
+  }
 
-
-.region{
-  position: absolute;
-  top: 5vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
-font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 19px;
-
-color: #FFFFFF;
-}
-
-
-/* test for custom select */
-
-.select_region{
-  position: absolute;
-  top: 8vh;
-  left: 0.5vw;
-}
-.routes{
-  position: absolute;
-  top: 15vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
-font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 19px;
-color: #FFFFFF;
-}
-.select_route{
-  position: absolute;
-  top: 18vh;
-  left: 0.5vw;
-}
-
-.causes{
-  position: absolute;
-  top: 25vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 19px;
-color: #FFFFFF;
-}
-.select_cause{
-  position: absolute;
-  top: 28vh;
-  left: 0.5vw;
-}
-
-.hazard{
-  position: absolute;
-  top: 35vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 19px;
-color: #FFFFFF;
-}
-.select_hazard{
-  position: absolute;
-  top: 38vh;
-  left: 0.5vw;
-}
-
-
-
-.mitigations{
-  position: absolute;
-  top: 44vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 19px;
-color: #FFFFFF;
-}
-.select_mitigation{
-  position: absolute;
-  top: 47vh;
-  left: 0.5vw;
-}
-
-.facilities{
-  position: absolute;
-  top: 45vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 19px;
-color: #FFFFFF;
-}
-
-
-.select_facility{
-  position: absolute;
-  top: 48vh;
-  left: 0.5vw;
-}
-
-.stats{
-  position: absolute;
-  top: 55vh;
-  left: 3.3vw;
-  width: 117px;
+  .stats{
+    position: absolute;
+    top: 55vh;
+    left: 3.3vw;
+    width: 117px;
 height: 19.03px;
 width: 207px;
 height: 46.08px;
@@ -318,86 +309,86 @@ line-height: 19px;
 
 
 color: #FFFFFF;
-}
+  }
 
-.proximity{
-  position: absolute;
-  top: 55vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  .proximity{
+    position: absolute;
+    top: 55vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
 font-style: normal;
 font-weight: 500;
 font-size: 18px;
 line-height: 19px;
 color: #FFFFFF;
-}
+  }
 
-.distance{
-  position: absolute;
-  top: 59vh;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  .distance{
+    position: absolute;
+    top: 59vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
 font-style: normal;
 font-weight: light;
 font-size: 14px;
 line-height: 19px;
 color: #FFFFFF;
-}
+  }
 
-#points{
-  position: relative;
-  top: 57vh;
-  left: 5vw;
-  height: 20px;
-  width: 100px;
-  border-radius: 15px;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  border: none;
-}
-input:focus{
-  outline: none;
-}
-.query{
-  position: relative;
-  top: 57vh;
-  left: 5vw;
-  height: 21px;
-  width: 100px;
-  border-radius: 15px;
-  border: none;
-  background-color: #FFFFFF;
+  #points{
+    position: relative;
+    top: 57vh;
+    left: 5vw;
+    height: 20px;
+    width: 100px;
+    border-radius: 15px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    border: none;
+  }
+  input:focus{
+    outline: none;
+  }
+  .query{
+    position: relative;
+    top: 57vh;
+    left: 5vw;
+    height: 21px;
+    width: 100px;
+    border-radius: 15px;
+    border: none;
+    background-color: #FFFFFF;
 
-}
+  }
 
-.roads{
-  position: absolute;
-  top: 65vh;
-  left: -0.1vw;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  .roads{
+    position: absolute;
+    top: 65vh;
+    left: -0.1vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
 font-style: normal;
 font-weight: light;
 font-size: 18px;
 line-height: 12px;
 color: #FFFFFF;
-  
-  
+    
+    
 
-}
-.inputs{
-  position: absolute;
-  top: 67vh;
-  left: -0.1vw;
-  margin-left: 1vw;
-  margin-right: 1vw;
-  font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  .inputs{
+    position: absolute;
+    top: 67vh;
+    left: -0.1vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
 font-style: normal;
 font-weight: light;
@@ -405,267 +396,282 @@ font-size: 14px;
 line-height: 12px;
 color: #FFFFFF;
 
-}
+  }
 
 
-/* chart container */
-
-.chart_container{
-position: absolute;
-top: 67.95vh;
-left: 23.6vw;
+  /* chart container */
+ 
+ .chart_container{
+  position: absolute;
+  top: 67.95vh;
+  left: 23.6vw;
 width: 540px;
 height: 280px;
 z-index: 1000;
 border-radius: 15px;
 background-color: #000;
 /* background: linear-gradient(90.13deg, rgba(12, 13, 13, 0.9) 0.21%, rgba(61, 61, 61, 0.9) 52.9%, rgba(94, 95, 95, 0.801) 99.97%, 99.98%, rgba(97, 97, 97, 0.9) 99.98%); */
-}
-
-
-.map_controls{
-  /* position: absolute; */
-    top: 25vh;
-    margin: 95%;
-    z-index: 800; 
-    /* background-color: aqua;   */
-  }
-  .zoomin_tool{
-    z-index: 800;
-    position: absolute;
-    top: 5%;
-    left:97%;
-    cursor: pointer;
-    border-radius: 55px;
-  }
-  .zoomout_tool{
-    z-index: 800;
-    position: absolute;
-    top: 10%;
-    left:97%;
-    cursor: pointer;
-  }
-
-  .leaflet-browser-print{
-    position: relative;
-    right: 1vw;
-    margin-left: 18px;
-   
-  }
-
-  .leaflet-control-browser-print.leaflet-bar.leaflet-control{
- 
-   border: none;
-  }
-  .basemaps{
-    z-index: 800;
-    position: absolute;
-    top: 15%;
-    left:97%;
-    cursor: pointer;
-  }
-  .base_map_ctrl_selections {
-    position: absolute;
-    z-index: 401;
-    /* margin-top: 5%; */
-    top: 15vh;
-    left:90%;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    padding: 5px;
-  }
-  .base_map_name {
-    font-size: 15px;
-    cursor: pointer;
-    border-bottom: #080808 solid 3px;
-  }
-  .base_map_name:hover {
-    background-color: #858585;
-  }
-  .download{
-    z-index: 800;
-    position: absolute;
-    top: 20%;
-    left:97%;
-    cursor: pointer;
+ }
   
-  }
-  .info_icon{
-    z-index: 800;
-    position: absolute;
-    top: 25%;
-    left:97%;
-    cursor: pointer;
   
-  }
-
-  .dimension{
-    z-index: 800;
-    position: absolute;
-    top: 30%;
-    left:97%;
-    cursor: pointer;
-  
-  }
-
-
-  .info{
-    position: absolute;
-    top: 38vh;
-    left: 75vw;
-    z-index: 1000;
-    width: 371px;
-    height: 512px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-color: #000;
-    /* background: linear-gradient(180deg, #F8F8F8 0%, #EDF4F8 41.67%, rgba(180, 184, 186, 0.584565) 79.69%, rgba(55, 57, 57, 0.51) 100%); */
-    border-radius: 20px;
-    padding: 10px;
-    }
-
-    .picture_title{
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      font-size: 12px;
-    }
-
-    .video_title{
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      font-size: 12px;
-    }
-
-    .separator{
-      position: absolute;
-      top: 27vh;
-      width: 250px;
-      height: 0px;
-      border: 1px solid #848080;
-    }
-    .title{
-      position: absolute;
-      top: 2vh;
-      left: 10vw;
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      color: #FFFFFF;
-      /* text-decoration: underline; */
-    }
-    .county_chart{
-      position: absolute;
-      top: 5vh;
-      left: 3vw;
-    }
-    .chart_text{
-      position: absolute;
-      top: 8vh;
-      left: 15vw;
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-      color: #FFFFFF;
-      font-size: 14px;
-      line-height: 40px;
-
-    }
-
-    #pano {
-      float: left;
-      height: 40%;
-      width: 50%;
-    }
-    #map2{
-      position: absolute;
-      top: 35vh;
-      /* left: 57.5vw; */
-      left: 70vw;
-      height: 512px;
-      width: 500px;
-      z-index: 2500;
-
-    }
-
-    .googlemap_container{
-      position: absolute;
-      top: 5vh;
-     
-      z-index: 1000;
-    
-
-    }
-    .map_button{
-      position: absolute;
-       top: 41vh;
-        left: 93.42vw;
-       z-index: 2500;
-       background-color: #FFFFFF;
-       border: none;
-       height: 48px;
-      width: 41px;
-    }
-
-    .info_title{
-      color: #fff;
-      font-weight: 600;
-      font-size: 28px;
-      position: relative;
+  .map_controls{
+    /* position: absolute; */
       top: 25vh;
-      line-height: 56px;
-      text-align: center;
-
-      animation: blinker 1.2s linear infinite;
+      margin: 95%;
+      z-index: 800; 
+      /* background-color: aqua;   */
     }
-    
-    @keyframes blinker {
-      50% {
-        opacity: 0.5;
-        /* color: #49f349; */
-      }
-    }
-    .pin{
+    .zoomin_tool{
+      z-index: 800;
       position: absolute;
-      top: 12vh;
-      left: 8vw;
-
-
+      top: 5%;
+      left:97%;
+      cursor: pointer;
+      border-radius: 55px;
     }
-    .tape_5{
+    .zoomout_tool{
+      z-index: 800;
       position: absolute;
-      top: 3vh;
-width: 382.94px;
-height: 39.88px;
-
-/* background: url('./images/tape_5.png'); */
-z-index: 2500;
-transform: rotate(-4deg);
+      top: 10%;
+      left:97%;
+      cursor: pointer;
     }
 
-    .tape_10{
-      position: absolute;
-      top: 47vh;
-width: 382.94px;
-height: 39.88px;
-
-/* background: url('./images/tape_5.png'); */
-z-index: 2500;
-transform: rotate(-4deg);
-    }
-    .alert_button{
+    .leaflet-browser-print{
       position: relative;
-      top: 8vh;
-      left: -1.5vw;
-      width: 80px;
-      height: 30px;
-      color: #fff;
-      background-color: #000;
-      font-size: 20px;
-      font-weight: bold;
-      border-radius: 5px;
+      right: 1vw;
+      margin-left: 18px;
+     
+    }
+
+    .leaflet-control-browser-print.leaflet-bar.leaflet-control{
+   
+     border: none;
+    }
+    .basemaps{
+      z-index: 800;
+      position: absolute;
+      top: 15%;
+      left:97%;
+      cursor: pointer;
+    }
+    .base_map_ctrl_selections {
+      position: absolute;
+      z-index: 401;
+      /* margin-top: 5%; */
+      top: 15vh;
+      left:90%;
+      background-color: #FFFFFF;
+      border-radius: 10px;
+      padding: 5px;
+    }
+    .base_map_name {
+      font-size: 15px;
+      cursor: pointer;
+      border-bottom: #080808 solid 3px;
+    }
+    .base_map_name:hover {
+      background-color: #858585;
+    }
+    .download{
+      z-index: 800;
+      position: absolute;
+      top: 20%;
+      left:97%;
+      cursor: pointer;
+    
+    }
+    .info_icon{
+      z-index: 800;
+      position: absolute;
+      top: 25%;
+      left:97%;
+      cursor: pointer;
     
     }
 
-    .alert_panel{
+    .dimension{
+      z-index: 800;
       position: absolute;
-      width: 250px;
-      height: 200px;
-      padding: 50px;
-       top: 31vh;
-        left: 43.42vw;
-       z-index: 2500;
-       background-color: #FFFFFF;
+      top: 30%;
+      left:97%;
+      cursor: pointer;
+    
     }
+
+
+    .info{
+      position: absolute;
+      top: 38vh;
+      left: 75vw;
+      z-index: 1000;
+      width: 371px;
+      height: 512px;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      background-color: #000;
+      /* background: linear-gradient(180deg, #F8F8F8 0%, #EDF4F8 41.67%, rgba(180, 184, 186, 0.584565) 79.69%, rgba(55, 57, 57, 0.51) 100%); */
+      border-radius: 20px;
+      padding: 10px;
+      }
+
+      .picture_title{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 12px;
+      }
+
+      .video_title{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 12px;
+      }
+
+      .separator{
+        position: absolute;
+        top: 27vh;
+        width: 250px;
+        height: 0px;
+        border: 1px solid #848080;
+      }
+      .title{
+        position: absolute;
+        top: 2vh;
+        left: 10vw;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        color: #FFFFFF;
+        /* text-decoration: underline;  .cause_stats */
+      }
+      #county_chart{
+        position: absolute;
+        top: 5vh;
+        left: 3vw;
+      }
+
+      #cause_stats{
+        position: absolute;
+        top: 5vh;
+        left: 3vw;
+      }
+      .chart_text{
+        position: absolute;
+        top: 8vh;
+        left: 15vw;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        color: #FFFFFF;
+        font-size: 14px;
+        line-height: 40px;
+
+      }
+
+      #pano {
+        float: left;
+        height: 40%;
+        width: 50%;
+      }
+      #map2{
+        position: absolute;
+        top: 35vh;
+        /* left: 57.5vw; */
+        left: 70vw;
+        height: 512px;
+        width: 500px;
+        z-index: 2500;
+
+      }
+
+      .googlemap_container{
+        position: absolute;
+        top: 5vh;
+       
+        z-index: 1000;
+      
+
+      }
+      .map_button{
+        position: absolute;
+         top: 41vh;
+          left: 93.42vw;
+         z-index: 2500;
+         background-color: #FFFFFF;
+         border: none;
+         height: 48px;
+        width: 41px;
+      }
+
+      .info_title{
+        color: #fff;
+        font-weight: 600;
+        font-size: 28px;
+        position: relative;
+        top: 25vh;
+        line-height: 56px;
+        text-align: center;
+
+        animation: blinker 1.2s linear infinite;
+      }
+      
+      @keyframes blinker {
+        50% {
+          opacity: 0.5;
+          /* color: #49f349; */
+        }
+      }
+      .pin{
+        position: absolute;
+        top: 12vh;
+        left: 8vw;
+
+
+      }
+      .tape_5{
+        position: absolute;
+        top: 3vh;
+width: 382.94px;
+height: 39.88px;
+
+/* background: url('./images/tape_5.png'); */
+z-index: 2500;
+transform: rotate(-4deg);
+      }
+
+      .tape_10{
+        position: absolute;
+        top: 47vh;
+width: 382.94px;
+height: 39.88px;
+
+/* background: url('./images/tape_5.png'); */
+z-index: 2500;
+transform: rotate(-4deg);
+      }
+      .alert_button{
+        position: relative;
+        top: 8vh;
+        left: -1.5vw;
+        width: 80px;
+        height: 30px;
+        color: #fff;
+        background-color: #000;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 5px;
+      
+      }
+
+      .alert_panel{
+        position: absolute;
+        width: 250px;
+        height: 200px;
+        padding: 50px;
+         top: 31vh;
+          left: 43.42vw;
+         z-index: 2500;
+         background-color: #FFFFFF;
+      }
+
+      .clicked2 {
+        /* background:orange; */
+        display: none;
+    }
+    .clicked {
+      background:transparent;
+      /* display: none; */
+  }
