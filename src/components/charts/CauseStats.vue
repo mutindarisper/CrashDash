@@ -137,7 +137,7 @@ this.getCountyStats();
              
           
 
-                const outPut = axios.get('http://192.168.1.41:8100/HotSpots/get_statics/?county='+county+'&cause='+cause)
+                const outPut = axios.get(baseurl+'/HotSpots/get_statics/?county='+county+'&cause='+cause)
             
                     .then((response) => {
                          const responseData = response.data.statistics
@@ -292,3 +292,10 @@ this.getCountyStats();
    }
 }
 </script>
+<style scoped>
+#legend-container ul {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 2em;
+}
+</style>

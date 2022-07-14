@@ -7,6 +7,47 @@
     
    
   } 
+  .description{
+    position: absolute;
+    top: 30vh;
+    left: 40vw;
+    width: 20vw;
+    height: 35vh;
+    z-index: 2500;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    border-radius: 30px;
+    animation: mymove 3s;
+    animation-iteration-count: 1;
+
+  }
+
+  @keyframes mymove {
+    from {top: 0px;}
+    to {top: 200px;}
+  }
+  .text{
+    position: absolute;
+    top: 5vh;
+    padding: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 400;
+
+  }
+  .sticker{
+    position: absolute;
+    top: 24.5vh;
+    left: 16vw;
+  }
+  .fun{
+    padding: 10px;
+  }
+  .close_description{
+    position: absolute;
+    top: 2vh;
+    left: 18vw;
+  }
 
   .navbar{
 position: absolute;
@@ -155,9 +196,9 @@ background-size: auto; */
 
   .close_analysis{
     position: absolute;
-    top:12.8vh;
+    top:20.8vh;
     left: 19.9vw;
-    z-index: 1500;
+    z-index: 2500;
   }
   .close_chart_container{
     position: absolute;
@@ -232,7 +273,7 @@ color: #FFFFFF;
     font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 16px;
     line-height: 19px;
     color: #FFFFFF;
@@ -244,7 +285,7 @@ color: #FFFFFF;
     top: 28vh;
     left: 10vw;
     width: 40%;
-    height: 38px;
+    height: 36px;
     background-color: #9b9797;
     font-style: normal;
     font-weight: 400;
@@ -252,7 +293,12 @@ color: #FFFFFF;
     line-height: 19px;
     color: #FFFFFF;
     border-radius: 30px;
+    border:none;
     font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  .display_cause:focus{
+    outline: none;
+    border:none;
   }
   .select_cause{
     position: absolute;

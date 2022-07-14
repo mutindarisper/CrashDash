@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 
-    <div class="navbar">
+    <div class="navbar" id="nav">
       <div class="dash_logo">
         <img src="./assets/images/white_crash.svg" alt="">
       </div>
@@ -145,6 +145,7 @@
             src="./assets/images/zoomout.svg"
             alt=""
             title="Zoom out"
+            id="zoomout"
             @click="zoom_out"
           />
         </div>
@@ -233,7 +234,41 @@
     </div>
       
 
-    <!-- chart loader -->
+    <!-- vue tour -->
+
+      <!-- <v-tour name="myTour" :steps="steps"></v-tour> -->
+
+      <!-- descriptive text -->
+      <div class="description" v-if="description">
+        <img class="close_description"
+        src="./assets/images/close_small.svg"
+        @click="close_container('description')"
+         alt="" >
+         <div class="text">
+         <strong style="position: absolute; width: 100%; top: -1vh; text-align: center; left: -0.7vw">CrashDash</strong>  <br>
+         <img class="pin" src="./assets/images/pin.svg"   style="position: absolute; width: 20px; height: 25px; top: -1.5vh; text-align: center; left: 11.5vw" alt="">
+            CrashDash is a geoportal designed and built to disseminate information on major blackspots in Kenya. 
+            The purpose of the geoportal is to:
+            <ul>
+              <li>Identify major contributing factors to road crashes</li>
+              <li>Diagnose the cause of crashes</li>
+              <li>Identify accident blackspots and visualize them</li>
+              <li>Analyze and suggest recommendations </li>
+            </ul>
+            <div class="fun">Have fun as you explore our geoportal! </div>
+            <div class="sticker">
+              <iframe src="https://giphy.com/embed/UQDSBzfyiBKvgFcSTw" width="50" height="50" frameBorder="0" class="giphy-embed"
+               allowFullScreen></iframe>
+            </div>
+      
+            
+             
+             
+            
+
+         </div>
+      
+      </div>
 
    
    
@@ -286,7 +321,8 @@ export default {
     Hotspots,
     HotspotsDoughnut,
     CauseStats,
-     Analysis
+     Analysis,
+     
 
    },
    data() {
@@ -322,25 +358,15 @@ export default {
       cause_stats: false,
       county_chart: true,
       county: '',
-      cause: ''
+      cause: '',
+       steps: [],
+       description: true,
 
     }
 
    },
 
-   created() {
-    
-
-    //    $(".cause_stats").on("load", function() {
-    //     console.log('CAUSE STATS  HAS LOADED')
-    //   //  this.county_chart = false;
-    // })
-
-      
-
    
-    
-   },
 
    mounted() {
 
@@ -349,16 +375,27 @@ export default {
     //  if (this.cause_stats = true) return 'rrr' // $(".county_chart").find('div')['prevObject'][0].style="display: none;"
       // if ( this.cause_stats = true ) return this.county_chart = false
     this.switch_charts();
+    this.steps.push({
+      target: document.getElementById('zoomout'), // We're using document.querySelector() under the hood
+      header: {
+        title: "Get Started",
+      },
+      content: `Discover <strong>Vue Tour</strong>!`,
+    });
+    this.steps.push({
+      target: "#zoomout",
+      content: "An awesome plugin made with Vue.js!",
+    });
+    this.steps.push({
+      target: '[data-v-step="2"]',
+      content:
+        "Try it, you'll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.",
+      params: {
+        placement: "top", // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+      },
+    });
+    this.$tours["myTour"].start();
 
-   
-
-    
-    // this.load_all_hotspots();
-      // this.getRoutesList();
-  // this.onEachPoint();
-
-    // this.handle_point_data();
-    
    },
   
 
