@@ -1,6 +1,6 @@
 <template>
      <div class="analysis">
-      <img class="close_analysis"  @click="close_container('analysis');handle_selected_component('start') " src="../assets/images/close_small.svg" alt="">
+     
       <img src="../assets/images/tab_color.png" alt="" style="width: 442px;
 height: 750px; position: absolute; top: 8.3vh">
       <div class="selections">
@@ -24,13 +24,20 @@ height: 750px; position: absolute; top: 8.3vh">
     />
 
      <span class="causes">Cause</span>
-   <CustomSelect
+   <CustomSelectCause
       :options="this.causes "
       :default="'Select a cause'"
       class="select_cause"
-      @click="handle_selected_component('cause_stats')"
-      @input="display_cause_name($event); getPointsCause()"
+   
+      @input="display_cause_name($event); getPointsCause();handle_selected('chart_container');switch_charts()"
     />
+
+ <span class="view_stats"> Cause Statistics</span>
+
+      <button
+       class="display_cause"
+       @click="close_container('county_chart');handle_selected('cause_stats')">Load Statistics</button>
+
 
       <span class="hazard">Hazard</span>
    <CustomSelect
@@ -56,7 +63,7 @@ height: 750px; position: absolute; top: 8.3vh">
       @input="displayToKey($event)"
     /> -->
 
-    <button class="stats" @click="handle_selected_component('chart_container')" type="button">Load Statistics</button>
+    <button class="stats" @click="handle_selected('chart_container')" type="button">Load Statistics</button>
 
       </div>
 
@@ -64,11 +71,11 @@ height: 750px; position: absolute; top: 8.3vh">
 
     <!-- alert panel -->
 
-    <div class="alert_panel" v-if="alert_panel">
+    <!-- <div class="alert_panel" v-if="alert_panel">
       <span class="info_title">Click the point on the map to display the data </span>
       <button class="alert_button" type="button"  @click="close_container('alert_panel')">OK</button>
 
-    </div>
+    </div> -->
 
 
 <!-- <span class="proximity">Proximity</span>
@@ -101,9 +108,10 @@ height: 750px; position: absolute; top: 8.3vh">
 
 <script>
 import CustomSelect from './CustomSelect.vue'
+import CustomSelectCause from './CustomSelectCause.vue'
 import axios from "axios"
 
-var baseurl = 'http://192.168.1.41:8100'
+var baseurl = 'http://45.63.48.25:8080'
 export default {
     
     mounted() {
@@ -114,40 +122,56 @@ export default {
 
     },
     components:{
-        CustomSelect
+        CustomSelect,
+        CustomSelectCause
 
     },
     data() {
         return{
 
-            googlemap_container: false,
-      base_map_ctrl_selections: false, //show or hide base layers
-      base_map_ctrl_cliked: false,
-      baseMaps: {},
-      current_geojson: null,
-      current_road: null,
-      current_hotspots: null,
-      points_layerGroup:null,
-      markers: null,
-      current_point:[],
-      point_hotspot: null,
-      chart_container: true,
-      info: false,
-      analysis: true,
+      //       googlemap_container: false,
+      // base_map_ctrl_selections: false, //show or hide base layers
+      // base_map_ctrl_cliked: false,
+      // baseMaps: {},
+      // current_geojson: null,
+      // current_road: null,
+      // current_hotspots: null,
+      // points_layerGroup:null,
+      // markers: null,
+      // current_point:[],
+      // point_hotspot: null,
+      // // chart_container: true,
+      // info: false,
+      // analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
       selected_county: '',
       routes: [],
       causes:[],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
-      charts: false,
-      img_url: '',
-      alert_panel: false,
-      start: false, 
-      cause_stats: false
+      // charts: false,
+      // img_url: '',
+      // alert_panel: false,
+      // start: false, 
+      // cause_stats: false
 
         }
     },
     methods:{
+
+         handle_selected(selection) {
+      // this[selection] = false;
+      this.$emit("selected_component", selection);
+    },
+
+
+      close_container(container) {
+         this.$emit("close_component", container)
+    // this[container] = false;
+  },
+    switch_charts(container) {
+       this.$emit("selected_chart", container);
+
+    },
               displayToKey($event) {
    var data = $event
    window.county_data = $event

@@ -30,20 +30,24 @@
 
 
 <!-- display analysis panel      @click="download_mapographics"-->
-<div v-if="start" class="start" @click="handle_selected_component('analysis');close_container('start') ">
+<div v-if="start" class="start" @click="handle_selected_component('analysis1');close_container('start') ">
   <span class="begin">Start Analysis</span>
    <img class="menu" src="./assets/images/menu.svg"  alt="">
 </div>
    
 
-    <div class="analysis1" v-if="analysis">
+    <div class="analysis1" v-if="analysis1">
+       <img class="close_analysis"  @click="close_container('analysis1');handle_selected_component('start') " src="./assets/images/close_small.svg" alt="">
       <Analysis 
+       @selected_component="handle_selected_component"
+       @close_component="close_container"
       @county_data="displayToKey"
       @points_per_county="points_per_county"
       @points_per_route="points_per_route"
       @points_per_cause="points_per_cause"
       @selected_county="handle_selected_county"
-      @selected_cause="handle_selected_cause"/>
+      @selected_cause="handle_selected_cause"
+      @selected_chart="switch_charts"/>
       
 
     
@@ -58,19 +62,24 @@
           Summary Statistics
          </div>
 
-         <div class="county_chart" id="county_chart" >
-          <HotspotsDoughnut :height="230" :width="300"  id="county_chart1"/>
-         </div>
 
-          <div class="cause_stats" id="cause_stats" >
-          <CauseStats :height="230" :width="300" :county="this.county" :cause="this.cause" id="cause_stats1"/>
-        </div>
-        
+          <CauseStats :height="230" :width="300" :county="this.county" :cause="this.cause" style="position: relative; top:2vw"
+           v-if="cause_stats"
+            id="cause_stats"
+            
+            />
+          
+           <!-- <button @click="close_container('cause_stats')">click</button> -->
+
+         <!-- <div class="cause_stats" id="cause_stats" >
+         
+        </div> -->
+
+         <div class="county_chart" id="county_chart" v-if="county_chart" >
+          <HotspotsDoughnut :height="230" :width="300"  id="county_chart1"/>
+         </div> 
 
     </div>
-
-   
-
 
     <Hotspots
      @school_data="handle_point_data" 
@@ -299,30 +308,50 @@ export default {
       point_hotspot: null,
       chart_container: true,
       info: false,
-      analysis: true,
+      // analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
       selected_county: '',
       routes: [],
       causes:[],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
-      charts: false,
+      // charts: false,
       img_url: '',
       alert_panel: false,
       start: false, 
-      // cause_stats: true,
-      // county_chart: true,
+      analysis1: true,
+      cause_stats: false,
+      county_chart: true,
       county: '',
       cause: ''
 
     }
 
    },
+
+   created() {
+    
+
+    //    $(".cause_stats").on("load", function() {
+    //     console.log('CAUSE STATS  HAS LOADED')
+    //   //  this.county_chart = false;
+    // })
+
+      
+
+   
+    
+   },
+
    mounted() {
 
     this.setupLeafletMap();
+    // this.switch_charts('county_chart');
     //  if (this.cause_stats = true) return 'rrr' // $(".county_chart").find('div')['prevObject'][0].style="display: none;"
       // if ( this.cause_stats = true ) return this.county_chart = false
     this.switch_charts();
+
+   
+
     
     // this.load_all_hotspots();
       // this.getRoutesList();
@@ -335,41 +364,17 @@ export default {
 
    methods: {
     switch_charts() {
+
+         $(".cause_stats").on("load", function() {
+        console.log('CAUSE STATS  HAS LOADED')
+      //  this.county_chart = false;
+    })
       
 
-  //     $(".chart_container")
-  //  $(".county_chart").find('div')['prevObject'][0].style="display: none;"
-        // document.getElementsByClassName('county_chart').find('div')['prevObject'][0].style="display: none;"
-//         $('.cause_stats').ready(function() {
-//     $('#county_chart').hide();
-// });
-
-
-// $(document).ready(checkContainer);
-
-// function checkContainer () {
-//   if($('#county_chart').is(':visible')){ //if the container is visible on the page
-//       $('.cause_stats').show();//createGrid();  //Adds a grid to the html
-//   } 
-//   // else {
-//   //   document.getElementsByClassName('cause_stats').css('display', 'true'); //setTimeout(checkContainer, 50); //wait 50 ms, then try again
-//   // }
-// }
-
-
-
-$("#cause_stats" ).on( 'load', function() {
-
-  // document.getElementById('cause_stats').classList.toggle("clicked");
-    document.getElementById('county_chart1').classList.toggle("clicked2");
-  //const result = $("#county_chart").css("display","none");
-  //.css.display = "none";//.find('div')['prevObject'][0].style.display='none'
-  //.hide();//.css("display","none");
-  //.css("display","none");
-  });
-     
-
     },
+
+
+
     speech_text() {
 
       var Karen = speechSynthesis.names['Karen']

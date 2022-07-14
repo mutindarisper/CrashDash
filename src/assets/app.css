@@ -109,6 +109,9 @@ color: #fff;
     text-decoration: none;
     color: #fff;
   }
+  .map_link:hover{
+    color: #099f46;
+  }
 
 
   .home:hover{
@@ -222,11 +225,43 @@ font-size: 18px;
 line-height: 19px;
 color: #FFFFFF;
   }
+  .view_stats{
+    position: absolute;
+    top: 25vh;
+    left: 10vw;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+
+  }
+
+  .display_cause{
+    position: absolute;
+    top: 28vh;
+    left: 10vw;
+    width: 40%;
+    height: 38px;
+    background-color: #9b9797;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #FFFFFF;
+    border-radius: 30px;
+    font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
   .select_cause{
     position: absolute;
     top: 28vh;
     left: 0.5vw;
+    
   }
+
+
 
   .hazard{
     position: absolute;
@@ -545,10 +580,10 @@ background-color: #000;
         left: 3vw;
       }
 
-      #cause_stats{
+      .cause_stats{
         position: absolute;
         top: 5vh;
-        left: 3vw;
+        left: 15vw;
       }
       .chart_text{
         position: absolute;
@@ -675,3 +710,4 @@ transform: rotate(-4deg);
       background:transparent;
       /* display: none; */
   }
+ 

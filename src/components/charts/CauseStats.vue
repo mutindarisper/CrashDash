@@ -3,6 +3,8 @@
 import axios from "axios"
 import { Doughnut  }  from 'vue-chartjs';
 
+var baseurl = 'http://45.63.48.25:8080'
+
 
 export default {
    extends:Doughnut,
@@ -262,6 +264,7 @@ this.getCountyStats();
 
                         
                         this.renderChart(this.chatData_restructure, this.options)
+                        console.log( this.chatData_restructure, 'DATA TYPE OF CHART' )
                 
                             }, 1000)
 
