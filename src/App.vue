@@ -755,7 +755,7 @@ points_per_county(val) {
                                                         case 0 :
 
                                                           var zero = new L.icon({
-                                                            iconUrl: require("/src/assets/images/purple.png"), 
+                                                            iconUrl: require("/src/assets/images/marker.svg"), 
                                                             iconSize:     [25, 30], // width and height of the image in pixels
                                                             shadowSize:   [35, 20], // width, height of optional shadow image
                                                             iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -768,7 +768,7 @@ points_per_county(val) {
                                                       
                                                         case 1:
                                                             var one = new L.icon({
-                                                                iconUrl: require("/src/assets/images/marker.svg"), 
+                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
                                                                 iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -782,7 +782,7 @@ points_per_county(val) {
 
                                                             case 2:
                                                             var two = new L.icon({
-                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
+                                                                iconUrl: require("/src/assets/images/purple_.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
                                                                 iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -1065,11 +1065,11 @@ window.initialize = initialize;
 
 
 
-                                           switch (feature.properties.risk){
+                                            switch (feature.properties.risk){
                                                         case 0 :
 
                                                           var zero = new L.icon({
-                                                            iconUrl: require("/src/assets/images/purple.png"), 
+                                                            iconUrl: require("/src/assets/images/marker.svg"), 
                                                             iconSize:     [25, 30], // width and height of the image in pixels
                                                             shadowSize:   [35, 20], // width, height of optional shadow image
                                                             iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -1082,7 +1082,7 @@ window.initialize = initialize;
                                                       
                                                         case 1:
                                                             var one = new L.icon({
-                                                                iconUrl: require("/src/assets/images/marker.svg"), 
+                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
                                                                 iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -1096,7 +1096,7 @@ window.initialize = initialize;
 
                                                             case 2:
                                                             var two = new L.icon({
-                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
+                                                                iconUrl: require("/src/assets/images/purple_.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
                                                                 iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -1192,23 +1192,16 @@ window.initialize = initialize;
                                                     
                                                       marker.setIcon(normal_icon);
                                                   })
-
-
-
-
-
-                                                  
+         
 
   //different visualization per severity
   // console.log(feature.properties.risk, 'risky text')
-
-
 
                                            switch (feature.properties.risk){
                                                         case 0 :
 
                                                           var zero = new L.icon({
-                                                            iconUrl: require("/src/assets/images/purple.png"), 
+                                                            iconUrl: require("/src/assets/images/marker.svg"), 
                                                             iconSize:     [25, 30], // width and height of the image in pixels
                                                             shadowSize:   [35, 20], // width, height of optional shadow image
                                                             iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -1221,7 +1214,7 @@ window.initialize = initialize;
                                                       
                                                         case 1:
                                                             var one = new L.icon({
-                                                                iconUrl: require("/src/assets/images/marker.svg"), 
+                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
                                                                 iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -1235,7 +1228,7 @@ window.initialize = initialize;
 
                                                             case 2:
                                                             var two = new L.icon({
-                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
+                                                                iconUrl: require("/src/assets/images/purple_.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
                                                                 iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location

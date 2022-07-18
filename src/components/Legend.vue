@@ -3,11 +3,11 @@
  <div class="legend">
     <span class="label">Blackspot Risk Severity</span>
     <div class="content">
-    <img class="icon" src="../assets/images/purple-pin.svg" alt="">
-    <span class="labels">High</span>
     <img class="icons" src="../assets/images/marker.svg" alt="">
     <span class="labels">Moderately High</span>
     <img class="icons" src="../assets/images/green-pin.svg" alt="">
+    <span class="labels">High</span>
+    <img class="icon" src="../assets/images/fin.svg" alt="">
     <span class=labels>Very High</span>
     <img class="icons" src="../assets/images/red-pin.svg" alt="">
     <span class=labels>Extremely High</span>
@@ -51,9 +51,9 @@ color: #fff;
     width: 25px;
 }
 .icon{
-    position: relative;
-    top: -0.5vh;
-    height: 25px;
+    /* position: relative;
+    top: -0.5vh; */
+    height: 20px;
     width: 20px;
 }
 .labels{
