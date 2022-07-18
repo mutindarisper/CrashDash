@@ -25,6 +25,7 @@ this.load_hotspots();
            .then((response) => {
                          console.log( response.data,'HOTSPOTS data' );
                          
+                         
                         return this.$emit("school_data", response.data)
                         
                       

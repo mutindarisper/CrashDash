@@ -756,4 +756,13 @@ transform: rotate(-4deg);
       background:transparent;
       /* display: none; */
   }
+
+  #info_legend{
+    position: absolute;
+   
+    /* background-color: #099f46; */
+    top: 58.5vh;
+    left: 60vw;
+    z-index: 3000;
+  }
  

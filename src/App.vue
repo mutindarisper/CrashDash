@@ -209,6 +209,12 @@
         </div>
       </div>
 
+      <!-- legend -->
+      <div id="info_legend">
+        <Legend  />
+      </div>
+      
+
 
       
 
@@ -299,6 +305,7 @@ import "leaflet.browser.print/dist/leaflet.browser.print.min.js"
 import CauseStats from './components/charts/CauseStats.vue'
 import speechSynthesis from 'speech-synthesis'
 import Analysis from './components/Analysis.vue'
+import Legend from './components/Legend.vue'
 
 
 delete Icon.Default.prototype._getIconUrl;
@@ -326,6 +333,7 @@ export default {
     HotspotsDoughnut,
     CauseStats,
      Analysis,
+     Legend
      
 
    },
@@ -375,6 +383,7 @@ export default {
    mounted() {
 
     this.setupLeafletMap();
+    // this.load_legend();
     // this.switch_charts('county_chart');
     //  if (this.cause_stats = true) return 'rrr' // $(".county_chart").find('div')['prevObject'][0].style="display: none;"
       // if ( this.cause_stats = true ) return this.county_chart = false
@@ -400,6 +409,8 @@ export default {
     });
     this.$tours["myTour"].start();
 
+   
+
    },
   
 
@@ -413,8 +424,6 @@ export default {
       
 
     },
-
-
 
     speech_text() {
 
@@ -562,10 +571,49 @@ function setLoadEvent(layer) {
       });
 
       window.markers.addTo(this.map);
+
+
        
 
      
     },
+
+//     load_legend() {
+
+
+// console.log('loaded legend')
+//       function getColor(d) {
+//         return d === 'Road Surface'  ? "#de2d26" :
+//                d === 'Signage'  ? "#377eb8" :
+//                d === 'Line Markings' ? "#4daf4a" :
+//                d === 'Roadside Hazards' ? "#984ea3" :
+//                             "#ff7f00";
+//     }
+
+  
+
+//       var legend = L.control();
+//     legend.onAdd = function (map) {
+//       map = this.map
+
+//     var div = L.DomUtil.create('div', 'info_legend');
+//    var  labels = ['<strong>Categories</strong>'],
+//     categories = ['Road Surface','Signage','Line Markings','Roadside Hazards','Other'];
+
+//     for (var i = 0; i < categories.length; i++) {
+
+//             div.innerHTML += 
+//             labels.push(
+//                 '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+//             (categories[i] ? categories[i] : '+'));
+
+//         }
+//         div.innerHTML = labels.join('<br>');
+//     return div;
+//     };
+//     legend.addTo(map);
+
+//     },
 
     load_all_hotspots() {
 
@@ -703,11 +751,11 @@ points_per_county(val) {
 
 
 
-                              switch (feature.properties.risk){
+                                           switch (feature.properties.risk){
                                                         case 0 :
 
                                                           var zero = new L.icon({
-                                                            iconUrl: require("/src/assets/images/black-pin.svg"), 
+                                                            iconUrl: require("/src/assets/images/purple-pin.svg"), 
                                                             iconSize:     [25, 30], // width and height of the image in pixels
                                                             shadowSize:   [35, 20], // width, height of optional shadow image
                                                             iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -979,8 +1027,6 @@ window.initialize = initialize;
                                       var marker = L.marker(latlng, {icon: studioicon});
                                       // marker.smallIcon = smallIcon;
 
-
-
                                             L.Icon.Big = L.Icon.Default.extend({
                                                   options: {
                                                     iconUrl: require("../src/assets/images/marker.svg"),
@@ -1009,6 +1055,73 @@ window.initialize = initialize;
                                                     
                                                       marker.setIcon(normal_icon);
                                                   })
+
+
+
+
+
+                                                  //different visualization per severity
+  // console.log(feature.properties.risk, 'risky text')
+
+
+
+                                           switch (feature.properties.risk){
+                                                        case 0 :
+
+                                                          var zero = new L.icon({
+                                                            iconUrl: require("/src/assets/images/purple-pin.svg"), 
+                                                            iconSize:     [25, 30], // width and height of the image in pixels
+                                                            shadowSize:   [35, 20], // width, height of optional shadow image
+                                                            iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                            shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                            popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+                                                          });
+                                                            return L.marker(latlng, { icon: zero });
+
+                                                      
+                                                      
+                                                        case 1:
+                                                            var one = new L.icon({
+                                                                iconUrl: require("/src/assets/images/marker.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: one});
+
+
+                                                            case 2:
+                                                            var two = new L.icon({
+                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: two});
+
+                                                            case 3:
+                                                            var three = new L.icon({
+                                                                iconUrl: require("/src/assets/images/red-pin.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: three});
+
+                                                   }
+
 
 
 
@@ -1082,6 +1195,74 @@ window.initialize = initialize;
 
 
 
+
+
+                                                  
+
+  //different visualization per severity
+  // console.log(feature.properties.risk, 'risky text')
+
+
+
+                                           switch (feature.properties.risk){
+                                                        case 0 :
+
+                                                          var zero = new L.icon({
+                                                            iconUrl: require("/src/assets/images/purple-pin.svg"), 
+                                                            iconSize:     [25, 30], // width and height of the image in pixels
+                                                            shadowSize:   [35, 20], // width, height of optional shadow image
+                                                            iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                            shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                            popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+                                                          });
+                                                            return L.marker(latlng, { icon: zero });
+
+                                                      
+                                                      
+                                                        case 1:
+                                                            var one = new L.icon({
+                                                                iconUrl: require("/src/assets/images/marker.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: one});
+
+
+                                                            case 2:
+                                                            var two = new L.icon({
+                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: two});
+
+                                                            case 3:
+                                                            var three = new L.icon({
+                                                                iconUrl: require("/src/assets/images/red-pin.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: three});
+
+                                                   }
+
+
+
                                       return marker;
                                   },
 
@@ -1108,8 +1289,6 @@ window.initialize = initialize;
 
       })
       
-
-    
        layer.on('click', function(e) {
         
         $(".info")
@@ -1137,6 +1316,8 @@ window.initialize = initialize;
     
     
   });
+
+
 
       },
 
