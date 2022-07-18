@@ -210,7 +210,11 @@
       </div>
 
       <!-- legend -->
-      <div id="info_legend">
+      <div id="info_legend" v-if="info_legend">
+        <img class="close_legend"
+        src="./assets/images/close_xs.svg"
+        @click="close_container('info_legend')"
+         alt="" style="cursor:pointer" >
         <Legend  />
       </div>
       
@@ -373,6 +377,7 @@ export default {
       cause: '',
        steps: [],
        description: true,
+       info_legend: true
 
     }
 

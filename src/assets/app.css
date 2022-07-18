@@ -211,7 +211,12 @@ background-size: auto; */
     top:0.5vh;
     left: 19vw;
   }
-
+  .close_legend{
+    position: absolute;
+    top: 1vh;
+    left: 9.5vw;
+    z-index: 3000;
+  }
 
   .region{
     position: absolute;
