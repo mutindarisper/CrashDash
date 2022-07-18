@@ -755,7 +755,7 @@ points_per_county(val) {
                                                         case 0 :
 
                                                           var zero = new L.icon({
-                                                            iconUrl: require("/src/assets/images/purple-pin.svg"), 
+                                                            iconUrl: require("/src/assets/images/purple.png"), 
                                                             iconSize:     [25, 30], // width and height of the image in pixels
                                                             shadowSize:   [35, 20], // width, height of optional shadow image
                                                             iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -1069,7 +1069,7 @@ window.initialize = initialize;
                                                         case 0 :
 
                                                           var zero = new L.icon({
-                                                            iconUrl: require("/src/assets/images/purple-pin.svg"), 
+                                                            iconUrl: require("/src/assets/images/purple.png"), 
                                                             iconSize:     [25, 30], // width and height of the image in pixels
                                                             shadowSize:   [35, 20], // width, height of optional shadow image
                                                             iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -1208,7 +1208,7 @@ window.initialize = initialize;
                                                         case 0 :
 
                                                           var zero = new L.icon({
-                                                            iconUrl: require("/src/assets/images/purple-pin.svg"), 
+                                                            iconUrl: require("/src/assets/images/purple.png"), 
                                                             iconSize:     [25, 30], // width and height of the image in pixels
                                                             shadowSize:   [35, 20], // width, height of optional shadow image
                                                             iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location

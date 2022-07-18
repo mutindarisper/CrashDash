@@ -49,10 +49,10 @@ height: 750px; position: absolute; top: 8.3vh">
 
     <span class="mitigations">Mitigation</span>
      <CustomSelect
-      :options="this.causes "
+      :options="this.mitigation "
       :default="'Select mitigation'"
       class="select_mitigation"
-    
+     @input="display_mitigation_name($event);getMitigationList();getMitigationPoints()"
     />
 
       <!-- <span class="facilities">Health Facilities</span>
@@ -119,6 +119,8 @@ export default {
       this.getRoutePoints();
       this.getCausesList();
       this.getPointsCause();
+      this.getMitigationList();
+      this.getMitigationPoints();
 
     },
     components:{
@@ -129,30 +131,13 @@ export default {
     data() {
         return{
 
-      //       googlemap_container: false,
-      // base_map_ctrl_selections: false, //show or hide base layers
-      // base_map_ctrl_cliked: false,
-      // baseMaps: {},
-      // current_geojson: null,
-      // current_road: null,
-      // current_hotspots: null,
-      // points_layerGroup:null,
-      // markers: null,
-      // current_point:[],
-      // point_hotspot: null,
-      // // chart_container: true,
-      // info: false,
-      // analysis: true,
       counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
       selected_county: '',
       routes: [],
       causes:[],
+      mitigation:[],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
-      // charts: false,
-      // img_url: '',
-      // alert_panel: false,
-      // start: false, 
-      // cause_stats: false
+      
 
         }
     },
@@ -370,6 +355,60 @@ console.log(county, 'cause county')
                 console.log('an error occured ' + error);
             })
 
+
+    },
+
+     display_mitigation_name($event){
+      window.mitigation_name = $event
+      // console.log( window.cause_name, 'cause name')
+      this.$emit('selected mitigation',  window.mitigation_name )
+
+    },
+
+      getMitigationList() {
+      var county =  window.county_data
+      window.county = county
+console.log(county, 'cause county')
+
+
+
+      axios.get(baseurl+'/HotSpots/get_by_mitigation/?mitigation_list=all'
+                    )
+           .then((response) => {
+                        //  console.log( response.data,'routes data' );
+                          this.mitigation = response.data.mitigation
+                          console.log(response.data.mitigation, 'mitigation')
+                    
+                        return response.data.Causes
+                        
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+    },
+    getMitigationPoints() {
+      // this.displayToKey();
+      var county =  window.county.features[0].properties.county_name
+      
+      console.log(county, 'mitigation COUNTY')
+      // this.$emit('selected_county', county)
+
+      var mitigation = window.mitigation_name
+       console.log(mitigation, 'mitigation name')
+
+
+        axios.get(baseurl+'/HotSpots/get_by_mitigation/?county='+county+'&mitigation='+mitigation
+                    )
+           .then((response) => {
+                         console.log( response.data,'mitigation points');
+                         var mitigation_hotspots = response.data
+                         return this.$emit('points_per_cause', mitigation_hotspots)
+                     
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
 
     }
 
