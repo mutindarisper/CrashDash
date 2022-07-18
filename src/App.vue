@@ -246,6 +246,10 @@
          alt="" >
          <div class="text">
          <strong style="position: absolute; width: 100%; top: -1vh; text-align: center; left: -0.7vw">CrashDash</strong>  <br>
+
+         <!-- <img src="./assets/images/tape_straight.png" style="width:100px; height: 4px; position: absolute; top: 0.8vh; left: 1vw;  transform: rotate(-1deg) " alt="">
+         <img src="./assets/images/tape_straight.png" style="width:100px; height: 4px; position: absolute; top: 0.8vh; left: 13vw;  transform: rotate(0deg) " alt=""> -->
+         
          <img class="pin" src="./assets/images/pin.svg"   style="position: absolute; width: 20px; height: 25px; top: -1.5vh; text-align: center; left: 11.5vw" alt="">
             CrashDash is a geoportal designed and built to disseminate information on major blackspots in Kenya. 
             The purpose of the geoportal is to:
@@ -592,6 +596,8 @@ function setLoadEvent(layer) {
                                       var marker = L.marker(latlng, {icon: studioicon});
                                       // marker.smallIcon = smallIcon;
                                       return marker;
+
+
                                   }
 
 
@@ -644,7 +650,6 @@ points_per_county(val) {
 
                                  pointToLayer: function (feature, latlng){
 
-
                                   var studioicon = L.icon({
                                     iconUrl: require("/src/assets/images/marker.svg"),
                                     iconSize: [30, 30],
@@ -690,6 +695,70 @@ points_per_county(val) {
                                                     
                                                       marker.setIcon(normal_icon);
                                                   })
+
+
+
+
+                                                  //different visualization per severity
+
+
+
+                              switch (feature.properties.risk){
+                                                        case 0 :
+
+                                                          var zero = new L.icon({
+                                                            iconUrl: require("/src/assets/images/black-pin.svg"), 
+                                                            iconSize:     [25, 30], // width and height of the image in pixels
+                                                            shadowSize:   [35, 20], // width, height of optional shadow image
+                                                            iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                            shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                            popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+                                                          });
+                                                            return L.marker(latlng, { icon: zero });
+
+                                                      
+                                                      
+                                                        case 1:
+                                                            var one = new L.icon({
+                                                                iconUrl: require("/src/assets/images/marker.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: one});
+
+
+                                                            case 2:
+                                                            var two = new L.icon({
+                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: two});
+
+                                                            case 3:
+                                                            var three = new L.icon({
+                                                                iconUrl: require("/src/assets/images/red-pin.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: three});
+
+                                                   }
 
 
 

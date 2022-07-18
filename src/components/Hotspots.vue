@@ -6,6 +6,7 @@
 
 <script>
 import axios from "axios"
+var baseurl = 'http://45.63.48.25:8080'
 export default {
     mounted() {
 this.load_hotspots();
@@ -19,7 +20,7 @@ this.load_hotspots();
 
     methods: {
         load_hotspots() {
-            axios.get("http://192.168.1.41:8100/HotSpots/"
+            axios.get(baseurl+'/HotSpots/'
                     )
            .then((response) => {
                          console.log( response.data,'HOTSPOTS data' );
