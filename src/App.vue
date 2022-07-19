@@ -284,6 +284,10 @@
       
       </div>
 
+      <div class="text_print">
+        print
+      </div>
+
    
    
   </div>

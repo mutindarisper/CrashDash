@@ -526,14 +526,55 @@ background-color: #000;
     .leaflet-browser-print{
       position: relative;
       right: 1vw;
+      top: -48vh;
       margin-left: 18px;
+      border: none;
+      display: block;
+       background-color: #099f46;
      
     }
 
-    .leaflet-control-browser-print.leaflet-bar.leaflet-control{
+    .leaflet-control-browser-print.leaflet-bar.leaflet-control {
+      position: relative;
+      right: -0.1vw;
+      top: -50vh;
+      margin-left: 18px;
+      border: none;
+      background: url('./images/print_icon.svg');
+      background-repeat: no-repeat;
+      z-index: 2500;
    
-     border: none;
-    }
+      content: 'print';
+      
+  }
+  .leaflet-control-browser-print.leaflet-bar.leaflet-control:hover::after{
+    content: 'Choose Orientation';
+    margin-left: -35px;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+  
+  }
+
+  .leaflet-control-browser-print.leaflet-bar.leaflet-control:hover {
+    content: 'print';
+    background-color: #fff;
+    background: url('./images/print.svg'), #fff;
+    /* display: flex;
+    gap: 2rem; */
+    background-repeat: repeat-y;
+  }
+  .text_print{
+   
+    display: none;
+  }
+  /* .leaflet-control-browser-print.leaflet-bar.leaflet-control:hover ~.text_print{
+    display: inline;
+    position: relative;
+   
+  } */
+
     .basemaps{
       z-index: 800;
       position: absolute;
@@ -766,8 +807,8 @@ transform: rotate(-4deg);
     position: absolute;
    
     /* background-color: #099f46; */
-    top: 58.5vh;
-    left: 60vw;
+    top: 57.5vh;
+    left: 87vw;
     z-index: 3000;
   }
  
