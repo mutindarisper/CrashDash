@@ -82,7 +82,7 @@
     </div>
 
     <Hotspots
-     @school_data="handle_point_data" 
+     @school_data="load_all_hotspots" 
      />
 
 
@@ -487,101 +487,101 @@ export default {
       },
 
 
-    handle_point_data(val) {
-      // console.log("I HAVE ARRIVED")
-      // if (this.points_layerGroup !== null) {
-      //   window.markers.clearLayers();
-      // }
+//     handle_point_data(val) {
+//       // console.log("I HAVE ARRIVED")
+//       // if (this.points_layerGroup !== null) {
+//       //   window.markers.clearLayers();
+//       // }
 
-      window.markers = new L.featureGroup();
-      this.points_layerGroup = window.markers;
-      // var radius = this.pointStyle;
+//       window.markers = new L.featureGroup();
+//       this.points_layerGroup = window.markers;
+//       // var radius = this.pointStyle;
 
-      var points = val; //.features[0]['geometry'] dewewewe
-      // console.log(points, 'POINTS' ) //WORKING
+//       var points = val; //.features[0]['geometry'] dewewewe
+//       // console.log(points, 'POINTS' ) //WORKING
 
-      this.map.createPane("rasters");
-      this.map.getPane("rasters").style.zIndex = 500;
+//       this.map.createPane("rasters");
+//       this.map.getPane("rasters").style.zIndex = 500;
 
-      Object.entries(points.features).forEach(([key, value]) => {
+//       Object.entries(points.features).forEach(([key, value]) => {
 
-        // console.log(points.features, 'POINTS FEATURES' ) //WORKING
+//         // console.log(points.features, 'POINTS FEATURES' ) //WORKING
 
-        var cordi = value.geometry.coordinates[0] 
+//         var cordi = value.geometry.coordinates[0] 
 
-        var cordinates = [cordi[1],cordi[0]]
-        // console.log( key , 'KEYS', cordinates )
-        // thisiconUrl
-        // console.log(value.properties.Reasons, 'REASONS') Overspeeding
-        var point_color = '#099f46'
-        if (value.properties.Reasons === 'Curve preceeding a hill, blindspot, lack of signage'){
+//         var cordinates = [cordi[1],cordi[0]]
+//         // console.log( key , 'KEYS', cordinates )
+//         // thisiconUrl
+//         // console.log(value.properties.Reasons, 'REASONS') Overspeeding
+//         var point_color = '#099f46'
+//         if (value.properties.Reasons === 'Curve preceeding a hill, blindspot, lack of signage'){
          
-          point_color = "#fcba03"
+//           point_color = "#fcba03"
           
          
-                }
+//                 }
 
-          if (value.properties.Reasons === 'Lack of signage'){
+//           if (value.properties.Reasons === 'Lack of signage'){
          
-          point_color = "#03fc52"
+//           point_color = "#03fc52"
           
          
-                }
-          if (value.properties.Reasons === 'Overspeeding'){
+//                 }
+//           if (value.properties.Reasons === 'Overspeeding'){
          
-          point_color = "#3003fc"
+//           point_color = "#3003fc"
           
          
-                }
+//                 }
 
-        if (key) {
+//         if (key) {
           
-          this.current_point = L.marker(cordinates, {
+//           this.current_point = L.marker(cordinates, {
             
          
 
-          });
-          //  console.log( value , 'VALUES' )
-          var size = 3; //divided by 100 to resize the markers
+//           });
+//           //  console.log( value , 'VALUES' )
+//           var size = 3; //divided by 100 to resize the markers
 
-        L.Icon.Big = L.Icon.Default.extend({
-    options: {
+//         L.Icon.Big = L.Icon.Default.extend({
+//     options: {
       
-    iconSize: [40, 40],
-}});
+//     iconSize: [40, 40],
+// }});
 
- var normal_icon = L.icon({
+//  var normal_icon = L.icon({
    
-      iconUrl: require("../src/assets/images/marker.svg"),
-    iconSize: [25, 31],
-    iconAnchor: [12.5 ,15]
-});
-var biggerIcon = new L.Icon.Big();
+//       iconUrl: require("../src/assets/images/marker.svg"),
+//     iconSize: [25, 31],
+//     iconAnchor: [12.5 ,15]
+// });
+// var biggerIcon = new L.Icon.Big();
 
 
-function setLoadEvent(layer) {
+// function setLoadEvent(layer) {
   
-  layer.on("load", function() {
-    this.current_point.bounce(20)
-  });
-}
+//   layer.on("load", function() {
+//     this.current_point.bounce(20)
+//   });
+// }
 
         
     
-          this.current_point.addTo(this.points_layerGroup)
+//           this.current_point.addTo(this.points_layerGroup)
     
 
-          return `${key}`;
-        }
-      });
+//           return `${key}`;
+//         }
+//       });
 
-      window.markers.addTo(this.map);
+//       window.markers.addTo(this.map);
 
 
        
 
      
-    },
+//     },
 
 //     load_legend() {
 
@@ -620,18 +620,15 @@ function setLoadEvent(layer) {
 
 //     },
 
-    load_all_hotspots() {
+    load_all_hotspots(val) {
 
-        axios.get('http://192.168.1.41:8100/HotSpots/'
-                    )
-           .then((response) => {
                         //  console.log( response.data,'hotspot data' );
 
-                         const hotspot_data = response.data 
+                        //  const hotspot_data = response.data 
                           // if (this.current_hotspots) this.map.removeLayer(this.current_hotspots);
                         //  console.log(response.data.features[0].properties.Reasons, 'PRE reasons')
                         
-                               this.current_hotspots = L.geoJSON(hotspot_data, { 
+                               this.current_hotspots = L.geoJSON(val, { 
 
                                  pointToLayer: function (feature, latlng){
 
@@ -648,6 +645,70 @@ function setLoadEvent(layer) {
                                       });
                                       var marker = L.marker(latlng, {icon: studioicon});
                                       // marker.smallIcon = smallIcon;
+
+
+
+                                      
+                                                  //different visualization per severity
+
+
+
+                                           switch (feature.properties.risk){
+                                                        case 0 :
+
+                                                          var zero = new L.icon({
+                                                            iconUrl: require("/src/assets/images/marker.svg"), 
+                                                            iconSize:     [25, 30], // width and height of the image in pixels
+                                                            shadowSize:   [35, 20], // width, height of optional shadow image
+                                                            iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                            shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                            popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+                                                          });
+                                                            return L.marker(latlng, { icon: zero });
+
+                                                      
+                                                      
+                                                        case 1:
+                                                            var one = new L.icon({
+                                                                iconUrl: require("/src/assets/images/green-pin.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: one});
+
+
+                                                            case 2:
+                                                            var two = new L.icon({
+                                                                iconUrl: require("/src/assets/images/purple_.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: two});
+
+                                                            case 3:
+                                                            var three = new L.icon({
+                                                                iconUrl: require("/src/assets/images/red-pin.svg"), 
+                                                                iconSize:     [25, 31], // width and height of the image in pixels
+                                                                shadowSize:   [35, 20], // width, height of optional shadow image
+                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
+                                                                popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
+
+                                                          });
+                                                        
+                                                            return L.marker(latlng, {icon: three});
+
+                                                   }
                                       return marker;
 
 
@@ -664,11 +725,7 @@ function setLoadEvent(layer) {
                         
                       
 
-                    })
-                   .catch( (error) => {
-                // console.log('an error occured ' + error);
-            }) 
-
+                
     },
       displayToKey($event) {
    var data = $event
