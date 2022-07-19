@@ -53,8 +53,8 @@ color: #fff;
 .icon{
     /* position: relative;
     top: -0.5vh; */
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 24px;
 }
 .labels{
     position: relative;

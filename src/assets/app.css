@@ -173,18 +173,11 @@ color: #fff;
 
   }
 
-  .analysis{
+  .analysis1{
     position: absolute;
     z-index: 2000;
     top: 8vh;
     left: -0.3vw;
-   
-
-/* background: url('./images/tab1.png');
-background-repeat: no-repeat;
-background-size: auto; */
-
-/* background: linear-gradient(180deg, rgba(0, 0, 0, 0.956377) 0%, rgba(73, 73, 73, 0.666) 100%); */
   }
  .selections{
   position:absolute;
@@ -196,7 +189,7 @@ background-size: auto; */
 
   .close_analysis{
     position: absolute;
-    top:20.8vh;
+    top:12.8vh;
     left: 19.9vw;
     z-index: 2500;
   }
@@ -544,7 +537,7 @@ background-color: #000;
       background-repeat: no-repeat;
       z-index: 2500;
    
-      content: 'print';
+      /* content: 'print'; */
       
   }
   .leaflet-control-browser-print.leaflet-bar.leaflet-control:hover::after{
@@ -807,8 +800,32 @@ transform: rotate(-4deg);
     position: absolute;
    
     /* background-color: #099f46; */
-    top: 57.5vh;
-    left: 87vw;
+    top: 58.5vh;
+    left: 63vw;
     z-index: 3000;
   }
- 
+  .analyze{
+    position: absolute;
+    top: 15vh;
+    width: 442px;
+    height: 550px;
+    /* background-color: #099f46; */
+    z-index: 2000;
+    /* border: #000 2px solid; */
+  }
+  #analysis_panel{
+    position: absolute;
+    top: -8vh;
+    width: 442px;
+    height: 550px;
+    /* background-color: #f7a714; */
+    /* border: #000 2px solid; */
+   
+
+  }
+  .map_id{
+    position: absolute;
+    top: 15vh;
+    left: 50vw;
+  }
+  

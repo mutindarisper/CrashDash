@@ -30,15 +30,16 @@
 
 
 <!-- display analysis panel      @click="download_mapographics"-->
-<div v-if="start" class="start" @click="handle_selected_component('analysis1');close_container('start') ">
+<div v-if="start" class="start" @click="handle_selected_component('analyze');close_container('start') ">
   <span class="begin">Start Analysis</span>
    <img class="menu" src="./assets/images/menu.svg"  alt="">
 </div>
    
 
-    <div class="analysis1" v-if="analysis1">
-       <img class="close_analysis"  @click="close_container('analysis1');handle_selected_component('start') " src="./assets/images/close_small.svg" alt="">
-      <Analysis 
+    
+       <img class="close_analysis"  @click="close_container('analyze');handle_selected_component('start') " src="./assets/images/close_small.svg" alt="">
+       <div class="analyze" v-if="analyze">
+             <Analysis id="analysis_panel" 
        @selected_component="handle_selected_component"
        @close_component="close_container"
       @county_data="displayToKey"
@@ -48,10 +49,12 @@
       @selected_county="handle_selected_county"
       @selected_cause="handle_selected_cause"
       @selected_chart="switch_charts"/>
+       </div>
+   
       
 
     
-    </div>
+
 
     <div class="chart_container" id="chart_container" v-if="chart_container">
         <img class="close_chart_container"
@@ -131,7 +134,7 @@
     <div class="map" id="map" style="position:relative; top:11vh; height: 87vh; width: 100%;">
 
       <div class="map_controls">
-        <div class="zoomin_tool">
+        <div class="zoomin_tool" id="zoomin">
           <img
             src="./assets/images/zoomin.svg"
             alt=""
@@ -140,12 +143,12 @@
           />
         </div>
 
-        <div class="zoomout_tool">
+        <div class="zoomout_tool" id="zoomout">
           <img
             src="./assets/images/zoomout.svg"
             alt=""
             title="Zoom out"
-            id="zoomout"
+            
             @click="zoom_out"
           />
         </div>
@@ -170,7 +173,7 @@
         </div>
        
 
-       <div class="info_icon">
+       <div class="info_icon" id="info_icon">
           <img
             src="./assets/images/info.svg"
             alt=""
@@ -229,6 +232,10 @@
       Download Mapographics
     </div> -->
 
+    <div class="map_id">
+
+    </div>
+
    
 
 
@@ -246,7 +253,7 @@
 
     <!-- vue tour -->
 
-      <!-- <v-tour name="myTour" :steps="steps"></v-tour> -->
+            <v-tour name="myTour" :steps="steps"></v-tour>
 
       <!-- descriptive text -->
       <div class="description" v-if="description">
@@ -284,10 +291,7 @@
       
       </div>
 
-      <div class="text_print">
-        print
-      </div>
-
+      
    
    
   </div>
@@ -314,6 +318,7 @@ import CauseStats from './components/charts/CauseStats.vue'
 import speechSynthesis from 'speech-synthesis'
 import Analysis from './components/Analysis.vue'
 import Legend from './components/Legend.vue'
+// import VueTour from 'vue-tour'
 
 
 delete Icon.Default.prototype._getIconUrl;
@@ -341,7 +346,8 @@ export default {
     HotspotsDoughnut,
     CauseStats,
      Analysis,
-     Legend
+     Legend,
+    //  vtour:require('vue-tour/dist/vue-tour.css')
      
 
    },
@@ -374,7 +380,7 @@ export default {
       img_url: '',
       alert_panel: false,
       start: false, 
-      analysis1: true,
+      analyze: true,
       cause_stats: false,
       county_chart: true,
       county: '',
@@ -392,26 +398,62 @@ export default {
    mounted() {
 
     this.setupLeafletMap();
-    // this.load_legend();
-    // this.switch_charts('county_chart');
-    //  if (this.cause_stats = true) return 'rrr' // $(".county_chart").find('div')['prevObject'][0].style="display: none;"
-      // if ( this.cause_stats = true ) return this.county_chart = false
+    
     this.switch_charts();
     this.steps.push({
-      target: document.getElementById('zoomout'), // We're using document.querySelector() under the hood
+      target: ".map_id", // We're using document.querySelector() under the hood
       header: {
-        title: "Get Started",
+        title: "Map Section",
       },
-      content: `Discover <strong>Vue Tour</strong>!`,
+      content: `Visualize all the data from the analysis panel`,
+    });
+    this.steps.push({
+      target: "#analysis_panel", // We're using document.querySelector() under the hood
+      header: {
+        title: "Analysis Panel",
+      },
+      content: `Perform filters based on a county, road, cause and mitigation and view statistics`,
+    });
+   this.steps.push({
+      target: "#zoomin", // We're using document.querySelector() under the hood
+      header: {
+        title: "Zoom In Control",
+      },
+      content: `Zoom into the map using this control`,
     });
     this.steps.push({
       target: "#zoomout",
-      content: "An awesome plugin made with Vue.js!",
+      content: "Zoom out of the map using this control",
     });
     this.steps.push({
-      target: '[data-v-step="2"]',
+      target: ".basemaps",
+      content: "Hover on the selections to switch from one basemap to the other",
+    });
+    this.steps.push({
+      target: ".download",
+      content: "Click on this button to download a screenshot of the map",
+    });
+    this.steps.push({
+      target: ".info_icon",
+      content: "Click on this button to display information about the blackspots",
+    });
+    this.steps.push({
+      target: ".dimension",
+      content: "Have a 3D view of the map",
+    });
+     this.steps.push({
+      target: ".chart_container",
+      content: "View statistics on the loaded blackspot data",
+    });
+     this.steps.push({
+      target: "#info_legend",
+      content: "Here is a legend to provide information about data loaded on the map",
+    });
+    
+    this.steps.push({
+      target: '.leaflet-control-browser-print.leaflet-bar.leaflet-control',
       content:
-        "Try it, you'll love it!<br>You can put HTML in the steps and completely customize the DOM to suit your needs.",
+        "Click here to download the map in pdf format",
       params: {
         placement: "top", // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
       },
@@ -649,13 +691,8 @@ export default {
                                       });
                                       var marker = L.marker(latlng, {icon: studioicon});
                                       // marker.smallIcon = smallIcon;
-
-
-
                                       
                                                   //different visualization per severity
-
-
 
                                            switch (feature.properties.risk){
                                                         case 0 :
@@ -688,7 +725,7 @@ export default {
 
                                                             case 2:
                                                             var two = new L.icon({
-                                                                iconUrl: require("/src/assets/images/purple_.svg"), 
+                                                                iconUrl: require("/src/assets/images/fin.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
                                                                 iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -716,7 +753,8 @@ export default {
                                       return marker;
 
 
-                                  }
+                                  },
+                                   onEachFeature: this.onEachPoint,
 
 
 
@@ -725,7 +763,7 @@ export default {
 
                                }).addTo(this.map);
                                                
-                        return response.data
+ 
                         
                       
 
@@ -848,10 +886,10 @@ points_per_county(val) {
 
                                                             case 2:
                                                             var two = new L.icon({
-                                                                iconUrl: require("/src/assets/images/purple_.svg"), 
+                                                                iconUrl: require("/src/assets/images/fin.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
-                                                                iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
+                                                                iconAnchor:   [1, 1], // point of the icon which will correspond to marker's location
                                                                 shadowAnchor: [12, 6],  // anchor point of the shadow. should be offset
                                                                 popupAnchor:  [0, -25] // point from which the popup should open relative to the iconAnchor
 
@@ -877,7 +915,8 @@ points_per_county(val) {
 
 
                                       return marker;
-                                  }
+                                  },
+                                    onEachFeature: this.onEachPoint,
 
                                  
                                 })
@@ -1162,7 +1201,7 @@ window.initialize = initialize;
 
                                                             case 2:
                                                             var two = new L.icon({
-                                                                iconUrl: require("/src/assets/images/purple_.svg"), 
+                                                                iconUrl: require("/src/assets/images/fin.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
                                                                 iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
@@ -1294,7 +1333,7 @@ window.initialize = initialize;
 
                                                             case 2:
                                                             var two = new L.icon({
-                                                                iconUrl: require("/src/assets/images/purple_.svg"), 
+                                                                iconUrl: require("/src/assets/images/fin.svg"), 
                                                                 iconSize:     [25, 31], // width and height of the image in pixels
                                                                 shadowSize:   [35, 20], // width, height of optional shadow image
                                                                 iconAnchor:   [12.5, 30], // point of the icon which will correspond to marker's location
