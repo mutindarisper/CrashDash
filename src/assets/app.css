@@ -9,7 +9,7 @@
   } 
   .description{
     position: absolute;
-    top: 30vh;
+    top: 32vh;
     left: 40vw;
     width: 20vw;
     height: 35vh;
@@ -18,7 +18,7 @@
     background-color: #000;
     color: #fff;
     border-radius: 30px;
-    animation: mymove 3s;
+    animation: mymove 1s;
     animation-iteration-count: 1;
 
   }
@@ -189,7 +189,7 @@ color: #fff;
 
   .close_analysis{
     position: absolute;
-    top:12.8vh;
+    top:19vh;
     left: 19.9vw;
     z-index: 2500;
   }

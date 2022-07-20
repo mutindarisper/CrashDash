@@ -143,6 +143,7 @@ export default {
     },
     methods:{
 
+
          handle_selected(selection) {
       // this[selection] = false;
       this.$emit("selected_component", selection);

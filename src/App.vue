@@ -334,7 +334,7 @@ Icon.Default.mergeOptions({
 
 
 
-var baseurl = 'http://192.168.1.41:8100'
+var baseurl = 'http://45.63.48.25:8080'  //http://45.63.48.25:8080
 
 // console.log(this.img_url, 'url outside')
 
@@ -398,6 +398,7 @@ export default {
    mounted() {
 
     this.setupLeafletMap();
+    this.load_country();
     
     this.switch_charts();
     this.steps.push({
@@ -427,7 +428,7 @@ export default {
     });
     this.steps.push({
       target: ".basemaps",
-      content: "Hover on the selections to switch from one basemap to the other",
+      content: "Hover on the button and click on the selections to switch from one basemap to the other",
     });
     this.steps.push({
       target: ".download",
@@ -529,6 +530,31 @@ export default {
       window.url = document.getElementById("doughnut-chart").toDataURL()
       // console.log(window.url, 'image uri')
         
+
+      },
+
+      
+      load_country() {
+
+                  axios.get(baseurl+'/AdminData/get_admin_zero/?country=Kenya'  //http://45.63.48.25:8080/AdminData/get_admin_zero?country=Kenya
+                    )
+           .then((response) => {
+                        //  console.log( response.data,'hotspot data per county' );
+
+                         const country_data = response.data 
+                         console.log(country_data, 'boundary')
+
+                       this.current_geojson = L.geoJSON(country_data, {
+                        style: {
+                          color: "black",
+                          opacity: 0.5,
+                        }
+                       }).addTo(this.map)
+                   
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
 
       },
 
