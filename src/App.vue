@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
+    <span class="app2" v-if="app2"></span>
 
     <div class="navbar" id="nav">
       <div class="dash_logo">
@@ -131,7 +132,7 @@
 
   </div>
 
-    <div class="map" id="map" style="position:relative; top:11vh; height: 87vh; width: 100%;">
+    <div class="map" id="map" style="position:relative; top:11vh; height: 87vh; width: 100%; ">
 
       <div class="map_controls">
         <div class="zoomin_tool" id="zoomin">
@@ -253,7 +254,7 @@
 
     <!-- vue tour -->
 
-            <v-tour name="myTour" :steps="steps"></v-tour>
+            <v-tour name="myTour" :steps="steps"  :callbacks="myCallbacks"></v-tour>
 
       <!-- descriptive text -->
       <div class="description" v-if="description">
@@ -386,8 +387,13 @@ export default {
       county: '',
       cause: '',
        steps: [],
+       myCallbacks: {
+       onStop: this.myCustomPreviousStepCallback,
+  
+      },
        description: true,
-       info_legend: true
+       info_legend: true,
+       app2: true
 
     }
 
@@ -401,6 +407,7 @@ export default {
     this.load_country();
     
     this.switch_charts();
+     
     this.steps.push({
       target: ".map_id", // We're using document.querySelector() under the hood
       header: {
@@ -459,6 +466,7 @@ export default {
         placement: "top", // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
       },
     });
+    
     this.$tours["myTour"].start();
 
    
@@ -467,6 +475,12 @@ export default {
   
 
    methods: {
+
+     myCustomPreviousStepCallback () {
+      //  this[container] = false;
+      this.app2 = false;
+    
+  },
     switch_charts() {
 
          $(".cause_stats").on("load", function() {

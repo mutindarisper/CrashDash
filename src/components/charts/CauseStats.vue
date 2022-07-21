@@ -150,14 +150,21 @@ this.getCountyStats();
                           responseData.map( item => {
                              const key =  Object.keys( item)
                              stats_data[key] = item[key]
-                    
 
-                            stats_data['labels'].push(key[0])
-                            stats_data['values'].push(item[key])
+                             
+                     //  console.log(item[key] , 'value')
+                     // only add data that is greater than 0 to the data structure.
+                           if (item[key]> 0){
+                              stats_data['labels'].push(key[0])
+                                 
+                                 stats_data['values'].push(item[key])
+                           }
+
+                          
 
                            })
 
-                        //    console.log(stats_data, 'labels and data')
+                           console.log(stats_data, 'labels and data')
                             var Labels = stats_data.labels
                             
                             var Data = stats_data.values
@@ -244,25 +251,10 @@ this.getCountyStats();
 
                         this.chatData_restructure.labels = Labels
 
-                        // console.log(this.chatData_restructure.labels, 'labels only')
+                        console.log(this.chatData_restructure.labels, 'labels only')
                         this.chatData_restructure.datasets= datasetStructure
                         //  console.log(this.chatData_restructure.datasets, 'data only')
 
-                          
-
-
-
-
-
-
-
-                        // console.log(this.chart_data, 'data ACTUAL   .')
-
-                        // console.log(this.chatData_restructure, 'data   .')
-
-                          
-
-                        
                         this.renderChart(this.chatData_restructure, this.options)
                         console.log( this.chatData_restructure, 'DATA TYPE OF CHART' )
                 
