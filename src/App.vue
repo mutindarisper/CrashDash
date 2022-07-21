@@ -259,7 +259,7 @@
       <!-- descriptive text -->
       <div class="description" v-if="description">
         <img class="close_description"
-        src="./assets/images/close_small.svg"
+        src="./assets/images/fancy_close.svg"
         @click="close_container('description')"
          alt="" >
          <div class="text">
@@ -424,9 +424,6 @@ export default {
     });
    this.steps.push({
       target: "#zoomin", // We're using document.querySelector() under the hood
-      header: {
-        title: "Zoom In Control",
-      },
       content: `Zoom into the map using this control`,
     });
     this.steps.push({
