@@ -122,6 +122,7 @@
        <p class="picture_title" style="color:#fff"></p>
       
        <img src="" class="media" controls> 
+       <img id="slideshow" src="" />
        
        <p class="video_title" style="color:#fff"></p>
        <video src="" class="video_" autoplay=false style="display: none" controls>
@@ -1436,8 +1437,9 @@ window.initialize = initialize;
     $(".mitigation").html('<b> Mitigation:</b>'+ ' '+feature.properties.Mitigation);
     $(".media1").html('<b> Media:</b>');
     $(".picture_title").html('<b> Picture:</b>');
-    $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image'];
-    $(".media").find('img')['prevObject'][0].style="height: 100px; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
+    // $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image_array'];
+    // $(".media").find('img')['prevObject'][0].style="height: 100px; display:block; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
+     $("#slideshow").find('img')['prevObject'][0].style="height: 100px; display:block; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
 
     $(".video_title").html('<b> Video:</b>');
     $(".video_").find('video')['prevObject'][0].src = feature.properties.AdditionalInfo['video'];
@@ -1448,6 +1450,84 @@ window.initialize = initialize;
     $(".tape_10").find('span')['prevObject'][0].style="display: none;"
     $(".tape_5").find('span')['prevObject'][0].style="display: none;"
     // $(".name").find('span')['prevObject'][0].style="display: none;"
+
+    var images_array = feature.properties.AdditionalInfo['image_array']
+    console.log(images_array, 'images array')
+    var images_values = Object.values(images_array)
+    console.log(images_values, 'images values')
+
+      // var keys = Object.keys(images_array)
+      // console.log(keys, 'keys')
+
+      // var values = images_array.values()
+      // console.log(values, 'it better work')
+
+      // var shareholders = ['name1', 'name2', 'name3'];
+      // console.log(shareholders, 'sjareholders')
+      var users=new Array();
+      images_array.forEach(function(item,i){
+        users[i]=item;
+      });
+      console.log(users, 'uuuuuuuuuseeeeeeeeeeerrrrrrrrrrssssssss');
+
+      var galleryarray = users;// image container
+
+
+rotateimages();
+var curimg=0
+function rotateimages(){
+    document.getElementById("slideshow").setAttribute("src", galleryarray[curimg])
+    curimg=(curimg<galleryarray.length-1)? curimg+1 : 0
+    setTimeout( rotateimages, 2500);
+}
+
+      for (let elements of values) {
+        console.log(elements, 'it will work this time');
+      }
+
+    //   var array = Object.keys(images_array)
+    // .map(function(key) {
+    //     return obj[key];
+    // });
+
+    // console.log(array, 'hurrraaaaaaaayyyyyyyyy'); 
+      // var str_keys = JSON.stringify( Object.keys(images_array))
+      // console.log(str_keys, 'string keys')
+
+      // var str_values = JSON.stringify( Object.values(images_array))
+      // console.log(str_values, 'string values')
+
+      // var str_values2 = JSON.parse( Object.values(images_array))
+      // console.log(str_values2, 'parse values')
+// console.log(images_array.fill(0).map((_, i) => i * i), 'my oh my');
+
+for (const value of Object.values(images_array)) {
+  
+  console.log(value, 'for each value');
+  var links = []
+  console.log(JSON.stringify(value), 'for each strigyfy value')
+  // var links_array = JSON.stringify(value)
+  // links.push(links_array)
+  // console.log(links, 'links')
+
+
+// var galleryarray = images_values;// image container
+
+
+// rotateimages();
+// var curimg=0
+// function rotateimages(){
+//     document.getElementById("slideshow").setAttribute("src", galleryarray[curimg])
+//     curimg=(curimg<galleryarray.length-1)? curimg+1 : 0
+//     setTimeout( rotateimages, 2500);
+// }
+
+
+}
+    
+
+
+
     
     
   });
