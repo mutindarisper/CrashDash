@@ -18,6 +18,7 @@
     "jspdf": "^2.5.1",
     "leaflet": "^1.8.0",
     "leaflet.browser.print": "^2.0.2",
+    "leaflet.control.opacity": "^1.6.0",
     "leaflet.smooth_marker_bouncing": "^3.0.0",
     "speech-synthesis": "^0.3.2",
     "vue": "^2.6.14",

@@ -162,7 +162,7 @@ export default {
    var data = $event
    window.county_data = $event
    console.log(data, 'selected  county data')
-  //  this.$emit('selected county',  window.county_data)
+   this.$emit('selected_county',  data)
  
 
     if(data){ 

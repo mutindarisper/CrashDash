@@ -526,6 +526,55 @@ background-color: #000;
       left:97%;
       cursor: pointer;
     }
+    #image-opacity{
+      z-index: 1000;
+      position: absolute;
+      top: 0.1vh;
+      left:2.5vw;
+      cursor: pointer;
+      color: #000;
+      /* background-color: #fff; */
+
+    }
+    .opacity{
+      z-index: 500;
+      position: absolute;
+      top: 5%;
+      left:85%;
+      cursor: pointer;
+      height: 30px;
+      width: 180px;
+      background-color: #fff;
+    }
+    #opacity{
+      position: absolute;
+      top: 0.5vh;
+      left:0.1vw;
+      z-index: 800;
+      font-size: 14px;
+    color: #000;
+
+    }
+    #sldOpacity{
+      z-index: 800;
+      position: absolute;
+      top: 1.2vh;
+      left:3vw;
+      cursor: pointer;
+      height: 5px;
+     
+      background-color: #000;
+      
+    }
+    #sldOpacity::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 10px;
+      background-color: #099f46;
+      overflow: visible;
+      cursor: pointer;
+    }
 
     .leaflet-browser-print{
       position: relative;
@@ -535,6 +584,7 @@ background-color: #000;
       border: none;
       display: block;
        background-color: #099f46;
+       
      
     }
 
