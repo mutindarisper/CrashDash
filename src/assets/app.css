@@ -545,11 +545,13 @@ background-color: #000;
       height: 30px;
       width: 180px;
       background-color: #fff;
+      border-radius: 10px;
+      /* padding-left: 30px; */
     }
     #opacity{
       position: absolute;
       top: 0.5vh;
-      left:0.1vw;
+      left:0.25vw;
       z-index: 3500;
       font-size: 14px;
     color: #000;
@@ -891,3 +893,8 @@ transform: rotate(-4deg);
     left: 50vw;
   }
   
+  @media print{
+    #analysis_panel * {display:none;}
+      .map {display:block; border:0; width:100%; min-height:500px}
+  }
+    

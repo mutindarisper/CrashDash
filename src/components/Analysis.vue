@@ -9,7 +9,8 @@ height: 750px; position: absolute; top: 8.3vh">
   <!-- test for custom select  v-if="analysis"   ;getCausesList() -->
    <CustomSelect
       :options="this.counties"
-      :default="'Select a region'"
+      :default="'Select region'"
+      v-model="this.selected_county"
       class="select_region"
       @input="displayToKey($event);getRoutesList();getCausesList()"
     />
@@ -160,9 +161,10 @@ export default {
     },
               displayToKey($event) {
    var data = $event
+  this.selected_county = $event
    window.county_data = $event
-   console.log(data, 'selected  county data')
-   this.$emit('selected_county',  data)
+   console.log(this.selected_county, 'selected  county data') //.features[0].properties.county_name
+   this.$emit('selected_county', this.selected_county)
  
 
     if(data){ 

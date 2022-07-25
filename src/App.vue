@@ -134,7 +134,7 @@
   </div>
 
    <!-- opacity -->
-      <div class="opacity">
+      <div class="opacity" v-if="opacity">
         <span id="opacity">Opacity:</span>
          <span id="image-opacity"> </span>
         <input type="range" id="sldOpacity" min="0" max="1" step="0.1" value="0.5" />
@@ -175,10 +175,10 @@
 
         <div class="download">
           <img
-            src="./assets/images/download.svg"
+            src="./assets/images/opacity.svg"
             alt=""
-            title="Download map"
-            @click="screenshot"
+            title="Change opacity"
+           @click=" handle_selected_component('opacity'); speech_text()"
             
           />
         </div>
@@ -263,6 +263,9 @@
                 <div id="pano"></div>
     </div>
       
+      <div class="county_name_container" @click="print_pdf" style="position: absolute; top: 50vh; left: 50vw; background-color: #fff; height: 30px; width:30px;z-index:1000;">
+        <!-- {{this.county}} -->
+      </div>
 
     <!-- vue tour -->
 
@@ -412,6 +415,7 @@ export default {
        app2: true,
        county_name: '',
        control: null,
+       opacity:false
       //  value: "1"
 
     }
@@ -491,6 +495,12 @@ export default {
   
 
    methods: {
+    print_pdf() {
+      window.print();
+      // console.log(document, 'window')
+      document.title = "Some new title text";
+
+    },
 
      myCustomPreviousStepCallback () {
       //  this[container] = false;
@@ -516,24 +526,29 @@ export default {
     },
     //data for props
     handle_selected_county(val) {
-        this.county = val
-        // window.counties = val
-        // this.county_name =  window.counties
-        // console.log(this.county_name, 'another county name')
-        // console.log(window.counties, 'global county selected')
-        console.log({val}, 'THIS . COUNTY') //WORKS, LOGS SELECTED COUNTY
-      //  window.localStorage.setItem("this.county", this.county)
-      //  var vvv = window.localStorage.getItem("this.county")
-      //  alert(vvv)
-
+      this.county = val
+      // var data = val.features[0].properties.county_name
+      // console.log(data, 'data data')
+       console.log(val, 'THIS . COUNTY') //WORKS, LOGS SELECTED COUNTY
+        
+      
       this.control =  L.control.browserPrint({position: 'bottomright', 
       className: 'leaflet-browser-print',
       //  title: 'kiambu',
-       documentTitle: this.county //window.counties//window.county_data //this.county //
+       documentTitle: val //{val} //window.counties//window.county_data //this.county //
+      //  printFunction: this.handle_selected_county
        })
-        return(this.county) 
+        return this.county
+
+
+   
+
+
+
 
       },
+
+      
 
       handle_selected_cause(val) {
         this.cause = val
@@ -1052,7 +1067,7 @@ points_per_county(val) {
         zoomControl: false,
         layersControl: false,
         center: this.center,
-        minZoom: 4.4,
+        minZoom: 6.5,
         maxZoom: 20,
         zoom: 6,
         // measureControl: true,
@@ -1483,7 +1498,7 @@ window.initialize = initialize;
     $(".cause").html('<b> Cause:</b>'+ ' '+feature.properties.Reasons);
     $(".mitigation").html('<b> Mitigation:</b>'+ ' '+feature.properties.Mitigation);
     $(".media1").html('<b> Media:</b>');
-    $(".picture_title").html('<b> Picture:</b>');
+    $(".picture_title").html('<b> Photo:</b>');
     // $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image_array'];
     // $(".media").find('img')['prevObject'][0].style="height: 100px; display:block; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
      $("#slideshow").find('img')['prevObject'][0].style="height: 100px; display:block; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
