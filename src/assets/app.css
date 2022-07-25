@@ -897,4 +897,16 @@ transform: rotate(-4deg);
     #analysis_panel * {display:none;}
       .map {display:block; border:0; width:100%; min-height:500px}
   }
-    
+  /* #fullpage {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    top: 40vh;
+    left: 40vw;
+    width: 100vw;
+    height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat no-repeat;
+    background-position: center center;
+    background-color: black;
+  } */

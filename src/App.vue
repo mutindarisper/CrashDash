@@ -122,12 +122,15 @@
        <p class="picture_title" style="color:#fff"></p>
       
        <img src="" class="media" controls> 
-       <img id="slideshow" src="" />
+       <img id="slideshow" src="" controls />
        
        <p class="video_title" style="color:#fff"></p>
        <video src="" class="video_" autoplay=false style="display: none" controls>
       
        </video>
+
+       <!-- full page panel -->
+       <!-- <div id="fullpage" onclick="this.style.display='none';"></div> -->
        
 
 
@@ -178,7 +181,7 @@
             src="./assets/images/opacity.svg"
             alt=""
             title="Change opacity"
-           @click=" handle_selected_component('opacity'); speech_text()"
+           @click=" handle_selected_component('opacity')"
             
           />
         </div>
@@ -263,9 +266,9 @@
                 <div id="pano"></div>
     </div>
       
-      <div class="county_name_container" @click="print_pdf" style="position: absolute; top: 50vh; left: 50vw; background-color: #fff; height: 30px; width:30px;z-index:1000;">
+      <!-- <div class="county_name_container" @click="print_pdf" style="position: absolute; top: 50vh; left: 50vw; background-color: #fff; height: 30px; width:30px;z-index:1000;"> -->
         <!-- {{this.county}} -->
-      </div>
+      <!-- </div> -->
 
     <!-- vue tour -->
 
@@ -1501,7 +1504,7 @@ window.initialize = initialize;
     $(".picture_title").html('<b> Photo:</b>');
     // $(".media").find('img')['prevObject'][0].src = feature.properties.AdditionalInfo['image_array'];
     // $(".media").find('img')['prevObject'][0].style="height: 100px; display:block; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
-     $("#slideshow").find('img')['prevObject'][0].style="height: 100px; display:block; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none;"
+     $("#slideshow").find('img')['prevObject'][0].style="height: 100px; display:block; width: 200px; position: relative; top: -1.9vh; left: 5vw; outline:none; border: none; controls"
 
     $(".video_title").html('<b> Video:</b>');
     $(".video_").find('video')['prevObject'][0].src = feature.properties.AdditionalInfo['video'];
@@ -1512,6 +1515,9 @@ window.initialize = initialize;
     $(".tape_10").find('span')['prevObject'][0].style="display: none;"
     $(".tape_5").find('span')['prevObject'][0].style="display: none;"
     // $(".name").find('span')['prevObject'][0].style="display: none;"
+    $("#slideshow").click( function() {
+            this.requestFullscreen();
+        });
 
     var images_array = feature.properties.AdditionalInfo['image_array']
     console.log(images_array, 'images array')
@@ -1526,9 +1532,16 @@ window.initialize = initialize;
 
       // var shareholders = ['name1', 'name2', 'name3'];
       // console.log(shareholders, 'sjareholders')
+
+      // const fullPage = document.querySelector('#fullpage');
       var users=new Array();
       images_array.forEach(function(item,i){
         users[i]=item;
+
+  //       item.addEventListener('click', function() {
+  //   // fullPage.style.backgroundImage = 'url(' + img.src + ')';
+  //   fullPage.style.display = 'block';
+  // });
       });
       console.log(users, 'uuuuuuuuuseeeeeeeeeeerrrrrrrrrrssssssss');
 
