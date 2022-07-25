@@ -133,6 +133,15 @@
 
   </div>
 
+   <!-- opacity -->
+      <div class="opacity">
+        <span id="opacity">Opacity:</span>
+         <span id="image-opacity"> </span>
+        <input type="range" id="sldOpacity" min="0" max="1" step="0.1" value="0.5" />
+
+      </div>
+     
+
     <div class="map" id="map" style="position:relative; top:11vh; height: 87vh; width: 100%; ">
 
       <div class="map_controls">
@@ -212,13 +221,6 @@
             <div class="base_map_name">{{ base_map }}</div>
           </div>
         </div>
-      </div>
-      <!-- opacity -->
-      <div class="opacity">
-        <span id="opacity">Opacity:</span>
-         <span id="image-opacity"> </span>
-        <input type="range" id="sldOpacity" min="0" max="1" step="0.1" value="0.5" />
-
       </div>
      
 
@@ -867,7 +869,7 @@ export default {
                                       // $('#image-opacity').html(this.value); //i might revesit
                                       console.log(this.value, 'opacity value')
                                       
-                                      layer.setStyle({fillColor: "black", color: "black", opacity: this.value, fillOpacity: this.value})
+                                      layer.setStyle({fillColor: "black", color: "black", opacity: this.value, fillOpacity: this.value}) //cant use setstyle directly on geojson
                                       return this.value
                                      
                     
