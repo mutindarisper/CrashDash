@@ -84,6 +84,12 @@
          @click="close_container('county_chart');handle_selected_component('bar_stats')"
          alt="" 
          title="swap chart">
+
+         <img class="download_chart"
+        src="./assets/images/download.svg"
+        @click="chart_to_png"
+         alt="" 
+         title="download chart">
          <div class="title">
           Summary Statistics
          </div>
@@ -294,9 +300,9 @@
                 <div id="pano"></div>
     </div>
       
-      <div  class="county_name_container" @click="print_pdf" style="position: absolute; top: 50vh; left: 50vw; background-color: #fff; height: 30px; width:30px;z-index:1000;">
+      <!-- <div  class="county_name_container" @click="print_pdf" style="position: absolute; top: 50vh; left: 50vw; background-color: #fff; height: 30px; width:30px;z-index:1000;"> -->
         <!-- {{this.county}} -->
-      </div>
+      <!-- </div> -->
 
     <!-- vue tour -->
 
@@ -640,18 +646,37 @@ export default {
     },
 
      chart_to_png(){
-      window.image = domtoimage.toBlob(document.getElementById("county_chart1" ))
+      // window.image = domtoimage.toBlob(document.getElementById("county_chart1" ))
       // console.log(window.image, 'chart inside')
-        domtoimage.toBlob(document.getElementById("county_chart1" )).then(function (blob) {
+       if (this.county_chart) {
+        domtoimage.toBlob(document.getElementById("county_chart" )).then(function (blob) {
         
-        saveAs(blob, "chart.png");
+        saveAs(blob, "doughnut chart.png");
+        
+      });
+      }
+       if (this.bar_stats) {
+        domtoimage.toBlob(document.getElementById("bar_stats" )).then(function (blob) {
+        
+        saveAs(blob, "bar chart.png");
+        
+      });
+      } 
+      
+      if(this.cause_stats){
+        domtoimage.toBlob(document.getElementById("cause_stats" )).then(function (blob) {
+        
+        saveAs(blob, "doughnut chart.png");
         
       });
 
-      var image_URI =document.getElementById("county_chart1" )
-      // console.log(image_URI.$route, 'route')
+      }
+        
+
+      // var image_URI =document.getElementById("county_chart1" )
+      // // console.log(image_URI.$route, 'route')
        
-      window.url = document.getElementById("doughnut-chart").toDataURL()
+      // window.url = document.getElementById("doughnut-chart").toDataURL()
       // console.log(window.url, 'image uri')
         
 

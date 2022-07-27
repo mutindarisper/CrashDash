@@ -249,9 +249,20 @@ color: #fff;
 
   .swap_chart{
     position: absolute;
-    top:1vh;
-    left: 24.5vw;
+    top:3vh;
+    left: 22.5vw;
     
+  }
+  .download_chart{
+    position: absolute;
+    top:3vh;
+    left: 24.5vw;
+    position: absolute;
+    
+    height: 22px;
+    width: 22px;;
+
+
   }
   .close_info{
     position: absolute;
