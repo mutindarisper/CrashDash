@@ -28,7 +28,7 @@ export default {
     },
     default: {
       type: String,
-      required: false,
+      required: true,
       default: null,
     },
     tabindex: {

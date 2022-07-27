@@ -24,12 +24,17 @@ export default {
   props: {
     options: {
       type: Array,
-      required: true,
+      required: false,
     },
+    // name_county: {
+    //   type: String,
+    //   default:'county'
+      
+    // },
     default: {
       type: String,
-      required: false,
-      default: null,
+      // required: false,
+      // default: null,
     },
     tabindex: {
       type: Number,
@@ -37,6 +42,31 @@ export default {
       default: 0,
     },
   },
+
+//   computed: {
+//     check_data (){
+    
+//        return{
+        
+//           name_county: this.name_county,
+          
+            
+//        }
+       
+//     }
+
+//   },
+
+//    watch:{
+//    check_data(){
+// this.displayToKey();
+
+
+//    },
+//    deep: true
+
+//   },
+ 
   data() {
     return {
       selected: this.default

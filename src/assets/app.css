@@ -105,6 +105,42 @@ line-height: 19px;
 cursor: pointer;
 color: #FEFEFE;
   }
+
+  .nav_tape_5{
+    position: relative;
+    left: 45vw;
+    top: 1.5vh;
+    width: 600px;
+    background-repeat: repeat-x;
+    animation: blinker 1.2s linear infinite; 
+     animation: wave 10s -3s linear infinite;
+    /* animation: wave 5s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite; */
+  transform: translate3d(0, 0, 0);
+  }
+
+  .nav_tape_6{
+    position: relative;
+    left: 25.5vw;
+    top: 3.5vh;
+    width: 500px;
+    background-repeat: repeat-x;
+    animation: blinker 1.2s linear infinite; 
+     animation: wave 10s -3s linear infinite;
+    /* animation: wave 5s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite; */
+  transform: translate3d(0, 0, 0);
+  }
+  @keyframes wave {
+    0% {transform: translate(-50%, 0) rotateX(0deg);}
+    50% {transform: translate(-50%, -2%) rotateX(180deg);}
+    100% {transform: translate(-50%, 0%) rotateX(360deg);}
+  }
+
+  /* @keyframes wave {
+    0% {transform: translateX(0);}
+    50% {transform: translateX(-25%);}
+    100% {transform: translateX(-40%);}
+} */
+
   /* .links:hover{
     color: #099f46;
   } */
@@ -113,7 +149,7 @@ color: #FEFEFE;
     position: absolute;
     top: 11vh;
     z-index: 1000;
-    background-color: #FFFFFF;
+    background-color: #000;
     width: 150px;
     height: 50px;
 
@@ -123,7 +159,7 @@ color: #FEFEFE;
     left: 0.5vw;
     top: 1.5vh;
     font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background: #feffff;
+    color: #feffff;
 border-radius: 30px;
 font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 font-style: normal;
@@ -193,14 +229,14 @@ color: #fff;
  .selections{
   position:absolute;
   top: 12vh;
-  left: 5vh;
+  left: 6.5vh;
   width: 342px;
   height: 420px;
  }
 
   .close_analysis{
     position: absolute;
-    top:19vh;
+    top:20vh;
     left: 19.9vw;
     z-index: 2500;
   }
@@ -208,6 +244,13 @@ color: #fff;
     position: absolute;
     top:1vh;
     left: 26.5vw;
+    
+  }
+
+  .swap_chart{
+    position: absolute;
+    top:1vh;
+    left: 24.5vw;
     
   }
   .close_info{
@@ -494,7 +537,7 @@ color: #FFFFFF;
  .chart_container{
   position: absolute;
   top: 67.95vh;
-  left: 23.6vw;
+  left: 24.6vw;
 width: 540px;
 height: 280px;
 z-index: 1000;
@@ -877,6 +920,7 @@ transform: rotate(-4deg);
     z-index: 2000;
     /* border: #000 2px solid; */
   }
+ 
   #analysis_panel{
     position: absolute;
     top: -8vh;
@@ -895,7 +939,19 @@ transform: rotate(-4deg);
   
   @media print{
     #analysis_panel * {display:none;}
-      .map {display:block; border:0; width:100%; min-height:500px}
+    #zoomin * {display:none;}
+#zoomout * {display:none;}
+.basemaps * {display:none;}
+.download * {display:none;}
+.info_icon * {display:none;}
+.dimension * {display:none;}
+#nav * {display:none;}
+#chart_container * {display:none; background-color: transparent;}
+.chart_container * {display:none; background-color: transparent;}
+.leaflet-control-browser-print.leaflet-bar.leaflet-control * {display:none;}
+#info_legend {display:none; }
+      
+      .map {display:block; }
   }
   /* #fullpage {
     display: none;

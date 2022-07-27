@@ -1,19 +1,25 @@
 <template>
      <div class="analysis">
-     
-      <img src="../assets/images/tab_color.png" alt="" style="width: 442px;
-height: 750px; position: absolute; top: 8.3vh">
+      
+        
+      <img src="../assets/images/yyy.png" alt="" style="width: 460px;
+height: 750px; position: absolute; top: 7vh">
       <div class="selections">
         <span class="region">Region</span>
 
-  <!-- test for custom select  v-if="analysis"   ;getCausesList() -->
+  <!-- test for custom select   'Select region' -->  
    <CustomSelect
-      :options="this.counties"
       :default="'Select region'"
-      v-model="this.selected_county"
+      :options="this.counties"
       class="select_region"
-      @input="displayToKey($event);getRoutesList();getCausesList()"
+      @input="modify_default($event);displayToKey($event);getRoutesList();getCausesList()"
     />
+
+    <!-- <select v-model="selected_county_1" class="county-data" name="" id=""  @change="displayToKey($event);getRoutesList();getCausesList()">
+         
+        <option v-for="county in counties" :value="{'name':county}" :key="county">{{ county }} </option>
+        
+    </select> -->
 
      <span class="routes">Road</span>
    <CustomSelect
@@ -68,6 +74,10 @@ height: 750px; position: absolute; top: 8.3vh">
 
       </div>
 
+      </div>
+    
+     
+
   
 
     <!-- alert panel -->
@@ -104,7 +114,7 @@ height: 750px; position: absolute; top: 8.3vh">
 
 
     
-    </div>
+   
 </template>
 
 <script>
@@ -114,6 +124,73 @@ import axios from "axios"
 
 var baseurl = 'http://45.63.48.25:8080'
 export default {
+  // props: {
+  
+  //   name_county: {
+  //     type: String,
+      
+  //   },
+    
+  // },
+
+// computed: {
+//     check_data (){
+    
+//        return{
+        
+//           name_county: this.name_county,
+          
+            
+//        }
+       
+//     }
+
+//   },
+
+//    watch:{
+//    check_data(){
+// this.displayToKey();
+
+
+//    },
+//    deep: true
+
+//   },
+ 
+
+  // props: {
+  
+  //   default: {
+  //     type: String,
+  //     required: false,
+  //     default: null,
+  //   },
+    
+  // },
+
+
+//     computed: {
+//     check_data (){
+    
+//        return{
+//           default: this.$children[0].$options.propsData.default
+//           // county: this.county,
+          
+            
+//        }
+       
+//     }
+
+//   },
+//   watch:{
+//    check_data(){
+// this.displayToKey();
+// // console.log(this.default, 'this is a default')
+
+//    },
+//    deep: true
+
+//   },
     
     mounted() {
       this.getRoutesList();
@@ -132,18 +209,51 @@ export default {
     data() {
         return{
 
-      counties: ['Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
+      counties: [ 'Kiambu', 'Laikipia', 'Meru', 'Embu', 'Nyeri'],
       selected_county: '',
+      selected_county_1: '',
       routes: [],
       causes:[],
       mitigation:[],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
+      name_county:'',
+       message: 'hello hello!',
+      default_: ' '
       
 
         }
     },
+
+  // provide() {
+  //   // use function syntax so that we can access `this`
+  //   return {
+  //     message: this.message
+  //   }
+  // },
+
+  //    provide() {
+  //     console.log(this.selected_county , 'this.selected_county in provide')
+  //       //  console.log(this.default_ , 'this.default in provide')
+  //   // use function syntax so that we can access `this`
+  //   return {
+  //     selected_county: this.selected_county ,
+  //     // default_: this.$children[0].$options.propsData.default
+  //   }
+  // },
     methods:{
 
+
+modify_default($event) {
+  this.default_ = $event
+  console.log(this.default_, 'first default')
+  if (this.default_ === ' ') {
+    this.default_ = $event
+    return this.$emit('updated_default',this.default_)
+
+  }
+   return this.default_
+
+},
 
          handle_selected(selection) {
       // this[selection] = false;
@@ -161,16 +271,37 @@ export default {
     },
               displayToKey($event) {
    var data = $event
-  this.selected_county = $event
+  this.selected_county = data
    window.county_data = $event
-   console.log(this.selected_county, 'selected  county data') //.features[0].properties.county_name
-   this.$emit('selected_county', this.selected_county)
+  window.name= this.$children[0].$options.propsData.default
+   this.$children[0].$options.propsData.default = this.selected_county 
+
+var name_county = this.name_county
+// console.log(name_county, 'name county')
+
+this.selected_county = name_county
+// console.log(this.selected_county, 'updated selected county')
+
+//  this.$emit('selected_county_1', this.selected_county)
+
+// var name_county = this.selected_county
+// console.log(name_county, 'name county')
+   this.default_ = this.$children[0].$options.propsData.default
+
+
+  //  console.log(this.$children[0].$options.propsData.default, 'default values')
+  //  console.log(this.selected_county, 'selected  county data') //.features[0].properties.county_name
+   this.$emit('selected_county_1',  this.default_)
+
+   //test
+  //  var county_data = this.selected_county_1.name;
+  //  this.$emit('selected_county_1', county_data)
  
 
     if(data){ 
 
      
-                    axios.get(baseurl+'/AdminData/get_adm1_shapefile?Get_county='+data 
+                    axios.get(baseurl+'/AdminData/get_adm1_shapefile?Get_county='+data
                     )
            .then((response) => {
                         //  console.log( response.data,'blackspot data' );
@@ -234,7 +365,7 @@ export default {
                 console.log('an error occured ' + error);
             })
             //end of county data
-
+        
 
               }
 },

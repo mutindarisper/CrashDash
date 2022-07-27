@@ -7,6 +7,11 @@
         <img src="./assets/images/white_crash.svg" alt="">
       </div>
 
+      <img   class="nav_tape_5" src="./assets/images/tape_5.png" alt="">
+      <img   class="nav_tape_6" src="./assets/images/tape_5.png" alt="">
+   
+      
+
       <div class="tagline">
         Providing Information on Major Blackspots in Kenya
       </div>
@@ -40,7 +45,10 @@
     
        <img class="close_analysis"  @click="close_container('analyze');handle_selected_component('start') " src="./assets/images/close_small.svg" alt="">
        <div class="analyze" v-if="analyze">
-             <Analysis id="analysis_panel" 
+             <Analysis 
+              :default="this.county"
+             :name_county="this.county"
+             id="analysis_panel" 
        @selected_component="handle_selected_component"
        @close_component="close_container"
       @county_data="displayToKey"
@@ -48,8 +56,16 @@
       @points_per_route="points_per_route"
       @points_per_cause="points_per_cause"
       @selected_county="handle_selected_county"
+      @selected_county_1="handle_selected_county_1"
+      @updated_default="handle_selected_county_1"
       @selected_cause="handle_selected_cause"
-      @selected_chart="switch_charts"/>
+      @selected_chart="switch_charts"
+     
+      
+      
+      />
+
+      
        </div>
    
       
@@ -62,6 +78,12 @@
         src="./assets/images/close_small.svg"
         @click="close_container('chart_container')"
          alt="" >
+
+          <img class="swap_chart"
+        src="./assets/images/swap.svg"
+         @click="close_container('county_chart');handle_selected_component('bar_stats')"
+         alt="" 
+         title="swap chart">
          <div class="title">
           Summary Statistics
          </div>
@@ -70,6 +92,12 @@
           <CauseStats :height="230" :width="300" :county="this.county" :cause="this.cause" style="position: relative; top:2vw"
            v-if="cause_stats"
             id="cause_stats"
+            
+            />
+
+          <HotspotBar :height="230" :width="300"  style="position: relative; top:2vw"
+           v-if="bar_stats"
+            id="bar_stats"
             
             />
           
@@ -266,9 +294,9 @@
                 <div id="pano"></div>
     </div>
       
-      <!-- <div class="county_name_container" @click="print_pdf" style="position: absolute; top: 50vh; left: 50vw; background-color: #fff; height: 30px; width:30px;z-index:1000;"> -->
+      <div  class="county_name_container" @click="print_pdf" style="position: absolute; top: 50vh; left: 50vw; background-color: #fff; height: 30px; width:30px;z-index:1000;">
         <!-- {{this.county}} -->
-      <!-- </div> -->
+      </div>
 
     <!-- vue tour -->
 
@@ -326,6 +354,7 @@ import baseLayers from "./Helpers/baseLayers";
 import CustomSelect from "./components/CustomSelect.vue"
 import Hotspots from './components/Hotspots.vue'
 import HotspotsDoughnut from './components/charts/HotspotsDoughnut.vue'
+import HotspotBar from './components/charts/HotspotBar.vue'
 import { Loader } from '@googlemaps/js-api-loader';
 import "leaflet.smooth_marker_bouncing"
 import { jsPDF } from "jspdf";
@@ -362,6 +391,12 @@ var baseurl = 'http://45.63.48.25:8080'  //http://45.63.48.25:8080
 // console.log(this.img_url, 'url outside')
 
 export default {
+  //test for provide and inject
+   inject: ['message'],
+  created() {
+    console.log(this.message,'injected value' ) // injected value
+  },
+
    name: "App",
    components:{
     CustomSelect,
@@ -370,10 +405,12 @@ export default {
     CauseStats,
      Analysis,
      Legend,
+     HotspotBar
     //  vtour:require('vue-tour/dist/vue-tour.css')
      
 
    },
+
    data() {
 
     return{
@@ -405,12 +442,15 @@ export default {
       start: false, 
       analyze: true,
       cause_stats: false,
+      bar_stats: false,
       county_chart: true,
       county: '',
       cause: '',
        steps: [],
        myCallbacks: {
        onStop: this.myCustomPreviousStepCallback,
+
+        new_selected_county: this.selected_county 
   
       },
        description: true,
@@ -499,9 +539,9 @@ export default {
 
    methods: {
     print_pdf() {
-      window.print();
+      window.print( );
       // console.log(document, 'window')
-      document.title = "Some new title text";
+      // document.documentTitle = "Some new title text";
 
     },
 
@@ -529,19 +569,41 @@ export default {
     },
     //data for props
     handle_selected_county(val) {
-      this.county = val
+      this.county = val;
       // var data = val.features[0].properties.county_name
       // console.log(data, 'data data')
        console.log(val, 'THIS . COUNTY') //WORKS, LOGS SELECTED COUNTY
         
       
-      this.control =  L.control.browserPrint({position: 'bottomright', 
+      // this.control =  L.control.browserPrint({position: 'bottomright', 
+      // className: 'leaflet-browser-print',
+      // //  title: val,
+      //  documentTitle: val //{val} //window.counties//window.county_data //this.county //
+      // //  printFunction: this.handle_selected_county
+      //  })
+        // return this.county
+
+
+   
+
+
+
+
+      },
+       handle_selected_county_1(val) {
+      this.county = val;
+      // var data = val.features[0].properties.county_name
+      // console.log(data, 'data data')
+      var name = val
+       console.log(name, 'VAL . COUNTY') //WORKS, LOGS SELECTED COUNTY
+        
+       this.control =  L.control.browserPrint({position: 'bottomright', 
       className: 'leaflet-browser-print',
-      //  title: 'kiambu',
-       documentTitle: val //{val} //window.counties//window.county_data //this.county //
+      //  title: val,
+       documentTitle:  val //name // name //val 
       //  printFunction: this.handle_selected_county
        })
-        return this.county
+      
 
 
    
@@ -863,6 +925,8 @@ export default {
    console.log(this.county_name.features[0].properties.county_name, 'this.county name')
    window.county_data = $event
    console.log(data, 'selected  county data')
+
+
       if (this.points_layerGroup !== null) {
         window.markers.clearLayers();
       }
@@ -1036,12 +1100,6 @@ points_per_county(val) {
     zoom_out() {
       this.map.setZoom(this.map.getZoom() - 1);
     },
-    // updateOpacity(value) {
-    // container.setOpacity(value);
-   
-    //    /* capa.setOpacity(value) */;
-    // },
-      
   
     handle_selected_component(selection) {
       this[selection] = true;
@@ -1086,15 +1144,16 @@ points_per_county(val) {
         "leaflet-control-layers"
       );
       layerControl[0].style.visibility = "hidden";
+      this.control.addTo(this.map)
+     
 
-
-      //opacity control
-    //   L.control
-    // .opacity(this.current_geojson, {
-    //     label: 'Layers Opacity',
-    //     position: 'bottomright'
-    // })
-    // .addTo(this.map);
+      //  this.control =  L.control.browserPrint({position: 'bottomright', 
+      // className: 'leaflet-browser-print',
+      // //  title: val,
+      //  documentTitle: this.county//window.name //{val} //window.counties//window.county_data //this.county //
+      // //  printFunction: this.handle_selected_county
+      //  }).addTo(this.map)
+      
 
 
       //  L.control.sideBySide(this.baseMaps.OpenStreetMap, this.baseMaps.MapBox).addTo(this.map);
@@ -1104,7 +1163,7 @@ points_per_county(val) {
 
 console.log()
       //print control
-      this.control.addTo(this.map);
+      // this.control.addTo(this.map);
     //  this.chart_container({position: 'bottomright'}).addTo(e.printMap);
       // $(".leaflet-browser-print").innerHTML('ERGRERTRYHTRHRT').addTo(this.map)
 
@@ -1516,6 +1575,9 @@ window.initialize = initialize;
     $(".tape_5").find('span')['prevObject'][0].style="display: none;"
     // $(".name").find('span')['prevObject'][0].style="display: none;"
     $("#slideshow").click( function() {
+            this.requestFullscreen();
+        });
+         $("#slideshow").mouseover( function() {
             this.requestFullscreen();
         });
 
