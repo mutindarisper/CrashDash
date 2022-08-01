@@ -48,9 +48,10 @@ height: 750px; position: absolute; top: 7vh">
 
       <span class="hazard">Hazard</span>
    <CustomSelect
-      :options="this.causes "
+      :options="this.hazard "
       :default="'Select hazard'"
       class="select_hazard"
+      @input="getHarzardList();display_hazard_name($event);getHazardPoints()"
      
     />
 
@@ -199,6 +200,7 @@ export default {
       this.getPointsCause();
       this.getMitigationList();
       this.getMitigationPoints();
+    
 
     },
     components:{
@@ -215,6 +217,7 @@ export default {
       routes: [],
       causes:[],
       mitigation:[],
+      hazard:[],
       radius: ['1km', '2km', '5km', '', 'Nyeri'],
       name_county:'',
        message: 'hello hello!',
@@ -544,7 +547,63 @@ console.log(county, 'cause county')
                 console.log('an error occured ' + error);
             })
 
-    }
+    },
+     getHarzardList() {
+      var county =  window.county_data
+      console.log(county, 'selected county for harzard')
+
+        axios.get(baseurl+'/HotSpots/get_by_hazard/?hazard_list=All'
+                    )
+           .then((response) => {
+                        //  console.log( response.data,'routes data' );
+                          this.hazard= response.data.hazard
+                          // window.routes =   response.data.Routes  
+                                  
+                     console.log(response.data.hazard, 'hazard array')
+
+            return response.data.hazard
+            
+    
+
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+
+    },
+      display_hazard_name($event){
+      window.hazard_name = $event
+      console.log( window.hazard_name, 'hazard name')
+      // this.$emit('selected hazard',  window.hazard_name )
+
+    },
+     getHazardPoints() {
+      // this.displayToKey();
+      var county =  window.county//.features[0].properties.county_name
+      
+      console.log(county, 'hazard COUNTY')
+      // this.$emit('selected_county', county)
+
+      var hazard = window.hazard_name
+       console.log(hazard, 'hazard name name')
+
+
+        axios.get(baseurl+'/HotSpots/get_by_hazard/?county='+county+'&hazard='+hazard
+                    )
+           .then((response) => {
+                         console.log( response.data, 'hazard points');
+                         var hazard_hotspots = response.data
+                         return this.$emit('points_per_cause', hazard_hotspots)
+                     
+                    })
+                   .catch( (error) => {
+                console.log('an error occured ' + error);
+            })
+
+    },
+
+
 
 
    

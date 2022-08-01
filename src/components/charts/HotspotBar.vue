@@ -51,8 +51,8 @@ export default {
             //       }
             //    }]
             // },
-            // legend: {
-            //    display: false,
+            legend: {
+               display: false,
             //    position: 'right',
             //    margin: 20,
             //    labels:{
@@ -62,7 +62,7 @@ export default {
             //       usePointStyle: true,
             //       pointStyle: 'circle'
             //    }
-            // },
+            },
             
             responsive: true,
             maintainAspectRatio: false,

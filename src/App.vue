@@ -81,7 +81,7 @@
 
           <img class="swap_chart"
         src="./assets/images/swap.svg"
-         @click="close_container('county_chart');handle_selected_component('bar_stats')"
+         @click="swap_containers"
          alt="" 
          title="swap chart">
 
@@ -101,17 +101,18 @@
             
             />
 
-          <HotspotBar :height="230" :width="300"  style="position: relative; top:2vw"
+             <CauseBar :height="180" :width="300" :county="this.county" :cause="this.cause" style="position: relative; top:3vw"
+           v-if="cause_bar"
+            id="cause_bar"
+            
+            />
+
+          <HotspotBar :height="230" :width="300"  style="position: relative; top:3vw"
            v-if="bar_stats"
             id="bar_stats"
             
             />
-          
-           <!-- <button @click="close_container('cause_stats')">click</button> -->
-
-         <!-- <div class="cause_stats" id="cause_stats" >
          
-        </div> -->
 
          <div class="county_chart" id="county_chart" v-if="county_chart" >
           <HotspotsDoughnut :height="230" :width="300"  id="county_chart1"/>
@@ -361,6 +362,7 @@ import CustomSelect from "./components/CustomSelect.vue"
 import Hotspots from './components/Hotspots.vue'
 import HotspotsDoughnut from './components/charts/HotspotsDoughnut.vue'
 import HotspotBar from './components/charts/HotspotBar.vue'
+import CauseBar from './components/charts/CauseBar.vue'
 import { Loader } from '@googlemaps/js-api-loader';
 import "leaflet.smooth_marker_bouncing"
 import { jsPDF } from "jspdf";
@@ -411,7 +413,8 @@ export default {
     CauseStats,
      Analysis,
      Legend,
-     HotspotBar
+     HotspotBar,
+     CauseBar
     //  vtour:require('vue-tour/dist/vue-tour.css')
      
 
@@ -449,6 +452,7 @@ export default {
       analyze: true,
       cause_stats: false,
       bar_stats: false,
+      cause_bar:false,
       county_chart: true,
       county: '',
       cause: '',
@@ -666,7 +670,16 @@ export default {
       if(this.cause_stats){
         domtoimage.toBlob(document.getElementById("cause_stats" )).then(function (blob) {
         
-        saveAs(blob, "doughnut chart.png");
+        saveAs(blob, "cause doughnut chart.png");
+        
+      });
+
+      }
+
+       if(this.cause_bar){
+        domtoimage.toBlob(document.getElementById("cause_bar" )).then(function (blob) {
+        
+        saveAs(blob, "cause barchart.png");
         
       });
 
@@ -1135,6 +1148,24 @@ points_per_county(val) {
     this[container] = false;
   },
 
+  swap_containers(){
+    if(this.county_chart) {
+      this.county_chart = false
+      this.bar_stats = true
+
+    }
+
+      if(this.cause_stats) {
+      this.cause_stats = false
+       this.bar_stats = false
+      this.cause_bar = true
+
+    }
+
+  
+    
+  },
+
   close_map_container(container){
      this[container] = false;
   },
@@ -1169,7 +1200,7 @@ points_per_county(val) {
         "leaflet-control-layers"
       );
       layerControl[0].style.visibility = "hidden";
-      this.control.addTo(this.map)
+      // this.control.addTo(this.map)
      
 
       //  this.control =  L.control.browserPrint({position: 'bottomright', 
@@ -1602,9 +1633,9 @@ window.initialize = initialize;
     $("#slideshow").click( function() {
             this.requestFullscreen();
         });
-         $("#slideshow").mouseover( function() {
-            this.requestFullscreen();
-        });
+        //  $("#slideshow").mouseover( function() {
+        //     this.requestFullscreen();
+        // });
 
     var images_array = feature.properties.AdditionalInfo['image_array']
     console.log(images_array, 'images array')
