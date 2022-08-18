@@ -10,6 +10,8 @@
     
    
   } 
+
+
   .app2{
     position: absolute;
     /* top: 1vh; */
@@ -274,6 +276,63 @@ color: #fff;
     top: 1vh;
     left: 9.5vw;
     z-index: 3000;
+  }
+
+  @media (min-width:769px) and (max-width:1024px) {
+    #chart_container{
+      position: absolute;
+      left: 55.6vw;
+    }
+     
+      
+    }
+
+ @media (min-width:1025px) and (max-width:1400px) {
+  #chart_container{
+    position: absolute;
+    left: 35.6vw;
+  }
+   
+    
+  }
+
+  @media (min-width:1025px) and (max-width:1400px) {
+    .close_legend {
+    position:relative;
+        top: 0.8vh;
+      left: 40vw;
+     
+    }
+   
+    
+  }
+  @media (min-width:769px) and (max-width:1024px) {
+    .close_legend {
+    position:relative;
+        top: 0.8vh;
+      left: 45vw;
+     
+    }
+   
+    
+  }
+ 
+  @media (min-width:769px) and (max-width:1024px) {
+    .close_chart_container{
+      position: absolute;
+  left: 56.6vw;
+  
+
+    }
+  }
+
+  @media (min-width:1025px) and (max-width:1400px) {
+    .close_chart_container{
+      position: absolute;
+  left: 49.6vw;
+  
+
+    }
   }
 
   .region{
@@ -918,9 +977,9 @@ transform: rotate(-4deg);
     position: absolute;
    
     /* background-color: #099f46; */
-    top: 58.5vh;
+    top: 59.5vh;
     left: 63vw;
-    z-index: 3000;
+    z-index: 1000;
   }
   .analyze{
     position: absolute;
@@ -948,32 +1007,4 @@ transform: rotate(-4deg);
     left: 50vw;
   }
   
-  @media print{
-    #analysis_panel * {display:none;}
-    #zoomin * {display:none;}
-#zoomout * {display:none;}
-.basemaps * {display:none;}
-.download * {display:none;}
-.info_icon * {display:none;}
-.dimension * {display:none;}
-#nav * {display:none;}
-#chart_container * {display:none; background-color: transparent;}
-.chart_container * {display:none; background-color: transparent;}
-.leaflet-control-browser-print.leaflet-bar.leaflet-control * {display:none;}
-#info_legend {display:none; }
-      
-      .map {display:block; }
-  }
-  /* #fullpage {
-    display: none;
-    position: absolute;
-    z-index: 9999;
-    top: 40vh;
-    left: 40vw;
-    width: 100vw;
-    height: 100vh;
-    background-size: contain;
-    background-repeat: no-repeat no-repeat;
-    background-position: center center;
-    background-color: black;
-  } */
+ 

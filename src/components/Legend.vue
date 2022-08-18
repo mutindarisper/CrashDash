@@ -34,6 +34,25 @@ export default {
     cursor: pointer;
 
 }
+
+  @media(min-width:1025px) and (max-width:1400px) {
+    .wrapper {
+    position:relative;
+        top: -2.5vh;
+      left: 27vw;
+      width: 220px;
+    }
+    
+  }
+    @media (min-width:769px) and (max-width:1024px) {
+    .wrapper {
+    position:relative;
+        top: -2.5vh;
+      left: 27vw;
+      width: 220px;
+    }
+    
+  }
 .legend, .content{
     position: relative;
     top: 1vh;
