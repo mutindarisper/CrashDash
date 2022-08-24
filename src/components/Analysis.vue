@@ -3,7 +3,7 @@
       
         
       <img src="../assets/images/yyy.png" alt="" style="width: 460px;
-height: 750px; position: absolute; top: 7vh">
+height: 750px; position: absolute; top: 7vh" class="analysis_outline">
       <div class="selections">
         <span class="region">Region</span>
 

@@ -316,7 +316,7 @@
         @click="close_container('description')"
          alt="" >
          <div class="text">
-         <strong style="position: absolute; width: 100%; top: -1vh; text-align: center; left: -0.7vw">CrashDash</strong>  <br>
+         <strong class="crashdash" style="position: absolute; width: 100%; top: -1vh; text-align: center; left: -0.7vw">CrashDash</strong>  <br>
 
          <!-- <img src="./assets/images/tape_straight.png" style="width:100px; height: 4px; position: absolute; top: 0.8vh; left: 1vw;  transform: rotate(-1deg) " alt="">
          <img src="./assets/images/tape_straight.png" style="width:100px; height: 4px; position: absolute; top: 0.8vh; left: 13vw;  transform: rotate(0deg) " alt=""> -->
@@ -1169,6 +1169,8 @@ points_per_county(val) {
   close_map_container(container){
      this[container] = false;
   },
+
+  
     setupLeafletMap() {
       const { osm, mapbox, mapboxSatellite } = baseLayers;
 
@@ -1184,12 +1186,14 @@ points_per_county(val) {
         zoomControl: false,
         layersControl: false,
         center: this.center,
-        minZoom: 6.5,
+        minZoom: 6.3,
         maxZoom: 20,
         zoom: 6,
         // measureControl: true,
         // defaultExtentControl: true,
         layers: [mapbox]
+
+        
       }); // add the basemaps to the controls
 
       L.control.layers(this.baseMaps).addTo(this.map);
@@ -1224,8 +1228,31 @@ console.log()
       // $(".leaflet-browser-print").innerHTML('ERGRERTRYHTRHRT').addTo(this.map)
 
 
+      // listen for screen resize events
+
+
+
 
     },
+
+
+    screenzoom(){
+
+    window.addEventListener('resize', function(event){
+    // get the width of the screen after the resize event
+    var width = document.documentElement.clientWidth;
+    // tablets are between 768 and 922 pixels wide
+    // phones are less than 768 pixels wide
+    if (width <= 1200 && width <= 1600 ) {
+        // set the zoom level to 10
+       this.map.options.minZoom(6);
+    }  else {
+        // set the zoom level to 8
+        this.map.options.minZoom(6.5);
+    }
+});
+
+  },
 
 
     setupGoogleMap() {
