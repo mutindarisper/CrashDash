@@ -7,8 +7,8 @@
         <img src="./assets/images/white_crash.svg" alt="">
       </div>
 
-      <img   class="nav_tape_5" src="./assets/images/tape_5.png" alt="">
-      <img   class="nav_tape_6" src="./assets/images/tape_5.png" alt="">
+      <!-- <img   class="nav_tape_5" src="./assets/images/tape_5.png" alt=""> -->
+      <!-- <img   class="nav_tape_6" src="./assets/images/tape_5.png" alt=""> -->
    
       
 
@@ -29,7 +29,9 @@
       </div>
 
       <div class="logo2">
-        <img src="./assets/images/white-logo.png" alt="">
+        <img class="logos_juh" src="./assets/images/JUH_Logo.png" alt="">
+        <img class="logoss" src="./assets/images/StJohnWhiteLogo.png" alt="">
+        <img class="logoss" src="./assets/images/MBZ LOGO.png" alt="">
       </div>
 
     </div>
