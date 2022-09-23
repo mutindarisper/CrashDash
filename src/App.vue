@@ -29,8 +29,8 @@
       </div>
 
       <div class="logo2">
-        <img class="logos_juh" src="./assets/images/JUH_Logo.png" alt="">
-        <img class="logoss" src="./assets/images/StJohnWhiteLogo.png" alt="">
+        <img class="logos_juh"  src="./assets/images/JUH_Logo.png" alt="">
+        <img class="logoss" src="./assets/images/black_logo.png" alt="">
         <img class="logoss" src="./assets/images/MBZ LOGO.png" alt="">
       </div>
 
