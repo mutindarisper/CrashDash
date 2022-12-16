@@ -29,9 +29,15 @@
       </div>
 
       <div class="logo2">
-        <img class="logos_juh"  src="./assets/images/JUH_Logo.png" alt="">
-        <img class="logoss" src="./assets/images/black_logo.png" alt="">
         <img class="logoss" src="./assets/images/MBZ LOGO.png" alt="">
+        <img class="logoss" src="./assets/images/ntsa2.png" alt="">
+        <img class="logoss_kp" src="./assets/images/kp3.png" alt="">
+        <img class="logoss" src="./assets/images/black_logo.png" alt="">
+        <img class="logos_juh"  src="./assets/images/JUH_Logo.png" alt="">
+        
+      
+       
+      
       </div>
 
     </div>

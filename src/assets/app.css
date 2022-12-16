@@ -218,16 +218,23 @@ color: #fff;
   }
   .logo2{
     position: absolute;
-    left: 40vw;
+    left: 34vw;
     top: 3.8vh;
     display: flex;
-    gap: 3rem;
+    gap: 2rem;
 
   }
   
   .logoss{
     height: 40px;
     width:100px;
+  }
+  .logoss_kp{
+    position: relative;
+    top:-1.5vh;
+    height: 70px;
+    width:80px;
+    /* background-color: #224092; */
   }
   .logos_juh{
     height: 50px;
