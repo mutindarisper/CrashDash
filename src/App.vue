@@ -12,11 +12,11 @@
    
       
 
-      <div class="tagline">
+      <div class="tagline" id="tagline">
         Providing Information on Major Blackspots in Kenya
       </div>
 
-      <div class="links">
+      <div class="links" id="links">
         <a class="home"  href="https://www.stjohnkenya.org/" target="_blank" >Home</a>
         <div class="dashboard">Dashboard</div>
         <div class="mapographics"
@@ -51,7 +51,7 @@
    
 
     
-       <img class="close_analysis"  @click="close_container('analyze');handle_selected_component('start') " src="./assets/images/close_small.svg" alt="">
+       <img class="close_analysis" id="analysis_cross"  @click="close_container('analyze');handle_selected_component('start') " src="./assets/images/close_small.svg" alt="">
        <div class="analyze" v-if="analyze">
              <Analysis 
               :default="this.county"
@@ -135,11 +135,11 @@
 
      <!-- display popup info panel -->
 
-     <div class="info" v-if="info">
-       <img class="close_info"  @click="close_container('info')" src="./assets/images/close_small.svg" alt="">
-       <img   class="tape_5" src="./assets/images/tape_5.png" alt="">
-       <img   class="tape_10" src="./assets/images/tape_5.png" alt="">
-       <img class="pin" src="./assets/images/pin.svg" alt="">
+     <div class="info" v-if="info" id="info">
+       <img id="close_info" class="close_info"  @click="close_container('info')" src="./assets/images/close_small.svg" alt="">
+       <img id="tape_5"  class="tape_5" src="./assets/images/tape_5.png" alt="">
+       <img id="tape_10"   class="tape_10" src="./assets/images/tape_5.png" alt="">
+       <img class="pin" src="./assets/images/pin.svg" alt="" id="pin">
        
  <span class="info_title" style="position: absolute; left: 2vw;">Click a point  on the map <br> to display  data </span>
     
@@ -168,7 +168,7 @@
        <img id="slideshow" src="" controls />
        
        <p class="video_title" style="color:#fff"></p>
-       <video src="" class="video_" autoplay=false style="display: none" controls>
+       <video id="video" src="" class="video_" autoplay=false style="display: none" controls>
       
        </video>
 
@@ -273,7 +273,7 @@
 
       <!-- legend -->
       <div id="info_legend" v-if="info_legend">
-        <img class="close_legend"
+        <img class="close_legend" id="legend_cross"
         src="./assets/images/close_xs.svg"
         @click="close_container('info_legend')"
          alt="" style="cursor:pointer" >
@@ -318,12 +318,12 @@
             <v-tour name="myTour" :steps="steps"  :callbacks="myCallbacks"></v-tour>
 
       <!-- descriptive text -->
-      <div class="description" v-if="description">
+      <div class="description" v-if="description" id="desc">
         <img class="close_description"
         src="./assets/images/fancy_close.svg"
         @click="close_container('description')"
          alt="" >
-         <div class="text">
+         <div class="text" id="desc_text">
          <strong class="crashdash" style="position: absolute; width: 100%; top: -1vh; text-align: center; left: -0.7vw">CrashDash</strong>  <br>
 
          <!-- <img src="./assets/images/tape_straight.png" style="width:100px; height: 4px; position: absolute; top: 0.8vh; left: 1vw;  transform: rotate(-1deg) " alt="">
@@ -340,7 +340,7 @@
             </ul>
             <div class="fun">Have fun as you explore our geoportal! </div>
             <div class="sticker">
-              <iframe src="https://giphy.com/embed/UQDSBzfyiBKvgFcSTw" width="50" height="50" frameBorder="0" class="giphy-embed"
+              <iframe src="https://giphy.com/embed/UQDSBzfyiBKvgFcSTw" id="emoji" width="50" height="50" frameBorder="0" class="giphy-embed"
                allowFullScreen></iframe>
             </div>
       

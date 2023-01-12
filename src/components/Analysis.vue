@@ -39,10 +39,11 @@ height: 750px; position: absolute; top: 7vh" class="analysis_outline">
       @input="display_cause_name($event); getPointsCause();handle_selected('chart_container');switch_charts()"
     />
 
- <span class="view_stats"> Cause Statistics</span>
+ <span class="view_stats" > Cause Statistics</span>
 
       <button
        class="display_cause"
+       id="view_stats"
        @click="close_container('county_chart');handle_selected('cause_stats')">Load Statistics</button>
 
 

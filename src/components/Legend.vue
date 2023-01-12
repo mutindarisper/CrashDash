@@ -48,6 +48,19 @@ export default {
 
 }
 
+@media screen and (max-width:1400px) {
+  .wrapper {
+    position:relative;
+        top: -10.5vh;
+      left: 20vw;
+      width: 220px;
+      height: 270px;
+    }
+
+}
+
+
+
   /* @media(min-width:1025px) and (max-width:1400px) {
     .wrapper {
     position:relative;
