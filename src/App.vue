@@ -249,6 +249,15 @@
             
           />
         </div>
+        <div class="tour"
+        @click="site_tour()">
+          <img 
+          src="./assets/images/tour.svg" 
+          alt=""
+          title="Site tour"
+          
+          />
+        </div>
       </div>
 
 
@@ -315,7 +324,7 @@
 
     <!-- vue tour -->
 
-            <!-- <v-tour name="myTour" :steps="steps"  :callbacks="myCallbacks"></v-tour> -->
+            <v-tour name="myTour" :steps="steps"  :callbacks="myCallbacks"></v-tour>
 
       <!-- descriptive text -->
       <div class="description" v-if="description" id="desc">
@@ -465,15 +474,15 @@ export default {
       county: '',
       cause: '',
        steps: [],
-      //  myCallbacks: {
-      //  onStop: this.myCustomPreviousStepCallback,
+       myCallbacks: {
+       onStop: this.myCustomPreviousStepCallback,
 
-      //   new_selected_county: this.selected_county 
+        new_selected_county: this.selected_county 
   
-      // },
+      },
        description: true,
        info_legend: true,
-       app2: true,
+       app2: false,
        county_name: '',
        control: null,
        opacity:false
@@ -491,6 +500,7 @@ export default {
     this.load_country();
     
     this.switch_charts();
+    // this.site_tour()
      
   //   this.steps.push({
   //     target: ".map_id", // We're using document.querySelector() under the hood
@@ -548,7 +558,7 @@ export default {
   //     },
   //   });
     
-  //   this.$tours["myTour"].start();
+    // this.$tours["myTour"].start();
 
    
 
@@ -563,11 +573,72 @@ export default {
 
     },
 
-  //    myCustomPreviousStepCallback () {
-  //     //  this[container] = false;
-  //     this.app2 = false;
+     myCustomPreviousStepCallback () {
+      //  this[container] = false;
+      this.app2 = false;
     
-  // },
+  },
+
+  site_tour() {
+    console.log('clicked site tour icon')
+      this.steps.push({
+      target: ".map_id", // We're using document.querySelector() under the hood
+      header: {
+        title: "Map Section",
+      },
+      content: `Visualize all the data from the analysis panel`,
+    });
+    this.steps.push({
+      target: "#analysis_panel", // We're using document.querySelector() under the hood
+      header: {
+        title: "Analysis Panel",
+      },
+      content: `Perform filters based on a county, road, cause and mitigation and view statistics`,
+    });
+   this.steps.push({
+      target: "#zoomin", // We're using document.querySelector() under the hood
+      content: `Zoom into the map using this control`,
+    });
+    this.steps.push({
+      target: "#zoomout",
+      content: "Zoom out of the map using this control",
+    });
+    this.steps.push({
+      target: ".basemaps",
+      content: "Hover on the button and click on the selections to switch from one basemap to the other",
+    });
+    this.steps.push({
+      target: ".download",
+      content: "Click on this button to download a screenshot of the map",
+    });
+    this.steps.push({
+      target: ".info_icon",
+      content: "Click on this button to display information about the blackspots",
+    });
+    this.steps.push({
+      target: ".dimension",
+      content: "Have a 3D view of the map",
+    });
+     this.steps.push({
+      target: ".chart_container",
+      content: "View statistics on the loaded blackspot data",
+    });
+     this.steps.push({
+      target: "#info_legend",
+      content: "Here is a legend to provide information about data loaded on the map",
+    });
+    
+    this.steps.push({
+      target: '.leaflet-control-browser-print.leaflet-bar.leaflet-control',
+      content:
+        "Click here to download the map in pdf format",
+      params: {
+        placement: "top", // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+      },
+    });
+    
+    this.$tours["myTour"].start();
+  },
     switch_charts() {
 
          $(".cause_stats").on("load", function() {

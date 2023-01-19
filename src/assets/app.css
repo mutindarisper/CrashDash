@@ -1105,6 +1105,15 @@ background-color: #000;
     cursor: pointer;
   
   }
+  .tour{
+    z-index: 800;
+    position: absolute;
+    top: 35%;
+    left:97%;
+    cursor: pointer;
+  
+  }
+
 
 
   .info{
