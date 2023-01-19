@@ -35,7 +35,7 @@ export default {
 
 }
 
- @media screen 
+ /* @media screen 
   and (min-device-width: 1200px) 
   and (max-device-width: 1600px) 
   and (-webkit-min-device-pixel-ratio: 1) { 
@@ -46,9 +46,10 @@ export default {
       width: 220px;
     }
 
-}
+} */
 
-@media screen and (max-width:1400px) {
+@media screen 
+  and (max-width:1400px) {
   .wrapper {
     position:relative;
         top: -10.5vh;
