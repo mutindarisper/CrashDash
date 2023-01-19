@@ -271,7 +271,7 @@ height: 420px;
 
 .close_analysis{
   position: absolute;
-  top:20vh;
+  top:25vh;
   left: 19.9vw;
   z-index: 2500;
 }
